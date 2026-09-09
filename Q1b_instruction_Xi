@@ -1,0 +1,20 @@
+Provide me with Python code following these steps:
+1. Read the csv file "EQ_Dataset.csv" into a pandas DataFrame
+2. Inspect the data to see how many years of data are available and the range of years.
+3. Display the first few rows of the DataFrame to get an overview of the data.
+4. Create a variable "ret" which equals to rf+re
+5. Check for any missing values in the DataFrame to ensure data completeness.
+7. Create the variable 'bar_dp', and it is the mean of the "dp".
+8. Create the variable 'kappa' as 1/(1+e^(bar_dp)).
+9. For H in range(1,21), do the following (steps 1–9 below are all executed inside this same loop, once per value of H):
+  1) For entry in the data frame, create a sum from this month m to the next 12H months, and inside let kappa^(h-1) times ret. 
+  2) Store the result of the sum in a new column "future_return" for each entry in the data frame.
+  3) For entry in the data frame, create a sum from this month m to the next 12H months, and inside let kappa^(h-1) times dg times (-1)
+  4) Store the result of the sum in a new column "change_d" for each entry in the data frame.
+  5) Create a variable called dp_H, equal to κ^H times the value of dp shifted forward by 12H months from the current row (i.e., dp at time t+12H). Store this in a new column called dp_H for each entry in the data frame.
+  6) For each H, before running any regressions, drop rows from the DataFrame where future_return, change_d, or dp_H is missing. Perform this drop on a temporary copy of the DataFrame for this iteration only (e.g., df_H = df.dropna(subset=[...])), so the original DataFrame is unchanged for the next value of H.
+  7) Run an OLS regression of future_return on dp (with intercept) using this H's cleaned data; store the slope coefficient in a list, e.g., b_re_list.
+  8) Run an OLS regression of change_d on dp (with intercept) using this H's cleaned data; store the slope coefficient in a list, e.g., b_dg_list.
+  9) Run an OLS regression of dp_H on dp (with intercept) using this H's cleaned data; store the slope coefficient in a list, e.g., b_dpH_list.
+13. After the loop completes, plot the coefficients from the OLS regressions against the horizon H to visualize the relationship as three lines, one in red, one in blue, and one in green. With clear labels and a legend.
+    in the plot, the x-axis should represent the horizon H from 1 to 20, and the y-axis should represent the coefficients from the OLS regressions.

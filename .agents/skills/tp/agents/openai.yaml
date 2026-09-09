@@ -1,0 +1,4 @@
+interface:
+  display_name: "@TP Traceable Prompt"
+  short_description: "Audit substantive problem-set AI interactions"
+  default_prompt: "Use $tp for Problem Set 1, item [item]: [substantive request]."
