@@ -50,4 +50,4 @@ Each entry follows this template:
 - Substantive mathematical/economic/empirical suggestions made: none.
 - Type of use: formatting/translation; empirical coding (mechanical figure export)
 - Grouped minor follow-ups: no
-- Commit after: (recorded in the following commit)
+- Commit after: 82905aa64be30689aa847e1a41f60f5c3b4e99fe
