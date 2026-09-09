@@ -37,3 +37,17 @@ Each entry follows this template:
 - Type of use: empirical coding
 - Grouped minor follow-ups: no
 - Commit after: 41a1051c9eb20b87b0f325e0edd2b194b0e5539d
+
+## [2026-09-09] Item: Q1(b) / problem set write-up scaffolding
+
+- Prompt: "Help me to create a tex file for all the questions for this Pset, and save this figure under the folder 'figures', and insert it into my tex"
+- Purpose: Set up the LaTeX solution document skeleton for the whole problem set (Questions 1-4, based on the section titles in Problem Set 1.pdf), export the Q1(b) coefficient plot as an image file, and embed it in the Q1(b) subsection.
+- Commit before: 86eaaa223bdf2fb20d365893315138b636e7f461
+- Files inspected: `Problem Set 1.pdf` (outline/section titles only), `Q1b.ipynb`
+- Files modified: `Q1b.ipynb` (added a `plt.savefig(...)` line to the existing plotting cell, re-ran it), created `figures/q1b_coefficients.png`, created `solution.tex`
+- Assistance provided: Added `plt.savefig('figures/q1b_coefficients.png', dpi=200, bbox_inches='tight')` to the plotting cell and re-executed it to produce the image file. Created a new `solution.tex` with a standard article skeleton containing sections for Question 1 (with subsections (a)/(b)/(c)) through Question 4 (matching the number of top-level questions found in the problem set PDF's bookmarks/outline), and embedded the exported figure in the Q1(b) subsection with a figure environment and caption. All substantive content (derivations, discussion, answers to (a)/(c)/2/3/4) is left as `% TODO` placeholders for the student to fill in.
+- Errors/omissions/ambiguities identified: None requiring a decision — this was purely document scaffolding and a mechanical figure export, not a substantive mathematical/economic/empirical choice.
+- Substantive mathematical/economic/empirical suggestions made: none.
+- Type of use: formatting/translation; empirical coding (mechanical figure export)
+- Grouped minor follow-ups: no
+- Commit after: (recorded in the following commit)
