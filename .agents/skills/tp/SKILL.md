@@ -3,7 +3,7 @@ name: tp
 description: "Traceable Prompt (TP) skill for BUSFIN 8200 problem sets. Invoke @TP at the start of every substantive AI request (checking/critiquing math or economic reasoning, empirical coding, debugging, formatting/translation) to comply with the course AI policy. Creates git commits before/after the interaction and appends an auditable entry to AI_INTERACTIONS.md."
 ---
 
-# TP (Traceable Prompt)
+# TP (Traceable Prompt)eval "$(/usr/libexec/path_helper)"
 
 This skill creates an auditable, contemporaneous record of substantive AI assistance on a
 BUSFIN 8200 problem set, per the course AI Policy. It does not loosen any requirement of
