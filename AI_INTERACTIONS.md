@@ -36,4 +36,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: The monthly summation-window convention above (start index m+1, standard Campbell-Shiller decomposition) was an AI-proposed resolution of an ambiguity in the student's spec — flagged to the student, not decided unilaterally as final. Choice of `np.polyfit` degree-1 fit to obtain the OLS slope with intercept was a mechanical/programming choice, not a substantive one.
 - Type of use: empirical coding
 - Grouped minor follow-ups: no
-- Commit after: (recorded in the next commit immediately following this entry)
+- Commit after: 41a1051c9eb20b87b0f325e0edd2b194b0e5539d
