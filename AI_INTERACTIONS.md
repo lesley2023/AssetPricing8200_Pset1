@@ -106,4 +106,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: none; the annual-step timing, all-month starting sample, VAR variables and ordering, coefficient formula, horizon range, and adding-up check were all specified by the student and implemented without alteration. Using a linear-system solve for `(I-kappa*Gamma)^{-1}b_z` instead of explicitly forming a matrix inverse was a numerical programming choice only.
 - Type of use: empirical implementation; code debugging; formatting/translation
 - Grouped minor follow-ups: no
-- Commit after: pending
+- Commit after: 54238f8e291f6051c61752069f0a2b150ce7f2bb
