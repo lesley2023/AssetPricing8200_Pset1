@@ -148,4 +148,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: Suggested that the student decide whether to retain the prompt-imposed residual definition of `b_dp^(H)` or calculate the terminal coefficient independently from the VAR to match the wording “terms from Equation 1.4 implied by the VAR.” Suggested distinguishing an identity imposed by construction from an empirical adding-up check. Suggested interpreting Q1(d) as an approximately 49% expected-return contribution and 51% negative-dividend-growth contribution, conditional on the estimated stable VAR, and explaining that the 0.998808 sum is close to but not exactly one because the unrestricted estimated VAR is not mechanically constrained to satisfy the approximate Campbell-Shiller identity exactly.
 - Type of use: math review; economic reasoning review; empirical implementation review; grammar/formatting review
 - Grouped minor follow-ups: no
-- Commit after: pending
+- Commit after: fe8f1e5e399c1b46eb1ded30d46687f124d8cab9
