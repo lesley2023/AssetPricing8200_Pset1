@@ -201,8 +201,59 @@ Also, if we add up these three coefficients, we get approximately 1, which refle
 % TODO: discussion of the figure and results
 
 \subsection{Part (c)}
+Given that 
+\[
+z_t =
+\begin{bmatrix}
+\Delta d_t \\
+r_{e,t} \\
+dp_t
+\end{bmatrix}.
+\]
 
-% TODO: derivation / answer for Q1(c)
+So estimating the VAR by OLS really means estimating three regressions:
+
+\[
+\Delta d_{t+1} = a_1 + \gamma_{11}\Delta d_t + \gamma_{12}r_{e,t} + \gamma_{13}dp_t + \epsilon_{1,t+1},
+\]
+
+\[r_{e,t+1}= a_2 + \gamma_{21}\Delta d_t + \gamma_{22}r_{e,t} + \gamma_{23}dp_t + \epsilon_{2,t+1},\]
+
+and
+\[dp_{t+1}= a_3 + \gamma_{31}\Delta d_t + \gamma_{32}r_{e,t} + \gamma_{33}dp_t + \epsilon_{3,t+1}.\]
+
+Then collect those nine slope coefficients into
+
+\[
+\Gamma =
+\begin{bmatrix}
+\gamma_{11} & \gamma_{12} & \gamma_{13} \\
+\gamma_{21} & \gamma_{22} & \gamma_{23} \\
+\gamma_{31} & \gamma_{32} & \gamma_{33}
+\end{bmatrix}.
+\]
+
+From Question 1 (b), we know that $b_{z}=\frac{Cov(z_{t}, dp_{t})}{Var(dp_{t})}$.
+Given that 
+\[
+z_t =
+\begin{bmatrix}
+\Delta d_{t} \\
+r_{e,t} \\
+dp_{t}
+\end{bmatrix}.
+\]
+
+We have 
+\[
+b_{z} =
+\begin{bmatrix}
+b_{\Delta d_{t}} \\
+b_{r_{e,t}} \\
+1
+\end{bmatrix}.
+\]
+
 
 \section{Question 2}
 
