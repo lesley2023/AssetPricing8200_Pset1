@@ -3,56 +3,16 @@ name: tp
 description: "Traceable Prompt (TP) skill for BUSFIN 8200 problem sets. Invoke @TP at the start of every substantive AI request (checking/critiquing math or economic reasoning, empirical coding, debugging, formatting/translation) to comply with the course AI policy. Creates git commits before/after the interaction and appends an auditable entry to AI_INTERACTIONS.md."
 ---
 
-# TP (Traceable Prompt)eval "$(/usr/libexec/path_helper)"
+# TP (Traceable Prompt)
 
-This skill creates an auditable, contemporaneous record of substantive AI assistance on a
-BUSFIN 8200 problem set, per the course AI Policy. It does not loosen any requirement of
-that policy (e.g., AI still may not generate/rewrite math derivations or economic reasoning,
-and may not silently make substantive empirical design decisions).
+Create a reusable AI skill called @TP, short for traceable prompt, for this problem set project. The purpose of this skill is to help me comply with the BUSFIN 8200 problem set AI policy. When I invoke @TP at the beginning of a substantive AI request, do the following.
 
-When the user invokes `@TP`, follow these steps in order:
+1. First, identify the problem set item to which my request relates. If the item is not clear, ask me to specify it before doing the substantive work.
+2. Before doing the substantive work, create a Git commit that records the current state of the repository. If there are no file changes to commit, create an empty commit so that the state before the interaction is still recorded. Record the commit hash for the state before the interaction.
+3. Complete my substantive request, subject to the course AI policy. If the request asks you to make a substantive mathematical, economic, or empirical design decision that I have not specified, identify the ambiguity and ask me to decide before implementing it.
+4. After completing the substantive work, append a new entry to AI_INTERACTIONS.md. Do not modify, delete, combine, or rewrite previous entries.
+5. The new entry in AI_INTERACTIONS.md must include the problem set item; my substantive prompt; the purpose of the request; the Git commit before the interaction; a concise but complete description of the assistance you provided; the files you inspected; the files you directly modified, if any; any errors, omissions, or ambiguities you identified; any substantive mathematical, economic, or empirical suggestions you made; whether the interaction involved checking mathematics, checking economic reasoning, empirical implementation, code debugging, formatting/translation, or another form of assistance; and whether any minor subsequent debugging or formatting requests were grouped into this same interaction.
+6. After updating AI_INTERACTIONS.md, create another Git commit recording the state of the repository after the interaction. If there are no file changes to commit, create an empty commit so that the state after the interaction is still recorded.
+7. If I explicitly group closely related minor subsequent debugging or formatting requests into the same interaction, document them in the same AI_INTERACTIONS.md entry. Only group subsequent requests when they concern the same problem set item, occur in the same work session, and are documented together.
 
-1. **Identify the problem set item.** Determine which question/sub-part (e.g., "Q1(b)") the
-   request concerns from the user's message or recent conversation. If it is not clear, ask
-   the user to specify it before doing any substantive work.
-
-2. **Commit "before" snapshot.** Run `git add -A` and `git commit -m "TP: before <item> — <short description>"`.
-   If there is nothing to commit, use `git commit --allow-empty -m "TP: before <item> — <short description>"`
-   so the pre-interaction state is still recorded. Capture the resulting commit hash
-   (`git rev-parse HEAD`).
-
-3. **Do the substantive work**, subject to the course AI policy:
-   - Math questions: only check/critique the user's own derivation; do not derive for them.
-   - Economic reasoning questions: only critique the user's own written reasoning; do not
-     write the argument for them.
-   - Data analysis questions: implement/debug/optimize code strictly from the user's own
-     written specification (e.g., a `.txt`/`.md` file or their initial code). If the request
-     requires a substantive empirical/econometric decision not specified by the user
-     (sample restriction, timing convention, missing-data treatment, variable definition,
-     winsorization, regression spec, SE choice, etc.), STOP and ask the user to decide rather
-     than resolving it yourself.
-   - Formatting/translation requests (LaTeX, grammar, exposition) may be done freely, but
-     must not alter substantive math/economic/empirical content.
-
-4. **Append an entry to `AI_INTERACTIONS.md`** at the repository root. Never edit, delete,
-   reorder, or combine prior entries — only append. Use the template already in that file,
-   filling in: problem set item; the user's substantive prompt; purpose; commit hash before;
-   files inspected; files modified (if any); any errors/omissions/ambiguities identified; any
-   substantive math/economic/empirical suggestions made (clearly separated from purely
-   mechanical programming/formatting choices); the type(s) of AI use; and whether any minor
-   follow-up debugging/formatting requests were grouped into this same entry (only group
-   when the user explicitly asks to, and only if they concern the same item and session).
-
-5. **Commit "after" snapshot.** Run `git add -A` and `git commit -m "TP: after <item> — <short description>"`.
-   If there are no file changes, use `git commit --allow-empty -m "TP: after <item> — <short description>"`.
-   Capture this commit hash too, and use it in the `AI_INTERACTIONS.md` entry (append the
-   entry, then make this final commit so the entry itself is captured in the "after" snapshot).
-
-6. **Grouping follow-ups.** If the user explicitly says a subsequent minor request (e.g., a
-   quick debugging fix or formatting tweak) belongs with the current interaction, and it
-   concerns the same item and work session, update the same `AI_INTERACTIONS.md` entry
-   instead of creating a new one, then re-commit the "after" state.
-
-If any step fails (e.g., git commit fails, or the `AI_INTERACTIONS.md` entry cannot be
-written), stop and report the failure to the user before proceeding with further substantive
-work — do not silently skip the record-keeping.
+The skill should help create an auditable record. It should not weaken or replace any requirement in the course AI policy.
