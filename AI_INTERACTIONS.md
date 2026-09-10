@@ -134,4 +134,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: none; the annual-step timing, all-month starting sample, VAR ordering, long-run formulas, stability condition, and adding-up check were specified by the student and implemented without alteration. The use of a linear-system solve and a one-percentage-point numerical tolerance for the approximate adding-up diagnostic were programming choices only.
 - Type of use: empirical implementation; code debugging; formatting/translation
 - Grouped minor follow-ups: no
-- Commit after: pending
+- Commit after: a18efb2d20c516ded424f55d7f9fc7bbbb38e2cd
