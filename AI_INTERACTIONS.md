@@ -92,4 +92,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: none; the annual-step timing, use of `re`, all-month starting sample, and terminal `kappa^H * dp[m+12H]` were specified by the student and implemented without alteration.
 - Type of use: empirical implementation; code debugging
 - Grouped minor follow-ups: no
-- Commit after: pending
+- Commit after: 4233d75e97ac43f4da1082e9edcc1d3966dc0a3e
