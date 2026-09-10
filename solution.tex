@@ -211,11 +211,13 @@ Also, if we add up these three coefficients, we get approximately 1, which refle
 \end{figure}
 \FloatBarrier
 
-\subsection{Part (d)}
 
-The estimated spectral radius is $\rho(\kappa\Gamma)=0.837603<1$, so the
-stability condition for the long-run limit is satisfied. The resulting
-long-run VAR-implied coefficients are reported in Table~\ref{tab:q1d_long_run}.
+The VAR-implied coefficients shown in Figure~\ref{fig:q1c_var_implied_coefficients} shows some interesting patterns. Instead of only the component of expected future returns dominates as $H$ increases, it is shown that both the component of expected future returns and the component of negative expected future dividend growth contribute significantly to the variation in today's $dp_{t}$ across different horizons. At the same time, the component of the future dividend-price ratio declines as the horizon increases, consistent with, and seems to be greater than the findings from the direct-regression estimates.
+Note that if we add up these three coefficients, we still get approximately 1, which reflects the normalized variance decomposition of today's $dp_{t}$.
+The difference in the patterns may arise because the two approaches estimate long-horizon coefficients differently. The direct approach estimates each horizon separately using realized future outcomes, whereas the VAR approach estimates the joint one-period dynamics of the state variables and uses the estimated transition matrix to imply coefficients at all subsequent horizons.
+
+\subsection{Part (d)}
+The resulting long-run VAR-implied coefficients are reported in Table~\ref{tab:q1d_long_run}. From the table, we can see that in the long run, the contributions of expected future returns and negative expected future dividend growth are roughly equal, and their sum is approximately 1, which is consistent with the normalized variance decomposition of today's $dp_{t}$.
 
 \begin{table}[htbp]
     \centering
