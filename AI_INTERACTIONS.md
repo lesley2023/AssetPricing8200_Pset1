@@ -51,3 +51,17 @@ Each entry follows this template:
 - Type of use: formatting/translation; empirical coding (mechanical figure export)
 - Grouped minor follow-ups: no
 - Commit after: 82905aa64be30689aa847e1a41f60f5c3b4e99fe
+
+## [2026-09-09] Item: Q1(a)
+
+- Prompt: "@TP put my hand-written answer in the Q1A_handwritten.pdf in into latex code and insert it into the solution.tex"
+- Purpose: Transcribe the student's own handwritten derivation (photographed/scanned as `Q1A_handwritten.pdf`) into LaTeX and insert it into the Q1(a) subsection of `solution.tex`. Per the course AI policy, this is formatting/translation assistance of a derivation the student already completed by hand, not AI-generated derivation.
+- Commit before: e71f4f6a218074453a284cd09de1e3e0a56164dd
+- Files inspected: `Q1A_handwritten.pdf` (rendered to PNG via the existing `tmp/pdfs/render_pdf.swift` tool and viewed), `solution.tex`
+- Files modified: `solution.tex` (replaced the `% TODO: derivation / answer for Q1(a)` placeholder with a LaTeX transcription of the handwritten derivation)
+- Assistance provided: Rendered both pages of the handwritten PDF to images and transcribed the derivation verbatim into LaTeX (`align`/`equation` environments), preserving the student's own steps, notation, and final results (equations 1.1-1.3) exactly as written by hand. No mathematical content was added, corrected, or altered; this was a literal translation task only, per the policy's explicit allowance for translating a photographed handwritten derivation into LaTeX. Compiled `solution.tex` with `latexmk` afterward to confirm the transcription produces valid, error-free LaTeX (4 pages, one harmless duplicate-hyperref-anchor warning unrelated to Q1(a)).
+- Errors/omissions/ambiguities identified: None — no substantive decision was required; the task was pure transcription of existing student work.
+- Substantive mathematical/economic/empirical suggestions made: none.
+- Type of use: formatting/translation
+- Grouped minor follow-ups: no
+- Commit after: (recorded in the following commit)
