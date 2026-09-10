@@ -212,13 +212,11 @@ Also, if we add up these three coefficients, we get approximately 1, which refle
 \FloatBarrier
 
 
-The VAR-implied coefficients shown in Figure~\ref{fig:q1c_var_implied_coefficients} shows some interesting patterns. Instead of only the component of expected future returns dominates as $H$ increases, it is shown that both the component of expected future returns and the component of negative expected future dividend growth contribute significantly to the variation in today's $dp_{t}$ across different horizons. At the same time, the component of the future dividend-price ratio declines as the horizon increases, consistent with, and seems to be greater than the findings from the direct-regression estimates.
-Note that if we add up these three coefficients, we still get approximately 1, which reflects the normalized variance decomposition of today's $dp_{t}$.
-The difference in the patterns may arise because the two approaches estimate long-horizon coefficients differently. The direct approach estimates each horizon separately using realized future outcomes, whereas the VAR approach estimates the joint one-period dynamics of the state variables and uses the estimated transition matrix to imply coefficients at all subsequent horizons.
+The VAR-implied coefficients shown in Figure~\ref{fig:q1c_var_implied_coefficients} show some interesting patterns. Instead of the expected future return component alone becoming dominant as $H$ increases, the figure shows that both the expected future return component and the negative expected future dividend growth component contribute significantly to the variation in today's $dp_t$ across different horizons. At the same time, the contribution of the future dividend-price ratio declines as the horizon increases, consistent with the findings from the direct-regression estimates, although the decline appears to be more gradual under the VAR approach.
+The difference in these patterns may arise because the two approaches estimate long-horizon coefficients differently. The direct approach estimates each horizon separately using realized future outcomes, whereas the VAR approach estimates the joint one-year dynamics of the state variables and uses the estimated transition matrix to imply coefficients at all subsequent horizons.
 
 \subsection{Part (d)}
-The resulting long-run VAR-implied coefficients are reported in Table~\ref{tab:q1d_long_run}. From the table, we can see that in the long run, the contributions of expected future returns and negative expected future dividend growth are roughly equal, and their sum is approximately 1, which is consistent with the normalized variance decomposition of today's $dp_{t}$.
-
+The resulting long-run VAR-implied coefficients are reported in Table~\ref{tab:q1d_long_run}. The table shows that, in the long run, the contributions of expected future returns and negative expected future dividend growth are roughly equal, accounting for approximately 49\% and 51\%, respectively. Their sum is 0.998808, which is close to, but not exactly, one. This indicates that the unrestricted estimated VAR approximately, rather than mechanically, satisfies the long-run Campbell--Shiller restriction.
 \begin{table}[htbp]
     \centering
     \caption{Long-run VAR-implied coefficients}
