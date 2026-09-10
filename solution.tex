@@ -124,16 +124,79 @@ dp_t = \frac{-\kappa_0}{1-\kappa} + \sum_{h=1}^{\infty}\kappa^{h-1}\mathbb{E}_t[
 \end{equation}
 
 \subsection{Part (b)}
-
-% TODO: write-up of the Campbell--Shiller decomposition regressions.
-% Code: Q1b.ipynb. Data: EQ Dataset.csv.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/q1b_coefficients.png}
     \caption{OLS slope coefficients of \texttt{future\_return}, \texttt{change\_d}, and \texttt{dp\_H} on \texttt{dp}, plotted against the horizon $H$ (in years).}
     \label{fig:q1b_coefficients}
 \end{figure}
+
+From the equation
+\[
+1
+=
+\underbrace{
+\frac{
+\operatorname{Cov}\left[
+dp_t,\,
+\sum_{h=1}^{H}\kappa^{h-1} r_{e,t+h}
+\right]
+}{
+\operatorname{Var}[dp]
+}
+}_{b_{r_e}^{(H)}}
++
+\underbrace{
+\frac{
+\operatorname{Cov}\left[
+dp_t,\,
+-\sum_{h=1}^{H}\kappa^{h-1}\Delta d_{t+h}
+\right]
+}{
+\operatorname{Var}[dp]
+}
+}_{b_{\Delta d}^{(H)}}
++
+\underbrace{
+\frac{
+\operatorname{Cov}\left[
+dp_t,\,
+\kappa^H dp_{t+H}
+\right]
+}{
+\operatorname{Var}[dp]
+}
+}_{b_{dp}^{(H)}}.
+\]
+
+This equation is trying to measure, how much each component moves when today's $dp_{t}$ moves. The meaning of these three coefficients is as follows:
+
+\[
+\sum_{h=1}^{H}\kappa^{h-1}\mathbb{E}_t[r_{e,t+h}] = a + b_{r_e}^{(H)} dp_t + \epsilon_t
+\]
+
+The slope is $b_{r_e}^{(H)}$, and it measures the sensitivity of expected discounted future returns to today's dividend-price ratio.
+
+Because dividend growth enters the Campbell–Shiller equation with a minus sign, define
+\[
+-\sum_{h=1}^{H}\kappa^{h-1} \mathbb{E}_t [\Delta d_{t+h} ]=a+b_{\Delta d}^{(H)} dp_t+\epsilon_t.
+\]
+
+So $b_{\Delta d}^{(H)}$ captures how much variation in $dp_t$ is associated with expected future dividend growth.
+
+\[
+\kappa^H \mathbb{E}_t [dp_{t+H} ]=a+b_{dp}^{(H)} dp_t+\epsilon_t.
+\] 
+
+$b_{dp}^{(H)}$ tells us how much today's high $dp_{t}$ is simply expected to persist into the future.
+
+\[
+1 = b_{r_e}^{(H)} + b_{\Delta d}^{(H)} + b_{dp}^{(H)}
+\]
+
+From the graph, we can see that the contributions of expected future returns, expected future dividend growth, and the future dividend-price ratio to the variation in today's $dp_{t}$ change with the horizon $H$.
+In the short run, the variation in today's $dp_{t}$ is primarily driven by the future dividend-price ratio. As the horizon $H$ increases, the contribution of expected future returns becomes more significant, while the contribution of the future dividend-price ratio declines toward zero. The contribution of negative expected future dividend growth remains relatively stable across different horizons.
+Also, if we add up these three coefficients, we get approximately 1, which reflects the normalized variance decomposition of today's $dp_{t}$.
 
 % TODO: discussion of the figure and results
 
