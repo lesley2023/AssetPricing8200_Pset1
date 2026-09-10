@@ -78,4 +78,4 @@ Each entry follows this template:
 - Substantive math/economic/empirical suggestions made: Suggested mapping annual horizon h to row `m + 12h`, so candidate components are `sum_{h=1}^H kappa^(h-1) * re[m+12h]`, `-sum_{h=1}^H kappa^(h-1) * dg[m+12h]`, and `kappa^H * dp[m+12H]`. Suggested retaining all eligible monthly rows if the student's goal is to match the slide, because this read-only replication nearly exactly matches its plotted values; offered December-only sampling as a transparent alternative that discards eleven-twelfths of the starting observations and does not match the target as closely. Suggested using the Equation 1.4 adding-up restriction, `b_re^(H) + b_Delta_d^(H) + b_dp^(H) approximately 1`, as a debugging check. Suggested that the student explicitly decide and state (a) all-month versus December-only starts and (b) whether Q1(b) should use `re` directly, before asking AI to implement a revision.
 - Type of use: checking economic reasoning; empirical implementation review; code debugging
 - Grouped minor follow-ups: no
-- Commit after: pending
+- Commit after: 000a705d1b9d4a52080a45275cc23a24532d25b7
