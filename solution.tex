@@ -211,16 +211,18 @@ dp_t
 \end{bmatrix}.
 \]
 
-So estimating the VAR by OLS really means estimating three regressions:
+Because the data contain monthly observations of annual variables, one annual transition
+advances 12 monthly rows. Thus, estimating the VAR by OLS means estimating three
+regressions:
 
 \[
-\Delta d_{t+1} = a_1 + \gamma_{11}\Delta d_t + \gamma_{12}r_{e,t} + \gamma_{13}dp_t + \epsilon_{1,t+1},
+\Delta d_{t+12} = a_1 + \gamma_{11}\Delta d_t + \gamma_{12}r_{e,t} + \gamma_{13}dp_t + \epsilon_{1,t+12},
 \]
 
-\[r_{e,t+1}= a_2 + \gamma_{21}\Delta d_t + \gamma_{22}r_{e,t} + \gamma_{23}dp_t + \epsilon_{2,t+1},\]
+\[r_{e,t+12}= a_2 + \gamma_{21}\Delta d_t + \gamma_{22}r_{e,t} + \gamma_{23}dp_t + \epsilon_{2,t+12},\]
 
 and
-\[dp_{t+1}= a_3 + \gamma_{31}\Delta d_t + \gamma_{32}r_{e,t} + \gamma_{33}dp_t + \epsilon_{3,t+1}.\]
+\[dp_{t+12}= a_3 + \gamma_{31}\Delta d_t + \gamma_{32}r_{e,t} + \gamma_{33}dp_t + \epsilon_{3,t+12}.\]
 
 Then collect those nine slope coefficients into
 
@@ -253,6 +255,13 @@ b_{r_{e,t}} \\
 1
 \end{bmatrix}.
 \]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/q1c_var_implied_coefficients.png}
+    \caption{VAR-implied return, dividend-growth, and terminal dividend-price coefficients for annual horizons $H=1,\ldots,20$. The VAR uses every eligible monthly starting observation and advances 12 rows per annual transition.}
+    \label{fig:q1c_var_implied_coefficients}
+\end{figure}
 
 
 \section{Question 2}
