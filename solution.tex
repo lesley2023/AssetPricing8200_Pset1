@@ -233,6 +233,167 @@ The resulting long-run VAR-implied coefficients are reported in Table~\ref{tab:q
 \end{table}
 \FloatBarrier
 
+\subsection{Part (e)}
+
+First, assume $D_t>0$. We have
+\[
+R_{e,t+1}=\frac{P_{t+1}+D_{t+1}}{P_t}.
+\]
+Then,
+\begin{align*}
+R_{e,t+1}\frac{D_t}{D_{t+1}}
+&=\frac{P_{t+1}+D_{t+1}}{P_t}\frac{D_t}{D_{t+1}} \\
+&=\frac{D_t}{P_t}\frac{P_{t+1}+D_{t+1}}{D_{t+1}} \\
+&=\frac{
+\dfrac{P_t+D_t}{P_t}\dfrac{D_t}{P_t+D_t}
+}{
+\dfrac{D_{t+1}}{P_{t+1}+D_{t+1}}
+}.
+\end{align*}
+
+Taking logs on both sides gives
+\begin{align*}
+\log(R_{e,t+1})+\log\!\left(\frac{D_t}{D_{t+1}}\right)
+&=\log\!\left(\frac{P_t+D_t}{P_t}\right)
++\log\!\left(\frac{D_t}{P_t+D_t}\right) \\
+&\quad-\log\!\left(\frac{D_{t+1}}{P_{t+1}+D_{t+1}}\right).
+\end{align*}
+
+Define
+\[
+r_{e,t+1}=\log(R_{e,t+1}),
+\qquad p_t=\log(P_t),
+\qquad d_t=\log(D_t),
+\qquad dy_t=\log\!\left(1+\frac{D_t}{P_t}\right).
+\]
+Given that
+\begin{align*}
+\log\!\left(\frac{D_t}{P_t+D_t}\right)
+&=\log\!\left(1-\frac{P_t}{P_t+D_t}\right) \\
+&=\log\!\left(1-e^{\log(P_t/(P_t+D_t))}\right) \\
+&=\log\!\left(1-e^{-\log((P_t+D_t)/P_t)}\right) \\
+&=\log\!\left(1-e^{-\log(1+D_t/P_t)}\right) \\
+&=\log\!\left(1-e^{-dy_t}\right),
+\end{align*}
+we have
+\[
+\log\!\left(\frac{D_t}{P_t+D_t}\right)
+=\log\!\left(1-e^{-dy_t}\right).
+\]
+Similarly,
+\[
+\log\!\left(\frac{D_{t+1}}{P_{t+1}+D_{t+1}}\right)
+=\log\!\left(1-e^{-dy_{t+1}}\right).
+\]
+Therefore,
+\[
+r_{e,t+1}-\Delta d_{t+1}
+=dy_t+\log\!\left(1-e^{-dy_t}\right)
+-\log\!\left(1-e^{-dy_{t+1}}\right).
+\]
+
+Let
+\[
+f(x)=\log(1-e^{-x}).
+\]
+Then,
+\[
+f'(x)=\frac{1}{1-e^{-x}}e^{-x}
+=\frac{e^{-x}}{1-e^{-x}}.
+\]
+Let $x=dy_t$. By a first-order approximation, and defining
+$\kappa\equiv e^{-\overline{dy}}$, we have
+\begin{align*}
+\log\!\left(1-e^{-dy_t}\right)
+&\approx \log\!\left(1-e^{-\overline{dy}}\right)
++f'(\overline{dy})(dy_t-\overline{dy}) \\
+&=\log(1-\kappa)
++\frac{e^{-\overline{dy}}}{1-e^{-\overline{dy}}}
+(dy_t-\overline{dy}) \\
+&=\log(1-\kappa)+\frac{\kappa}{1-\kappa}
+(dy_t-\overline{dy}).
+\end{align*}
+Thus,
+\[
+\log\!\left(1-e^{-dy_t}\right)
+\approx \log(1-\kappa)+\frac{\kappa}{1-\kappa}
+(dy_t-\overline{dy}).
+\]
+Similarly,
+\[
+\log\!\left(1-e^{-dy_{t+1}}\right)
+\approx \log(1-\kappa)+\frac{\kappa}{1-\kappa}
+(dy_{t+1}-\overline{dy}).
+\]
+
+Substituting these approximations into
+$r_{e,t+1}-\Delta d_{t+1}
+=dy_t+\log(1-e^{-dy_t})-\log(1-e^{-dy_{t+1}})$, we obtain
+\begin{align*}
+r_{e,t+1}-\Delta d_{t+1}
+&=dy_t+\log(1-\kappa)
++\frac{\kappa}{1-\kappa}(dy_t-\overline{dy}) \\
+&\quad-\log(1-\kappa)
+-\frac{\kappa}{1-\kappa}(dy_{t+1}-\overline{dy}) \\
+&=dy_t+\frac{\kappa}{1-\kappa}(dy_t-dy_{t+1}) \\
+&=\frac{1}{1-\kappa}dy_t
+-\frac{\kappa}{1-\kappa}dy_{t+1}.
+\end{align*}
+Therefore,
+\begin{align*}
+\frac{1}{1-\kappa}dy_t
+&=r_{e,t+1}-\Delta d_{t+1}
++\frac{\kappa}{1-\kappa}dy_{t+1}, \\
+dy_t
+&=(1-\kappa)(r_{e,t+1}-\Delta d_{t+1})
++\kappa dy_{t+1}.
+\end{align*}
+
+Recursively substituting for future values of $dy$, we have
+\begin{align*}
+dy_t
+&=(1-\kappa)(r_{e,t+1}-\Delta d_{t+1}) \\
+&\quad+\kappa\left[(1-\kappa)(r_{e,t+2}-\Delta d_{t+2})
++\kappa dy_{t+2}\right] \\
+&\quad\vdots \qquad \text{keep substituting }dy_{t+h} \\
+&=(1-\kappa)\left(
+\sum_{h=1}^{H}\kappa^{h-1}r_{e,t+h}
+-\sum_{h=1}^{H}\kappa^{h-1}\Delta d_{t+h}
+\right)+\kappa^Hdy_{t+H}.
+\end{align*}
+Thus, we have
+\[
+dy_t=(1-\kappa)\left(
+\sum_{h=1}^{H}\kappa^{h-1}r_{e,t+h}
+-\sum_{h=1}^{H}\kappa^{h-1}\Delta d_{t+h}
+\right)+\kappa^Hdy_{t+H}.
+\]
+
+Taking expectations at time $t$, we have
+\[
+dy_t=(1-\kappa)\left(
+\sum_{h=1}^{H}\kappa^{h-1}\mathbb{E}_t[r_{e,t+h}]
+-\sum_{h=1}^{H}\kappa^{h-1}\mathbb{E}_t[\Delta d_{t+h}]
+\right)+\kappa^H\mathbb{E}_t[dy_{t+H}].
+\]
+
+Suppose $H\to\infty$. Given that
+$\kappa=e^{-\overline{dy}}\in(0,1)$, we have
+\[
+\lim_{H\to\infty}\kappa^H=0.
+\]
+Also, because of the no-bubble condition,
+\[
+\lim_{H\to\infty}\kappa^H\mathbb{E}_t[dy_{t+H}]=0.
+\]
+Therefore,
+\[
+dy_t=(1-\kappa)\left(
+\sum_{h=1}^{H}\kappa^{h-1}\mathbb{E}_t[r_{e,t+h}]
+-\sum_{h=1}^{H}\kappa^{h-1}\mathbb{E}_t[\Delta d_{t+h}]
+\right).
+\]
+
 \section{Question 2}
 
 % TODO
