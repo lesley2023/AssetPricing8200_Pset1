@@ -396,7 +396,38 @@ dy_t=(1-\kappa)\left(
 
 \section{Question 2}
 
-% TODO
+\subsection{Part (a)}
+
+For each horizon $H=1,\ldots,15$, I construct the average of the simple annual
+excess returns observed exactly 12, 24, $\ldots$, $12H$ months after each starting
+month $t$,
+\[
+Y_t^{(H)}=\frac{1}{H}\sum_{h=1}^{H}xR_{e,t+12h},
+\qquad
+xR_{e,t}=e^{re_t}-e^{rf_t}.
+\]
+I then estimate by OLS, including an intercept,
+\[
+Y_t^{(H)}=a^{(H)}+b^{(H)}e^{dp_t}+\epsilon_t^{(H)}.
+\]
+Only starting months with all $H$ required future annual observations are used.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/q2a_adjusted_r2.png}
+    \caption{Adjusted $R^2$ from predictive regressions of average future annual
+    simple excess returns on the starting dividend-price ratio.}
+    \label{fig:q2a_adjusted_r2}
+\end{figure}
+
+Figure~\ref{fig:q2a_adjusted_r2} shows that the adjusted $R^2$ generally rises
+with the horizon, from about 4.6\% at one year to a peak of about 44.3\% at 14
+years, before declining slightly to about 42.1\% at 15 years. Thus, the current
+dividend-price ratio has substantially greater explanatory power for long-horizon
+average excess returns than for one-year-ahead excess returns. The relationship
+is not perfectly monotonic at the longest horizon, but the overall pattern is a
+strong increase in predictive fit as the horizon lengthens.
+\FloatBarrier
 
 \section{Question 3}
 
