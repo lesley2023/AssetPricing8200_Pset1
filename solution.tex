@@ -413,6 +413,44 @@ average excess returns than for one-year-ahead excess returns.
 \end{figure}
 \FloatBarrier
 
+\subsection{Part (b)}
+
+I estimate
+\[
+xR_{e,t+12}=a+b\frac{D_t}{P_t}+\epsilon_t
+\]
+using every eligible monthly starting observation. The dependent variable is the
+simple annual excess return exactly 12 monthly rows ahead, and the regressor is
+the current dividend-price ratio. The regression contains 1,117 observations and
+gives $\widehat b=2.803803$. Table~\ref{tab:q2b_standard_errors} reports the
+standard error and corresponding $t$-statistic under each covariance estimator.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Q2(b) slope estimate and alternative standard errors}
+    \label{tab:q2b_standard_errors}
+    \begin{tabular}{lcccc}
+        \toprule
+        Method & $\widehat b$ & SE$(\widehat b)$ & $t$-statistic & Lags/bandwidth \\
+        \midrule
+        Baseline OLS & 2.803803 & 0.380155 & 7.375423 & 0 \\
+        White (HC0) & 2.803803 & 0.658654 & 4.256870 & 0 \\
+        Newey--West (1987) & 2.803803 & 1.298990 & 2.158448 & 11 \\
+        Hansen--Hodrick (1980) & 2.803803 & 1.453690 & 1.928749 & 11 \\
+        Newey--West (1994), automatic & 2.803803 & 1.252278 & 2.238962 & 22.078 ($L=22$) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+As expected, the OLS coefficient estimate is identical across methods. Accounting
+for heteroskedasticity increases the standard error relative to baseline OLS, and
+accounting for the strong serial correlation induced by overlapping annual returns
+increases it further. Hansen--Hodrick with 11 equal-weighted lags produces the
+largest standard error and the smallest $t$-statistic. The Newey--West (1994)
+plug-in procedure selects a continuous bandwidth of 22.078, implemented with
+$L=22$ integer lags.
+\FloatBarrier
+
 \section{Question 3}
 
 % TODO
