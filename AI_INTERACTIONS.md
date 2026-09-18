@@ -177,3 +177,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; code debugging; formatting/translation; economic interpretation
 - Grouped minor follow-ups: no
 - Commit after: edf9e3f3fe21d02940a6c4d6613a5b0f92c4a205
+
+## [2026-09-18] Item: Q2(a)
+
+- Prompt: "@TP for the graph for Q2(a), can you add the number of the coefficients for each data point on the graph?"
+- Purpose: Add numeric adjusted-R-squared labels to every point in the existing Q2(a) figure and update the compiled solution.
+- Commit before: da30139971b9973d507f5c45302ca9db6c42af85
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, `Q2a.py`, `figures/q2a_adjusted_r2.png`, `solution.tex`, and the rendered Q2(a) figure page of `solution.pdf`
+- Files modified: `Q2a.py`, `figures/q2a_adjusted_r2.png`, `solution.pdf`, and `AI_INTERACTIONS.md`
+- Assistance provided: Updated the Q2(a) plotting code to annotate all 15 observations with their adjusted-R-squared values rounded to three decimal places, positioned the labels above their markers, and increased the upper y-axis limit to prevent clipping. Re-ran the analysis, regenerated the figure, rebuilt the solution PDF, and visually confirmed that every label is readable at the embedded page size.
+- Errors/omissions/ambiguities identified: The user referred to the displayed values as coefficients; the plotted quantities are adjusted R-squared values, so the annotations report adjusted R-squared. The PDF-skill artifact marker could not run because Node.js is unavailable in the environment; PDF compilation and visual QA were still completed with `latexmk` and PyMuPDF.
+- Substantive math/economic/empirical suggestions made: none; this was a formatting-only change and did not alter the regressions or their results.
+- Type of use: formatting; empirical-code presentation
+- Grouped minor follow-ups: no
+- Commit after: 08b3c7751fcf2530c72e7a03da2fad23b19d0a69
