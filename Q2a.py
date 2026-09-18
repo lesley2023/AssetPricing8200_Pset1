@@ -58,6 +58,19 @@ ax.set_xlabel("Horizon H (years)")
 ax.set_ylabel(r"Adjusted $R^2$")
 ax.set_title("Long-Horizon Excess-Return Predictability")
 ax.grid(True, alpha=0.3)
+
+# Label each point with its adjusted R-squared value.
+for H, adjusted_r2 in zip(results["H"], results["adjusted_R2"]):
+    ax.annotate(
+        f"{adjusted_r2:.3f}",
+        (H, adjusted_r2),
+        xytext=(0, 8),
+        textcoords="offset points",
+        ha="center",
+        fontsize=8,
+    )
+
+ax.set_ylim(top=0.48)
 fig.tight_layout()
 fig.savefig("figures/q2a_adjusted_r2.png", dpi=300, bbox_inches="tight")
 plt.close(fig)
