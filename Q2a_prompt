@@ -1,0 +1,32 @@
+Provide me with Python code following these steps:
+1. Read the csv file "EQ_Dataset.csv" into a pandas DataFrame.
+2. Display the first few rows of the DataFrame to get an overview of the data.
+3. Create a monthly date variable using "YEAR" and "MONTH", and sort the DataFrame chronologically.
+4. Check for any missing values in the DataFrame to ensure data completeness.
+5. Create the simple annual equity market return R_{e,t}=e^{re_t}, 
+and the simple annual risk-free return R_{f,t}=e^{rf_t}. 
+6. Then create the simple excess return
+ xR_{e,t}=e^{re_t}-e^{rf_t}. 
+In Python, define
+xRe = np.exp(re) - np.exp(rf).
+Create the dividend-price ratio D_t/P_t=e^{dp_t}. 
+In Python, define
+DP = np.exp(dp).
+The dataset contains monthly observations of annual variables. For every eligible monthly row t, 
+retain that row as a starting observation. A one-year-ahead observation is therefore the observation at t+12, 
+a two-year-ahead observation is at t+24, and in general the h-year-ahead observation is at t+12h.
+7. For each horizon H=1,2,...,15, construct the dependent variable
+Y_t^{(H)} = \frac{1}{H} \sum_{h=1}^{H}xR_{e,t+12h}. 
+Thus:
+Y_t^{(1)}=xR_{e,t+12}, Y_t^{(2)} = \frac{1}{2}(xR_{e,t+12}+xR_{e,t+24}), 
+and more generally use exactly the observations at t+12,t+24,...,t+12H. 
+
+8. For each H=1,...,15, estimate by OLS, including an intercept,
+Y_t^{(H)} = a^{(H)} + b^{(H)}DP_t + \epsilon_t^{(H)}, where DP_t=e^{dp_t}.
+The regressor must be the dividend-price ratio at the starting observation t, not a future value.
+9. For each horizon H, only retain starting observations t for which all required future observations t+12,...,t+12H are available.
+Do not replace missing future observations with zeros or compute an average from an incomplete horizon.
+
+10. Plot a graph with horizon H on the x-axis and the adjusted R^2 from each regression on the y-axis. Use integer values 1 through 15 on the x-axis and include clear axis labels and a title.
+
+11. Please keep the Python code straightforward. Use pandas, numpy, statsmodels, and matplotlib. Add brief comments explaining the important steps.
