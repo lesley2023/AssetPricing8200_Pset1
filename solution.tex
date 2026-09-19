@@ -435,6 +435,17 @@ average excess returns than for one-year-ahead excess returns.
 \clearpage
 
 \subsection{Part (c)}
+From Table~\ref{tab:q2c_ah_estimates}, the Amihud and Hurvich estimate of $b$ is 2.3412, which is smaller than the
+standard OLS estimate of 2.8038. It is natural for the two
+estimates to differ because as
+indicated by the estimated persistence coefficient $\widehat{\phi}=0.7197$, the predictor $D_t/P_t$ is persistent.
+In a finite sample, persistence in the predictor can induce small-sample
+bias in the OLS estimate of the predictive-regression coefficient.
+The Amihud and Hurvich procedure corrects for this problem by first
+bias-correcting the persistence coefficient from $\widehat{\phi}=0.7197$
+to $\widehat{\phi}^{c}=0.7540$ and then including the resulting
+bias-corrected residual $\widehat{u}^{c}_{t+1}$ in the predictive regression.
+Thus, the difference between $\widehat b_{\mathrm{AH}}$ and $\widehat b_{\mathrm{OLS}}$ is expected.
 
 \begin{table}[htbp]
     \centering
