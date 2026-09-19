@@ -54,7 +54,7 @@ def nw94_bandwidth(model):
 
     bandwidth = 1.1447 * (((s1 / s0) ** 2) * T) ** (1 / 3)
     selected_lag = int(np.floor(bandwidth))
-    return bandwidth, selected_lag, pilot_lag
+    return bandwidth, selected_lag, pilot_lag, s0, s1
 
 
 # Read and inspect the monthly observations of annual variables.
@@ -103,9 +103,17 @@ hh11_cov = hac_covariance(model, nlags=11, kernel="uniform")
 hh11_se = np.sqrt(hh11_cov[1, 1])
 
 # Newey-West (1994) automatic Bartlett bandwidth and associated integer lag.
-nw94_bw, nw94_lag, pilot_lag = nw94_bandwidth(model)
+nw94_bw, nw94_lag, pilot_lag, nw94_s0, nw94_s1 = nw94_bandwidth(model)
 nw94_cov = hac_covariance(model, nlags=nw94_lag, kernel="bartlett")
 nw94_se = np.sqrt(nw94_cov[1, 1])
+
+print("\nNewey-West (1994) automatic bandwidth calculation:")
+print(f"T = {int(model.nobs)}")
+print(f"Pilot lag n = floor(4 * (T/100)^(2/9)) = {pilot_lag}")
+print(f"s0 = {nw94_s0:.8f}")
+print(f"s1 = {nw94_s1:.8f}")
+print(f"Bandwidth = 1.1447 * [((s1/s0)^2) * T]^(1/3) = {nw94_bw:.4f}")
+print(f"Final lag L = floor(bandwidth) = {nw94_lag}")
 
 rows = [
     ("Baseline OLS", ols_se, "0"),
@@ -115,7 +123,7 @@ rows = [
     (
         "Newey-West (1994), automatic",
         nw94_se,
-        f"{nw94_bw:.3f} (L={nw94_lag}; pilot={pilot_lag})",
+        f"{nw94_bw:.4f} (L={nw94_lag}; pilot={pilot_lag})",
     ),
 ]
 
@@ -133,4 +141,4 @@ results = pd.DataFrame(
 )
 
 print("\nQ2(b) results:")
-print(results.to_string(index=False, float_format=lambda value: f"{value:.6f}"))
+print(results.to_string(index=False, float_format=lambda value: f"{value:.4f}"))
