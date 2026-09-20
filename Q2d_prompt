@@ -1,5 +1,5 @@
 Provide me with Python code following these steps:
-1. Read the csv file "EQ_Dataset.csv" into a pandas DataFrame.
+1. Read the csv file "EQ Dataset.csv" into a pandas DataFrame.
 2. Display the first few rows of the DataFrame to get an overview of the data.
 3. Create a monthly date variable using "YEAR" and "MONTH", and sort the DataFrame chronologically.
 4. Check for any missing values in the DataFrame to ensure data completeness.
