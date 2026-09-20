@@ -265,6 +265,20 @@ Each entry follows this template:
 ## [2026-09-19] Item: Q2(e)
 
 - Prompt: "[$tp] I update the Q2e_prompt and please use it to update the figures for me and insert them in the solution.tex"
+- Purpose: Revise the Q2(e) restricted forecasts and figures to follow the updated instruction that dividend growth must not be shifted by 12 months when calculating the expanding-window G value.
+- Commit before: 258ad6774a9c51db6e2af91348510e693f653f93
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, updated `Q2e_prompt`, `Q2e.py`, `EQ Dataset.csv`, `solution.tex`, `solution.log`, both regenerated Q2(e) PNG files, `AI_INTERACTIONS.md`, and the rendered Q2(e) page of `solution.pdf`
+- Files modified: `Q2e.py`, `figures/q2e_restricted_forecasts.png`, `figures/q2e_rolling_r2_os.png`, `solution.pdf`, and `AI_INTERACTIONS.md`; the existing figure references in `solution.tex` did not require source changes because their filenames remained stable.
+- Assistance provided: Updated the Q2(e) code so each forecast's G is the mean of contemporaneous `exp(dg_s)` observations from the raw expanding history ending at the predictor month, with no 12-month shift. Calculated the historical-mean excess-return benchmark from exactly the same raw monthly rows, as required by the revised prompt. For the first December 1940 forecast, both expanding averages now use December 1927 through December 1939. Re-executed all calculations and diagnostics, regenerated both figures, force-rebuilt the PDF so its existing Q2(e) image references display the revised figures, and visually verified the final page. The revised first G is 1.001420, the full-period R2_OS is 0.0294, and the rolling series runs from December 1990 through December 2021.
+- Errors/omissions/ambiguities identified: The prior implementation shifted `dg` alongside the 12-month-ahead return and used outcome dates beginning in December 1928; the updated prompt explicitly disallows that shift. The correction changes the first historical window to December 1927 through December 1939 and changes the full-period R2_OS from 0.0321 to 0.0294. The PDF-skill artifact marker could not run because Node.js is unavailable; PDF compilation and visual QA were completed with `latexmk` and PyMuPDF.
+- Substantive math/economic/empirical suggestions made: none; the revised no-shift treatment of annual dividend growth and identical raw historical samples for G and the benchmark mean were explicitly specified by the student.
+- Type of use: empirical implementation; code debugging; formatting
+- Grouped minor follow-ups: no
+- Commit after: c34aee86d639f12290a501aadb44d1ad5556cd92
+
+## [2026-09-19] Item: Q2(e)
+
+- Prompt: "[$tp] I update the Q2e_prompt and please use it to update the figures for me and insert them in the solution.tex"
 - Purpose: Re-run Q2(e) from the current prompt, regenerate its two figures, confirm their TeX insertion, and rebuild the solution PDF.
 - Commit before: c4f9295c23558c313af486c72beb45269afc4765
 - Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, `Q2e_prompt`, its Git history/diff, `Q2e.py`, `EQ Dataset.csv`, both Q2(e) figure files, `solution.tex`, `solution.log`, `AI_INTERACTIONS.md`, and the rendered Q2(e) page of `solution.pdf`
