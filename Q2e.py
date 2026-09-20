@@ -27,15 +27,13 @@ df["xRe"] = np.exp(df["re"]) - np.exp(df["rf"])
 df["DP"] = np.exp(df["dp"])
 df["g"] = np.exp(df["dg"])
 
-# Pair current DP with xRe and g exactly 12 months ahead. The future xRe and g
-# columns provide an identical historical outcome sample for both averages.
+# Pair current DP with xRe exactly 12 months ahead.
 pairs = pd.DataFrame(
     {
         "predictor_date": df["date"],
         "forecast_date": df["date"].shift(-12),
         "DP": df["DP"],
         "realized_xRe": df["xRe"].shift(-12),
-        "realized_g": df["g"].shift(-12),
     }
 ).dropna()
 
@@ -52,11 +50,12 @@ for column in ["G", "a_restricted", "b_restricted", "historical_mean", "OS_forec
 
 first_training_dates = None
 for row_index, row in evaluation.iterrows():
-    # Only annual outcomes dated on or before the predictor date are known.
-    training = pairs.loc[pairs["forecast_date"] <= row["predictor_date"]]
+    # Use the same raw historical months for xRe and exp(dg). Because dg already
+    # measures annual growth ending in month s, it is not shifted by 12 months.
+    historical = df.loc[df["date"] <= row["predictor_date"]]
 
-    G = training["realized_g"].mean()
-    historical_mean = training["realized_xRe"].mean()
+    G = historical["g"].mean()
+    historical_mean = historical["xRe"].mean()
     a_restricted = G - 1
     b_restricted = G
     os_forecast = a_restricted + b_restricted * row["DP"]
@@ -69,8 +68,8 @@ for row_index, row in evaluation.iterrows():
 
     if first_training_dates is None:
         first_training_dates = (
-            training["forecast_date"].iloc[0],
-            training["forecast_date"].iloc[-1],
+            historical["date"].iloc[0],
+            historical["date"].iloc[-1],
         )
 
 # Full evaluation-period out-of-sample R-squared.
