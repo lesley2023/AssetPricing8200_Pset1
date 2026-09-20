@@ -470,6 +470,24 @@ Thus, the difference between $\widehat b_{\mathrm{AH}}$ and $\widehat b_{\mathrm
 \clearpage
 
 \subsection{Part (d)}
+I estimate Equation (2.2) out of sample using an expanding window. The first out-of-sample forecast corresponds to December 1940, using the dividend-price ratio observed in December 1939. 
+At each forecast date, I re-estimate the predictive regression using the historical information available at that date and use the resulting coefficients to construct the out-of-sample forecast. 
+I also calculate the historical expanding-window mean excess return, $\overline{xR}_{e,t}$, which serves as the benchmark forecast. 
+The in-sample fitted values are obtained from the full-sample regression in Equation (2.2).
+
+The out-of-sample $R^2$ is calculated as
+$$
+R^2_{OS}=1-\frac{\sum_t\left(xR_{e,t+1}-\widehat E_t^{OS}[xR_e]\right)^2}{\sum_t\left(xR_{e,t+1}-\overline{xR}_{e,t}\right)^2}.
+$$
+
+The $R^2_{OS}$ compares the forecast errors from the predictive regression with those from the historical expanding-window mean benchmark. A positive $R^2_{OS}$ indicates that the dividend-price-ratio forecast has a lower sum of squared forecast errors than the historical-mean forecast, whereas a negative value indicates that the historical mean performs better.
+
+For the full out-of-sample period, I obtain $R^2_{OS}=-0.0061$. Thus, over the full evaluation period, the dividend-price-ratio forecast performs slightly worse than the historical-mean benchmark.
+
+To examine variation in forecasting performance over time, I also calculate $R^2_{OS}$ using a 50-year (600-month) rolling window of forecast errors. The coefficients $a_\tau$ and $b_\tau$ continue to be estimated using the expanding window. Thus, the 50-year rolling window changes only the forecast errors included in the calculation of $R^2_{OS}$; it does not change how the forecasts themselves are constructed.
+
+Figure \ref{fig:q2d_rolling_r2_os} shows substantial variation in out-of-sample forecasting performance over time. The rolling $R^2_{OS}$ is strongly positive in the early part of the sample, indicating that the dividend-price-ratio forecast outperforms the historical-mean benchmark over those 50-year windows. 
+It subsequently declines and fluctuates around zero for much of the later sample, before becoming increasingly negative toward the end. 
 
 \begin{figure}[htbp]
     \centering
@@ -490,6 +508,55 @@ Thus, the difference between $\widehat b_{\mathrm{AH}}$ and $\widehat b_{\mathrm
 \clearpage
 
 \subsection{Part (e)}
+
+I repeat the out-of-sample exercise in Part (d), but impose the steady-state
+restrictions on the forecasting coefficients. For each forecast date $\tau$, I
+calculate
+
+\[
+G_\tau = \operatorname{mean}\left(e^{dg_s}\right)
+\]
+
+using the same expanding historical sample used to calculate the historical-mean
+forecast $\overline{xR}_{e,\tau}$. I then impose
+
+\[
+\widehat a_\tau = G_\tau-1,
+\qquad
+\widehat b_\tau = G_\tau,
+\]
+
+so that the restricted out-of-sample forecast is
+
+\[
+\widehat E_\tau^{OS}[xR_e]
+=
+(G_\tau-1)+G_\tau DP_\tau.
+\]
+
+Thus, unlike Part (d), the coefficients are not estimated by OLS at each forecast
+date; instead, they are determined by the steady-state valuation restrictions.
+
+Figure \ref{fig:q2e_restricted_forecasts} compares the restricted out-of-sample forecast with the historical-mean
+forecast and the full-sample in-sample fitted values. Over the full out-of-sample
+evaluation period, the restricted forecast produces
+
+\[
+R^2_{OS}=0.0321.
+\]
+
+Since this value is positive, the restricted steady-state forecast has a lower
+sum of squared forecast errors than the historical-mean benchmark over the full
+out-of-sample period.
+
+Figure \ref{fig:q2e_rolling_r2_os} reports the 50-year rolling $R^2_{OS}$. As in Part (d), the rolling
+window is applied only to the forecast errors used to calculate $R^2_{OS}$;
+$G_\tau$ continues to be calculated using the expanding historical window.
+The rolling $R^2_{OS}$ remains positive throughout the plotted period, indicating
+that the restricted forecast outperforms the historical-mean benchmark over each
+of these 50-year evaluation windows. However, its magnitude varies over time and
+declines substantially toward the end of the sample, indicating that the degree
+of out-of-sample improvement is not constant over time.
 
 \begin{figure}[htbp]
     \centering
