@@ -50,12 +50,17 @@ for column in ["G", "a_restricted", "b_restricted", "historical_mean", "OS_forec
 
 first_training_dates = None
 for row_index, row in evaluation.iterrows():
-    # Use the same raw historical months for xRe and exp(dg). Because dg already
-    # measures annual growth ending in month s, it is not shifted by 12 months.
-    historical = df.loc[df["date"] <= row["predictor_date"]]
+    # Historical return observations come from the expanding regression sample.
+    training = pairs.loc[pairs["forecast_date"] <= row["predictor_date"]]
 
-    G = historical["g"].mean()
-    historical_mean = historical["xRe"].mean()
+    # Use raw exp(dg_s) from exactly the same calendar months as the historical
+    # return outcomes. The dg series is not shifted by 12 months.
+    historical_growth = df.loc[df["date"].isin(training["forecast_date"]), "g"]
+    if len(historical_growth) != len(training):
+        raise ValueError("Return and dividend-growth historical samples do not align.")
+
+    G = historical_growth.mean()
+    historical_mean = training["realized_xRe"].mean()
     a_restricted = G - 1
     b_restricted = G
     os_forecast = a_restricted + b_restricted * row["DP"]
@@ -68,8 +73,9 @@ for row_index, row in evaluation.iterrows():
 
     if first_training_dates is None:
         first_training_dates = (
-            historical["date"].iloc[0],
-            historical["date"].iloc[-1],
+            training["forecast_date"].iloc[0],
+            training["forecast_date"].iloc[-1],
+            len(training),
         )
 
 # Full evaluation-period out-of-sample R-squared.
@@ -153,6 +159,7 @@ print(
     "December 1940 G and historical-mean sample dates: "
     f"{first_training_dates[0].date()} to {first_training_dates[1].date()}"
 )
+print(f"December 1940 common historical sample size: {first_training_dates[2]}")
 print("\nFirst restricted coefficients:")
 print(evaluation[["forecast_date", "G", "a_restricted", "b_restricted"]].head())
 print("\nFirst forecast observations:")
