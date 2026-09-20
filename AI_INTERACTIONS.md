@@ -279,6 +279,20 @@ Each entry follows this template:
 ## [2026-09-19] Item: Q2(e)
 
 - Prompt: "[$tp] I update the Q2e_prompt and please use it to update the figures for me and insert them in the solution.tex"
+- Purpose: Revise Q2(e) again so the expanding historical mean of excess returns and the unshifted dividend-growth average use exactly the same calendar months, observation count, start date, and end date.
+- Commit before: 73bc3d1d2b737ccb274f4da1d130d3df15bd1fc2
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, revised `Q2e_prompt`, `Q2e.py`, `EQ Dataset.csv`, `solution.tex`, `solution.log`, both regenerated Q2(e) figures, `AI_INTERACTIONS.md`, and the rendered Q2(e) page of `solution.pdf`
+- Files modified: `Q2e.py`, `figures/q2e_restricted_forecasts.png`, `figures/q2e_rolling_r2_os.png`, `solution.pdf`, and `AI_INTERACTIONS.md`; no `solution.tex` source edit was needed because its stable image paths already reference the regenerated figures.
+- Assistance provided: Updated the expanding-window loop so the historical excess-return mean comes from the regression's known outcome rows and G comes from raw, unshifted `exp(dg_s)` values selected by those exact outcome calendar months. Added an explicit equality check requiring the return and dividend-growth histories to have the same observation count, plus a diagnostic reporting that common count. For the December 1940 forecast, both histories now use 133 monthly observations from December 1928 through December 1939. Re-executed the analysis, regenerated both figures, force-rebuilt the PDF, and visually verified the embedded Q2(e) page. The corrected first G is 0.994535 and full-period R2_OS is 0.0321; the rolling series remains December 1990 through December 2021.
+- Errors/omissions/ambiguities identified: The immediately preceding implementation used a raw history beginning in December 1927 for both averages. The revised prompt clarifies that the historical return observations must instead be those in the expanding estimation sample and that dividend growth must use exactly those same calendar months, reducing the first common history from 145 to 133 observations and moving its start to December 1928. `dg` itself remains unshifted. The PDF-skill artifact marker could not run because Node.js is unavailable; PDF compilation and visual QA were completed with `latexmk` and PyMuPDF.
+- Substantive math/economic/empirical suggestions made: none; the common-calendar-month restriction and no-shift treatment of dividend growth were explicitly specified by the student.
+- Type of use: empirical implementation; code debugging; formatting
+- Grouped minor follow-ups: no
+- Commit after: 991f07b0d521115bb8a445d75ef05abcb5cc3428
+
+## [2026-09-19] Item: Q2(e)
+
+- Prompt: "[$tp] I update the Q2e_prompt and please use it to update the figures for me and insert them in the solution.tex"
 - Purpose: Re-run Q2(e) from the current prompt, regenerate its two figures, confirm their TeX insertion, and rebuild the solution PDF.
 - Commit before: c4f9295c23558c313af486c72beb45269afc4765
 - Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, `Q2e_prompt`, its Git history/diff, `Q2e.py`, `EQ Dataset.csv`, both Q2(e) figure files, `solution.tex`, `solution.log`, `AI_INTERACTIONS.md`, and the rendered Q2(e) page of `solution.pdf`
