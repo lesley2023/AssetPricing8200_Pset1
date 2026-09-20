@@ -1,0 +1,45 @@
+Provide me with Python code following these steps:
+1. Read the csv file "EQ_Dataset.csv" into a pandas DataFrame.
+2. Display the first few rows of the DataFrame to get an overview of the data.
+3. Create a monthly date variable using "YEAR" and "MONTH", and sort the DataFrame chronologically.
+4. Check for any missing values in the DataFrame to ensure data completeness.
+5. Let \tau index the monthly observations. Construct 
+xR_{e,\tau}=e^{re_\tau}-e^{rf_\tau} and
+ DP_\tau=\frac{D_\tau}{P_\tau}=e^{dp_\tau}. 
+The dataset contains monthly observations of annual variables.
+6. The data are observed monthly. Since \tau indexes monthly observations, one year ahead corresponds to \tau+12.
+xR_{e,\tau+12}=a+bDP_\tau+\epsilon_\tau. 
+7. Start the out-of-sample evaluation in December 1940. The first OS forecast should use DP from December 1939 to forecast the annual excess return in December 1940.
+For each OS forecast date, estimate
+ xR_{e,\tau+12}=a_\tau+b_\tau DP_\tau+\epsilon_\tau 
+using only historical observations that would have been available at that time. Use an expanding window, so the estimation sample grows as time progresses. Do not use future observations when estimating a_\tau or b_\tau.
+Using the estimated coefficients from the historical sample, construct the OS forecast
+ \widehat E_\tau^{OS}[xR_e] = \widehat a_\tau+\widehat b_\tauDP_\tau. 
+Clearly show in the code how the expanding estimation window and forecast dates are aligned.
+8. For each OS forecast date, calculate the historical expanding-window mean of the annual excess return using the same information set available at that forecast date. Denote it by
+ \overline{xR}_{e,\tau}. 
+Do not use future observations when calculating the historical mean.
+9. Estimate Equation xR_{e,\tau+12}=a+bDP_\tau+\epsilon_\tau once using the full available sample and construct its fitted values. Denote these by
+ \widehat E_\tau^{IS}[xR_e]. 
+10. From December 1940 through the end of the available sample, produce one time-series plot containing:
+ \overline{xR}_{e,\tau}, \widehat E_\tau^{IS}[xR_e], \widehat E_\tau^{OS}[xR_e]. 
+Label the axes and series clearly and save the figure.
+11. Calculate the full-sample out-of-sample R^2. Using forecast errors from December 1940 through the end of the OS evaluation sample, calculate
+ R^2_{OS} = 1- \frac{\sum_\tau (xR_{e,\tau+12}-\widehat E_\tau^{OS}[xR_e])^2} {\sum_\tau (xR_{e,\tau+12}-\overline{xR}_{e,\tau})^2}. 
+Use the historical expanding-window mean as the benchmark forecast. Report R^2_{OS} to 4 decimal places. 
+12. Calculate the 50-year rolling R^2_{OS}. Keep the expanding-window estimates \widehat a_\tau and \widehat b_\tau from Step 7 unchanged. Do not switch the predictive regression itself to a rolling-window estimation.
+Instead, calculate R^2_{OS} over rolling 50-year windows of forecast errors. Since the observations are monthly, use 600 monthly forecast observations for each 50-year window.
+For each rolling window, calculate
+ R^2_{OS,\tau} = 1- \frac{\sum_{s\in W_\tau} (xR_{e,s+12}-\widehat E_s^{OS}[xR_e])^2} {\sum_{s\in W_\tau} (xR_{e,s+12}-\overline{xR}_{e,s})^2}, 
+where W_\tau is the 50-year forecast-error window ending at \tau.
+The resulting rolling R^2_{OS} time series should begin in December 1990 and continue through the end of the sample.
+13. Produce a time-series plot of the 50-year rolling R^2_{OS}, beginning in December 1990. Include a horizontal reference line at zero, label the axes clearly, and save the figure.
+14. Report diagnostics.
+Print:
+the first and last OS forecast dates;
+the number of OS forecasts;
+the start and end dates of the estimation sample used to construct the December 1940 forecast;
+the first few values of the realized excess return, historical-mean forecast, IS fitted value, and OS forecast;
+the full-sample R^2_{OS};
+the first and last dates of the 50-year rolling R^2_{OS} series.
+Please keep the Python code straightforward and readable. Use pandas, numpy, statsmodels, and matplotlib. Add brief comments explaining the important steps.
