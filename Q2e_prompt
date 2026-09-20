@@ -9,9 +9,10 @@ Provide me with Python code following these steps:
 and g_\tau=e^{dg_\tau}. 
 The dataset contains monthly observations of annual variables.
 6. The data are observed monthly. Since \tau indexes monthly observations, one year ahead corresponds to \tau+12. As in Question 2(d), align DP_\tau with the annual excess return xR_{e,\tau+12}.
-7. Start the out-of-sample evaluation in December 1940. The first OS forecast should use DPfrom December 1939 to forecast the annual excess return in December 1940.
+7. Start the out-of-sample evaluation in December 1940. The first OS forecast should use DP from December 1939 to forecast the annual excess return in December 1940.
 For each OS forecast date, calculate G_\tau as the historical expanding-window average of e^{dg}, using the same historical sample used to calculate the historical expanding-window mean \overline{xR}_{e,\tau}. 
-Do not use future observations when calculating G_\tau.
+Over exactly the same historical expanding-window sample, calculate G_{\tau}=mean(e^{dg_{s}}).
+Do not shift dg by 12 months when calculating G_\tau. The variable dg_s already represents annual dividend growth ending in month s.
 Then impose the steady-state restrictions
  \widehat a_\tau=G_\tau-1,  \widehat b_\tau=G_\tau. 
 Do not estimate \widehat a_\tau and \widehat b_\tau by OLS in this question.
