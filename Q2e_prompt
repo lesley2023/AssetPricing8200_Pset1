@@ -10,8 +10,8 @@ and g_\tau=e^{dg_\tau}.
 The dataset contains monthly observations of annual variables.
 6. The data are observed monthly. Since \tau indexes monthly observations, one year ahead corresponds to \tau+12. As in Question 2(d), align DP_\tau with the annual excess return xR_{e,\tau+12}.
 7. Start the out-of-sample evaluation in December 1940. The first OS forecast should use DP from December 1939 to forecast the annual excess return in December 1940.
-For each OS forecast date, calculate G_\tau as the historical expanding-window average of e^{dg}, using the same historical sample used to calculate the historical expanding-window mean \overline{xR}_{e,\tau}. 
-Over exactly the same historical expanding-window sample, calculate G_{\tau}=mean(e^{dg_{s}}).
+For each OS forecast, construct the historical expanding-window mean \overline{xR}_{e,\tau} using the historical annual excess-return observations in the expanding estimation sample.
+Using exactly the same calendar months, with the same start date, end date, and number of observations, calculate G_{\tau}=mean(e^{dg_{s}}).
 Do not shift dg by 12 months when calculating G_\tau. The variable dg_s already represents annual dividend growth ending in month s.
 Then impose the steady-state restrictions
  \widehat a_\tau=G_\tau-1,  \widehat b_\tau=G_\tau. 
@@ -19,23 +19,21 @@ Do not estimate \widehat a_\tau and \widehat b_\tau by OLS in this question.
 Using these restricted coefficients, construct the OS forecast
  \widehat E_\tau^{OS}[xR_e] = (G_\tau-1)+G_\tau DP_\tau. 
 Clearly show in the code how the historical expanding window, G_\tau, the predictor date, and the forecast date are aligned.
-8. For each OS forecast date, calculate the historical expanding-window mean of the annual excess return using the same information set available at that forecast date. Denote it by \overline{xR}_{e,\tau}. 
-Use exactly the same historical sample when calculating G_\tau and \overline{xR}_{e,\tau}. Do not use future observations.
-9. Estimate xR_{e,\tau+12}=a+bDP_\tau+\epsilon_\tau once using the full available sample and construct its in-sample fitted values. Denote these by \widehat E_\tau^{IS}[xR_e]. 
-10. From December 1940 through the end of the available sample, produce one time-series plot containing
+8. Estimate xR_{e,\tau+12}=a+bDP_\tau+\epsilon_\tau once using the full available sample and construct its in-sample fitted values. Denote these by \widehat E_\tau^{IS}[xR_e]. 
+9. From December 1940 through the end of the available sample, produce one time-series plot containing
  \overline{xR}_{e,\tau},  \widehat E_\tau^{IS}[xR_e],  \widehat E_\tau^{OS}[xR_e], 
 where the OS forecast is the restricted steady-state forecast from Step 7. Label the axes and series clearly and save the figure.
-11. Calculate the full-sample out-of-sample R^2. Using forecast errors from December 1940 through the end of the OS evaluation sample, calculate
+10. Calculate the full-sample out-of-sample R^2. Using forecast errors from December 1940 through the end of the OS evaluation sample, calculate
  R^2_{OS} = 1- \frac{ \sum_\tau (xR_{e,\tau+12}-\widehat E_\tau^{OS}[xR_e])^2 }{ \sum_\tau (xR_{e,\tau+12}-\overline{xR}_{e,\tau})^2 }. 
 Use the historical expanding-window mean as the benchmark forecast. Report R^2_{OS}to 4 decimal places.
-12. Calculate the 50-year rolling R^2_{OS}. Keep the restricted OS forecasts from Step 7 unchanged. Do not recalculate G_\tau using a rolling 50-year window.
+11. Calculate the 50-year rolling R^2_{OS}. Keep the restricted OS forecasts from Step 7 unchanged. Do not recalculate G_\tau using a rolling 50-year window.
 Instead, calculate R^2_{OS}over rolling 50-year windows of forecast errors. Since the observations are monthly, use 600 monthly forecast observations for each 50-year window.
 For each rolling window, calculate
  R^2_{OS,\tau} = 1- \frac{ \sum_{s\in W_\tau} (xR_{e,s+12}-\widehat E_s^{OS}[xR_e])^2 }{ \sum_{s\in W_\tau} (xR_{e,s+12}-\overline{xR}_{e,s})^2 }, 
 where W_\tau is the 50-year forecast-error window ending at \tau.
 The resulting rolling R^2_{OS}time series should begin in December 1990 and continue through the end of the sample.
-13. Produce a time-series plot of the 50-year rolling R^2_{OS}, beginning in December 1990. Include a horizontal reference line at zero, label the axes clearly, and save the figure.
-14. Report diagnostics. Print:
+12. Produce a time-series plot of the 50-year rolling R^2_{OS}, beginning in December 1990. Include a horizontal reference line at zero, label the axes clearly, and save the figure.
+13. Report diagnostics. Print:
 the first and last OS forecast dates;
 the number of OS forecasts;
 the historical sample start and end dates used to calculate G_\taufor the December 1940 forecast;
