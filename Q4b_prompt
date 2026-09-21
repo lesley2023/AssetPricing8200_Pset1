@@ -1,26 +1,27 @@
 Continue using the monthly variables constructed in Question 4(a), and provide me with Python code following these steps:
 1. For each H=2,3,4,5, construct the hold-to-maturity excess log return
-Because the dataset contains monthly observations, t+h means h years after the starting month t, so use observations at t+12h.
-Therefore, construct
-xr_{b,t\rightarrow t+H}^{(H)}=\sum_{h=1}^{H}xr_{b,t+12h}^{(H-h+1)}.
-The maturity of the bond must decrease by one year after each year of the holding period.
-Since xr_{b,t}^{(1)} = r_{b,t}^{(1)}-r_{b,t}^{(1)}=0, the final term is zero. Do not instead add future excess returns with the same maturity H.
+For H = 2,...,5, construct the hold-to-maturity excess return as:
+xr_{t:t+H}^{H} = sum from h=1 to H of xr_{t+h}^{H-h+1} where t+1 means 12-month lag later of the same month and t+h means h-year lag later of the same month. 
+Since xr_{b,t}^{(1)} = r_{b,t}^{(1)}-r_{b,t}^{(1)}=0, the final term is zero. 
 2. For each H=2,3,4,5, construct the dependent variable
 Y_t^{(H)}= \frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}.
 3. For each H=2,3,4,5, estimate by OLS, including an intercept,
 \frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}= a^{(H)}+ b^{(H)}xy_{b,t}^{(H)}+\epsilon_t^{(H)}.
 The regressor must be the excess log yield xy_{b,t}^{(H)} observed in the starting month t.
 4. For all the regressions, restrict the sample size to include windows where there are data for all the maturities. 
-5. Calculate the t-statistic for b^{(H)} using Hansen and Hodrick (1980) standard errors. Use uniform Hansen–Hodrick weights, w_l=1. Since the dataset is monthly and the dependent variable is an H-year hold-to-maturity return, use L=12H-1
-monthly lags. Thus, use 23, 35, 47, and 59 lags for H=2,3,4,5, respectively. Do not use the Bartlett weights from the standard Newey–West estimator
+5. Calculate the t-statistic for b^{(H)} using Hansen and Hodrick (1980) standard errors. Use uniform Hansen–Hodrick weights, w_l=1. 
+Since the dataset is monthly and the dependent variable is an H-year hold-to-maturity return, use L=12H-1 monthly lags. Thus, use 23, 35, 47, and 59 lags for H=2,3,4,5, respectively. 
+Do not use the Bartlett weights from the standard Newey–West estimator
 6. Use H=2,3,4,5 as the columns and report:
 - the OLS estimate of b^{(H)};
 - its Hansen–Hodrick t-statistic in square brackets;
 - the regression R^2.
+- total number of observation used in the regression
 
 The table should have the following general form:
                     H=2       H=3       H=4       H=5
 b_H [t-stat]       ... [...]  ... [...]  ... [...]  ... [...]
 R^2                      ...%          ...%          ...%          ...%
+N                  ...        ...      ...       ...
 Report R^2 in percentage terms. Do not report the intercept in the final table, although it should be included in every regression.
 7. Please keep the Python code straightforward. Use pandas, numpy, and statsmodels, and add brief comments explaining the 12-month alignment, the declining maturity of the held bond, and the construction of the Hansen–Hodrick standard errors.
