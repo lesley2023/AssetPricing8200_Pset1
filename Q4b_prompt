@@ -1,0 +1,26 @@
+Continue using the monthly variables constructed in Question 4(a), and provide me with Python code following these steps:
+1. For each H=2,3,4,5, construct the hold-to-maturity excess log return
+Because the dataset contains monthly observations, t+h means h years after the starting month t, so use observations at t+12h.
+Therefore, construct
+xr_{b,t\rightarrow t+H}^{(H)}=\sum_{h=1}^{H}xr_{b,t+12h}^{(H-h+1)}.
+The maturity of the bond must decrease by one year after each year of the holding period.
+Since xr_{b,t}^{(1)} = r_{b,t}^{(1)}-r_{b,t}^{(1)}=0, the final term is zero. Do not instead add future excess returns with the same maturity H.
+2. For each H=2,3,4,5, construct the dependent variable
+Y_t^{(H)}= \frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}.
+3. For each H=2,3,4,5, estimate by OLS, including an intercept,
+\frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}= a^{(H)}+ b^{(H)}xy_{b,t}^{(H)}+\epsilon_t^{(H)}.
+The regressor must be the excess log yield xy_{b,t}^{(H)} observed in the starting month t.
+4. For each H, retain only starting months for which the predictor and all future returns required to construct the dependent variable are available. Do not replace missing future observations with zero or use incomplete holding periods.
+5. Calculate the t-statistic for b^{(H)} using Hansen and Hodrick (1980) standard errors. Use uniform Hansen–Hodrick weights, w_l=1. Since the data are monthly and the nonzero hold-to-maturity excess returns cover H-1 years, use L=12(H-1)-1 monthly lags. 
+Thus, use 11, 23, 35, and 47 lags for H=2,3,4,5, respectively. Do not use the Bartlett weights from the standard Newey–West estimator.
+6. Use H=2,3,4,5 as the columns and report:
+- the OLS estimate of b^{(H)};
+- its Hansen–Hodrick t-statistic in square brackets;
+- the regression R^2.
+
+The table should have the following general form:
+                    H=2       H=3       H=4       H=5
+b_H [t-stat]       ... [...]  ... [...]  ... [...]  ... [...]
+R^2                ...        ...        ...        ...
+Report R^2 in percentage terms. Do not report the intercept in the final table, although it should be included in every regression.
+7. Please keep the Python code straightforward. Use pandas, numpy, and statsmodels, and add brief comments explaining the 12-month alignment, the declining maturity of the held bond, and the construction of the Hansen–Hodrick standard errors.
