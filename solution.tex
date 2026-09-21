@@ -650,6 +650,13 @@ This suggests that forward spreads contain more predictive information about one
 
 \clearpage
 \subsection{Part (d)}
+I estimate the Cochrane–Piazzesi factor by regressing the average one-year-ahead excess return across the two- to five-year bonds on the current one- to five-year forward rates:
+$$ \frac{1}{4}\sum_{H=2}^{5}xr_{b,t+1}^{(H)} = \theta_0+\sum_{h=1}^{5}\theta_h f_{b,t}^{(h)}+u_t. $$
+Using the estimated slope coefficients, I construct
+$$ cp_t=\sum_{h=1}^{5}\widehat{\theta}_h f_{b,t}^{(h)}. $$
+Figure~\ref{fig:q4d_cp_factor} plots the estimated factor in percentage terms, with NBER recessions shown by the shaded areas. The CP factor varies considerably over time, suggesting substantial time variation in expected excess bond returns. 
+Although the factor sometimes moves sharply around recessions, it does not follow the same pattern in every recession. The factor reaches its highest levels during the first half of the 1980s and remains relatively elevated in the early 1990s and early 2000s. 
+It is comparatively low around 2020 and becomes negative during parts of 2022–2024.
 
 \begin{figure}[htbp]
     \centering
