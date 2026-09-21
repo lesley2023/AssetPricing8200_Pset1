@@ -10,7 +10,7 @@ Y_t^{(H)}= \frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}.
 3. For each H=2,3,4,5, estimate by OLS, including an intercept,
 \frac{1}{H}xr_{b,t\rightarrow t+H}^{(H)}= a^{(H)}+ b^{(H)}xy_{b,t}^{(H)}+\epsilon_t^{(H)}.
 The regressor must be the excess log yield xy_{b,t}^{(H)} observed in the starting month t.
-4. For each H, retain only starting months for which the predictor and all future returns required to construct the dependent variable are available. Do not replace missing future observations with zero or use incomplete holding periods.
+4. For all the regressions, restrict the sample size to include windows where there are data for all the maturities. 
 5. Calculate the t-statistic for b^{(H)} using Hansen and Hodrick (1980) standard errors. Use uniform Hansen–Hodrick weights, w_l=1. Since the dataset is monthly and the dependent variable is an H-year hold-to-maturity return, use L=12H-1
 monthly lags. Thus, use 23, 35, 47, and 59 lags for H=2,3,4,5, respectively. Do not use the Bartlett weights from the standard Newey–West estimator
 6. Use H=2,3,4,5 as the columns and report:
