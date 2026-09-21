@@ -605,9 +605,6 @@ For each maturity $H=2,3,4,5$, I calculate the excess log yield, excess log forw
 \end{table}
 
 \subsection{Part (b)}
-I estimate Equation (4.1) separately for $(H=2,3,4,5)$ using monthly observations. When constructing the hold-to-maturity return, I reduce the maturity of the bond by one year after each 12-month period. The regressions include an intercept, and the reported \(t\)-statistics use Hansen and Hodrick (1980) standard errors with \(L=12H-1\) monthly lags.
-
-In Table~\ref{tab:q4b_bond_regressions}, the estimated coefficients are positive and statistically significant at the 5\% level for all four maturities. This indicates that higher yield spreads are associated with higher subsequent hold-to-maturity excess bond returns. Both the coefficient estimates and the \(R^2\) values decline with maturity, suggesting that the predictive relationship is stronger for shorter-maturity bonds in this sample.
 \begin{table}[htbp]
     \centering
     \caption{Hold-to-maturity excess bond return regressions}
@@ -616,8 +613,8 @@ In Table~\ref{tab:q4b_bond_regressions}, the estimated coefficients are positive
         \toprule
         & $H=2$ & $H=3$ & $H=4$ & $H=5$ \\
         \midrule
-        $\widehat{b}^{(H)}$ [HH $t$-stat] & 0.6774 [3.5732] & 0.5316 [3.2149] & 0.4141 [2.5196] & 0.3453 [2.3001] \\
-        $R^2$ & 7.6916\%  & 5.1512\%  & 3.7705\%  & 3.2346\%  \\
+        $\widehat{b}^{(H)}$ [HH $t$-stat] & 0.6909 [3.4378] & 0.5384 [3.2316] & 0.4239 [2.5179] & 0.3453 [2.3001] \\
+        $R^2$ & 8.0740\% & 5.7435\% & 4.2326\% & 3.2346\% \\
         \bottomrule
     \end{tabular}
 \end{table}
