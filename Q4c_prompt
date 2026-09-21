@@ -1,0 +1,27 @@
+Continue using the monthly variables constructed in Question 4(a), and provide me with Python code following these steps:
+
+1. For each H=2,3,4,5, because the dataset contains monthly observations, define the dependent variable as the one-year-ahead excess log bond return xr_{b,t+12}^{(H)}.
+2. For each H=2,3,4,5, estimate by OLS, including an intercept,
+xr_{b,t+12}^{(H)} = a^{(H)} + b^{(H)}xf_{b,t}^{(H)} + \epsilon_t^{(H)}.
+The regressor must be the excess log forward rate xf_{b,t}^{(H)} observed in the starting month t, and the dependent variable must be the excess annual return ending 12 months later.
+3. For each H, retain only observations for which both the current forward spread and the one-year-ahead excess return are available. Do not replace missing values with zero.
+4. Calculate the t-statistic for b^{(H)} using Newey and West (1987, 1994) standard errors with the data-driven lag-selection procedure described in Footnote 3 of the assignment.
+Use Bartlett weights, w_l=1-\frac{l}{L+1}, where L is selected using the Newey and West (1994) automatic bandwidth procedure. Do not use a fixed value of 11 lags and do not use uniform Hansen–Hodrick weights.
+Print the selected value of L for each regression so that I can verify it.
+5. Use the bond maturities H=2,3,4,5 as the columns. Label the columns “2 years,” “3 years,” “4 years,” and “5 years.”
+For each maturity, report:
+- the OLS slope estimate \widehat b^{(H)};
+- its Newey–West t-statistic in square brackets immediately next to the coefficient;
+- the regression R^2 in percentage terms.
+
+Format the table as follows:
+
+                         2 years       3 years       4 years       5 years
+Forwards
+\widehat b^{(H)}
+[Newey–West t-stat]      ... [...]     ... [...]     ... [...]     ... [...]
+R^2                      ...%          ...%          ...%          ...%
+
+Include an intercept in each regression, but do not report the intercept in the final table. Do not report the standard error separately. Report the t-statistic, rather than the standard error, in square brackets.
+
+6. Please keep the Python code straightforward. Use pandas, numpy, and statsmodels, and add brief comments explaining the 12-month alignment and the Newey–West automatic bandwidth calculation.
