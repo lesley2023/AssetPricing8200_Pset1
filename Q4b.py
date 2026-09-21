@@ -59,8 +59,8 @@ for H in range(2, 6):
     X = sm.add_constant(regression["predictor"])
     model = sm.OLS(regression["dependent"], X).fit()
 
-    # Monthly overlap from H-1 nonzero annual returns implies 12(H-1)-1 lags.
-    nlags = 12 * (H - 1) - 1
+    # The H-year holding period implies 12H-1 monthly Hansen-Hodrick lags.
+    nlags = 12 * H - 1
     hh_cov = hansen_hodrick_covariance(model, nlags)
     slope_se = np.sqrt(hh_cov[1, 1])
 
