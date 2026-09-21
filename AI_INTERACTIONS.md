@@ -317,3 +317,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; code execution; formatting
 - Grouped minor follow-ups: no
 - Commit after: 8ee4623fb28f61c2ace19facba45f0ad2f4bf69d
+
+## [2026-09-20] Item: Q4(a)
+
+- Prompt: "[$tp] I updated the prompt, please use Q4a_prompt.md to update the code of Q4a for me, and update the table in the tex, do not have any word explanations as the question answer in the tex but only insert the necessary table solution.tex"
+- Purpose: Revise the Q4(a) bond-return timing and reporting scale to follow the updated prompt, then replace the existing LaTeX results table without adding explanatory prose.
+- Commit before: 1aef91260e99fb3638510196dba94a6a7513b200
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF-skill instructions, revised `Q4a_prompt.md`, `Q4a.py`, `Bond Dataset.csv`, `solution.tex`, `solution.log`, `AI_INTERACTIONS.md`, and the rendered Q4(a) page of `solution.pdf`
+- Files modified: `Q4a.py`, `solution.tex`, `solution.pdf`, and `AI_INTERACTIONS.md`
+- Assistance provided: Compared the revised prompt with the prior implementation and identified its two material changes. Updated annual log returns so the first yield term uses a 12-month lag rather than a one-row lag, including the one-year return used as the excess-return benchmark. Updated the displayed results to multiply all time-series averages by 100 and label them as percent. Re-executed the code, replaced the four numerical table rows in Q4(a), retained a table-only answer with no explanatory paragraph, rebuilt the 15-page PDF, and visually verified the final page. The revised percent averages for H=2,3,4,5 are respectively: xy=(0.168613, 0.327787, 0.465958, 0.563911), xf=(0.337226, 0.646136, 0.880470, 0.955723), and xr=(0.315423, 0.606929, 0.819825, 0.871854).
+- Errors/omissions/ambiguities identified: The updated prompt's prose still describes the lagged yield as coming from the "previous period," but its formulas explicitly specify t-12; the explicit 12-month formulas were implemented. Each xy and xf average uses 871 observations, while each revised xr average uses 859 observations after the 12-month lag. No missing values were replaced with zeros. The PDF-skill artifact marker could not run because Node.js is unavailable; compilation and visual QA were completed with `latexmk` and PyMuPDF.
+- Substantive math/economic/empirical suggestions made: none; the revised lag and reporting scale were explicitly specified by the student.
+- Type of use: empirical implementation; code debugging; formatting
+- Grouped minor follow-ups: no
+- Commit after: 354094a40fa3747c13219d8bb0fa08723fe2afe9
