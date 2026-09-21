@@ -19,10 +19,10 @@ For H=2,3,4,5, define
 f_{b,t}^{(H)} = Hy_{b,t}^{(H)}- (H-1)y_{b,t}^{(H-1)}
 Both yields in this formula should come from the same month t.
 8. Construct the log annual bond returns. Define
-r_{b,t}^{(1)}=y_{b,t-1}^{(1)}.
+r_{b,t}^{(1)}=y_{b,t-12}^{(1)}.
 For H=2,3,4,5, define
-r_{b,t}^{(H)} = Hy_{b,t-1}^{(H)} - (H-1)y_{b,t}^{(H-1)}
-Be careful with the timing: the first term uses the H-year yield from the previous period, while the second term uses the (H-1)-year yield from the current period.
+r_{b,t}^{(H)} = Hy_{b,t-12}^{(H)} - (H-1)y_{b,t}^{(H-1)}
+Be careful with the timing: the first term uses the H-year yield from the previous period, while the second term uses the (H-1)-year yield from the current period. 
 9. For H=2,3,4,5, construct the excess log yields:
 xy_{b,t}^{(H)} = y_{b,t}^{(H)}-y_{b,t}^{(1)}.
 10. Construct the excess log forward rates:
@@ -31,4 +31,5 @@ xf_{b,t}^{(H)}= f_{b,t}^{(H)}-f_{b,t}^{(1)}.
 xr_{b,t}^{(H)} = r_{b,t}^{(H)}-r_{b,t}^{(1)}.
 12. For each H=2,3,4,5, calculate and report the time-series averages of xy, xf, and xr in one table.
 13. Check for missing values and use only the available observations when calculating each average. Do not replace missing values with zeros.
-14. Please keep the Python code straightforward. Use pandas and numpy, and add brief comments explaining the important steps.
+14. When displaying the final table, multiply the average xy, xf, and xr values by 100 so that they are reported in percentage terms. Clearly label the table to indicate that the reported values are in percent.
+15. Please keep the Python code straightforward. Use pandas and numpy, and add brief comments explaining the important steps.
