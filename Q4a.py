@@ -32,18 +32,19 @@ f[1] = y[1]
 for H in range(2, 6):
     f[H] = H * y[H] - (H - 1) * y[H - 1]
 
-# Construct annual log returns with the required previous/current timing.
+# Construct annual log returns using yields 12 months apart.
 r = pd.DataFrame(index=y.index, columns=y.columns, dtype=float)
-r[1] = y[1].shift(1)
+r[1] = y[1].shift(12)
 for H in range(2, 6):
-    r[H] = H * y[H].shift(1) - (H - 1) * y[H - 1]
+    r[H] = H * y[H].shift(12) - (H - 1) * y[H - 1]
 
 # Subtract the one-year series and average each column using available values.
 xy = y.subtract(y[1], axis=0)
 xf = f.subtract(f[1], axis=0)
 xr = r.subtract(r[1], axis=0)
 
-results = pd.DataFrame(
+# Multiply the averages by 100 for reporting in percentage terms.
+results = 100 * pd.DataFrame(
     {
         "Average xy": xy.loc[:, 2:5].mean(skipna=True),
         "Average xf": xf.loc[:, 2:5].mean(skipna=True),
@@ -52,7 +53,7 @@ results = pd.DataFrame(
 )
 results.index.name = "H"
 
-print("\nQ4(a) time-series averages (log units):")
+print("\nQ4(a) time-series averages (percent):")
 print(results.to_string(float_format=lambda value: f"{value:.6f}"))
 print("\nAvailable observations used in each average:")
 print(
