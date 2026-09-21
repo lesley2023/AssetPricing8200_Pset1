@@ -21,6 +21,6 @@ monthly lags. Thus, use 23, 35, 47, and 59 lags for H=2,3,4,5, respectively. Do 
 The table should have the following general form:
                     H=2       H=3       H=4       H=5
 b_H [t-stat]       ... [...]  ... [...]  ... [...]  ... [...]
-R^2                ...        ...        ...        ...
+R^2                      ...%          ...%          ...%          ...%
 Report R^2 in percentage terms. Do not report the intercept in the final table, although it should be included in every regression.
 7. Please keep the Python code straightforward. Use pandas, numpy, and statsmodels, and add brief comments explaining the 12-month alignment, the declining maturity of the held bond, and the construction of the Hansen–Hodrick standard errors.

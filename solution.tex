@@ -617,13 +617,21 @@ In Table~\ref{tab:q4b_bond_regressions}, the estimated coefficients are positive
         & $H=2$ & $H=3$ & $H=4$ & $H=5$ \\
         \midrule
         $\widehat{b}^{(H)}$ [HH $t$-stat] & 0.6774 [3.5732] & 0.5316 [3.2149] & 0.4141 [2.5196] & 0.3453 [2.3001] \\
-        $R^2$ (percent) & 7.6916 & 5.1512 & 3.7705 & 3.2346 \\
+        $R^2$ & 7.6916\%  & 5.1512\%  & 3.7705\%  & 3.2346\%  \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \clearpage
 \subsection{Part (c)}
+I estimate Equation (4.2) separately for $H=2,3,4,5$ using monthly observations. I match the forward spread observed in month $t$ with the excess annual bond return ending 12 months later. 
+The regressions include an intercept, and the reported $t$-stats use Newey and West (1987, 1994) standard errors with an automatically selected lag length.
+
+In Table~\ref{tab:q4c_forward_regressions}, the estimated coefficients are positive and statistically significant at the 5\% level for all four maturities. Thus, higher forward spreads are associated with higher excess bond returns over the following year. 
+The predictive relationship is strongest for the four-year bond, which has the largest coefficient and the highest $R^2$, although the coefficient falls somewhat at the five-year maturity.
+
+Compared with the yield-spread regressions in Part (b), the forward-spread regressions have higher $R^2$ values for the three-, four-, and five-year bonds. 
+This suggests that forward spreads contain more predictive information about one-year-ahead excess returns at these maturities. For $H=2$, the coefficient and $R^2$ are the same as in Part (b), consistent with the relationship $xf_{b,t}^{(2)}=2xy_{b,t}^{(2)}$.
 
 \begin{table}[htbp]
     \centering
