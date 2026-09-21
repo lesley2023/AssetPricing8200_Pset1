@@ -1,0 +1,22 @@
+Continue using the variables and the Cochrane–Piazzesi factor constructed in Questions 4(a) and 4(d). 
+Provide Python code that completes the following steps:
+1. Use the Cochrane–Piazzesi factor from Question 4(d):
+cp_t=\sum_{h=1}^{5}\widehat{\theta}_h f_{b,t}^{(h)}.
+2. For each H=2,3,4,5, estimate by OLS:
+ xr_{b,t+1}^{(H)} = a^{(H)}+b^{(H)}cp_t+\epsilon_{t+1}^{(H)}. 
+Because the data are monthly, t+1 means the same month one year later. Therefore, match cp_t in month t with xr_{b,t+12}^{(H)}, using a 12-month lead of the annual excess return.
+3. Include an intercept in every regression. For each maturity, retain only observations for which both cp_t and xr_{b,t+12}^{(H)} are available. Do not replace missing observations with zero.
+4. Calculate the t-statistic for \widehat b^{(H)} using Newey–West (1987, 1994) standard errors, following Footnote 3 of the assignment.
+Print the selected L for each maturity so that I can verify the bandwidth calculation. Do not use a fixed lag length or the default statsmodels 1/T normalization.
+5. Produce a table, use H=2,3,4,5 as the columns and report:
+the OLS slope estimate \widehat b^{(H)};
+its Newey–West t-statistic in square brackets;
+the regression R^2 in percentage terms.
+Format the table as:
+                        2 years       3 years       4 years       5 years
+CP factor
+b_hat [NW t-stat]       ... [...]     ... [...]     ... [...]     ... [...]
+R²                      ...%          ...%          ...%          ...%
+Include the intercept in each regression but do not report it in the final table. Do not report the standard error separately.
+6. Keep all variables in their original decimal log units when estimating the regressions. Multiplying cp_t by 100 for the plot in Question 4(d) should only affect its display, not the regression input.
+7. Keep the Python code straightforward. Use pandas, numpy, and statsmodels, and briefly comment on the 12-month alignment, the construction of cp_t, and the Newey–West covariance estimator.
