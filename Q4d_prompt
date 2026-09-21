@@ -1,0 +1,31 @@
+Continue using the monthly log forward rates and excess log annual returns constructed in Question 4(a), and provide me with Python code following these steps:
+1. For each starting month t, construct the average one-year-ahead excess log bond return across maturities H=2,3,4,5.
+Because the dataset contains monthly observations, calculate
+\overline{xr}_{b,t+12}=\frac{1}{4}\sum_{H=2}^{5}xr_{b,t+12}^{(H)}
+Use exactly the four excess returns for H=2,3,4,5. Divide their sum by 4.
+
+2. Estimate the following equation by OLS, including an intercept:
+\frac{1}{4}\sum_{H=2}^{5}xr_{b,t+1}^{(H)}=\theta_0+\sum_{H=1}^{5}\theta_H f_{b,t}^{(H)}+u_t.
+In the monthly dataset, regress the average excess return at t+12 on the five log forward rates observed at the starting month t:
+\overline{xr}_{b,t+12}= \theta_0+ \theta_1f_{b,t}^{(1)}+ \theta_2f_{b,t}^{(2)}+ \theta_3f_{b,t}^{(3)}+ \theta_4f_{b,t}^{(4)}+ \theta_5f_{b,t}^{(5)}+u_t.
+Use the log forward rates f_{b,t}^{(H)}, not the excess forward rates xf_{b,t}^{(H)}.
+
+3. Retain only observations for which the one-year-ahead excess returns and all five current forward rates are available. Do not replace missing values with zero.
+4. Report the OLS estimates of \theta_0,...,\ldots,\theta_5, the regression R^2, the number of observations, and the first and last starting months used in the regression.
+5. Construct the Cochrane–Piazzesi factor as
+cp_t=\sum_{H=1}^{5}\widehat{\theta}_H f_{b,t}^{(H)}.
+Thus, cp_t=\widehat{\theta}_1f_{b,t}^{(1)}+\widehat{\theta}_2f_{b,t}^{(2)}+\widehat{\theta}_3f_{b,t}^{(3)}+\widehat{\theta}_4f_{b,t}^{(4)}+\widehat{\theta}_5f_{b,t}^{(5)}.
+Do not include the estimated intercept \(\widehat{\theta}_0\) in \(cp_t\).
+6. Read “Recession.csv” into a pandas DataFrame. The relevant variables are:
+- observation_date: monthly date
+- USREC: NBER recession indicator, equal to 1 during a recession and 0 otherwise
+Convert “observation_date” to a monthly date variable and merge it with cp_t by year and month.
+
+7. Create a time-series plot of cp_t with the monthly date on the x-axis. Shade periods for which USREC=1 in light gray in the background.
+Plot cp_t as a line, include a horizontal line at zero, and add a clear title, axis labels, and legend. Keep the factor calculations in decimal log units, 
+but multiply cp_t by 100 in the graph so that the y-axis is displayed in percentage terms.
+Use the title “Cochrane–Piazzesi Factor” and label the y-axis “cp_t (\%)”.
+8. When shading recessions, combine consecutive months with USREC=1 into continuous gray recession regions rather than drawing a separate legend entry for every recession month. 
+Include only one “NBER recession” entry in the legend.
+9. Save the constructed cp_t series and the final plot. 
+10. Please keep the Python code straightforward. Use pandas, numpy, statsmodels, and matplotlib, and add brief comments explaining the 12-month alignment, the construction of cp_t, and the recession shading.
