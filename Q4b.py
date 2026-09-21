@@ -46,10 +46,10 @@ xr = r.subtract(r[1], axis=0)
 # First construct every maturity's valid regression rows.
 regressions = {}
 for H in range(2, 6):
-    # At t+12h, the held bond's maturity is H-h+1. The final H=1
-    # excess return is identically zero, so only H-1 nonzero terms enter.
+    # At t+12h, the held bond's maturity is H-h+1. Include all H terms
+    # in the stated hold-to-maturity sum, including the final H=1 term.
     hold_to_maturity = pd.Series(0.0, index=y.index)
-    for h in range(1, H):
+    for h in range(1, H + 1):
         declining_maturity = H - h + 1
         hold_to_maturity += xr[declining_maturity].shift(-12 * h)
 
