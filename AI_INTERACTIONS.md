@@ -471,3 +471,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; code debugging; data visualization; formatting
 - Grouped minor follow-ups: no
 - Commit after: 0639e817387f9a7cc3e53a2f7d77ccdfc3024a59
+
+## [2026-09-25] Item: Q3(a)
+
+- Prompt: "what is wrong with the format here, why it doesn't complie well"
+- Purpose: Diagnose the LaTeX compilation failure after the student's Q3(a) prose and equations were added.
+- Commit before: 7962e32421a4cad4b1148f60a5d89540334fe2ef
+- Files inspected: `.agents/skills/tp/SKILL.md`, `solution.tex`, `solution.log`, the latest Git commit diff, and `solution.pdf`
+- Files modified: `AI_INTERACTIONS.md` only
+- Assistance provided: Ran the LaTeX build diagnostic and traced the first fatal error to line 582, where the student's text uses nested inline-math delimiters, `$\(\tau\)$`. Explained that either `$\tau$` or `\(\tau\)` is valid, but combining them corrupts LaTeX's math-mode state. Identified the next-line display-math errors and the undefined-reference warnings as cascading effects of the aborted compilation. Also identified a separate overfull-line warning around the second display equation and noted that it affects layout rather than compilation.
+- Errors/omissions/ambiguities identified: Fatal nested math delimiters at line 582; cascading display-math parsing errors at line 583; stale/undefined cross-references caused by the failed compilation; and an overfull horizontal box at lines 587--588. No source correction was made because the request asked what was wrong rather than asking for an edit.
+- Substantive math/economic/empirical suggestions made: none
+- Type of use: code debugging; formatting review
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
