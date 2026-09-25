@@ -113,7 +113,7 @@ sample["yyyymm"] = sample["month"].dt.year * 100 + sample["month"].dt.month
 cz = pd.read_csv(CZ_FILE, usecols=["permno", "yyyymm", "BMdec"])
 for column in ["permno", "yyyymm", "BMdec"]:
     cz[column] = pd.to_numeric(cz[column], errors="coerce")
-cz["BM_CZ"] = np.exp(cz["BMdec"])
+cz["BM_CZ"] = cz["BMdec"]
 cz = cz.rename(columns={"permno": "PERMNO"})
 cz = cz.drop_duplicates(["PERMNO", "yyyymm"], keep="last")
 

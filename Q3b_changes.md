@@ -4,6 +4,6 @@
 - Required two earlier Compustat fiscal-year records, positive book equity, and a valid CRSP--Compustat link at the June portfolio-formation date.
 - Constructed December market equity as absolute price times shares outstanding and calculated book-to-market using the compatible Compustat/CRSP units.
 - Assigned each June book-to-market signal through the following May and applied the requested share-code, exchange, SIC-industry, and June 1963 start-date restrictions.
-- Merged the constructed signal with `BMdec.csv`, transformed the comparison signal as `exp(BMdec)`, and estimated the monthly cross-sectional regressions.
+- Merged the constructed signal with `BMdec.csv`, used the revised level comparison `BM_CZ = BMdec`, and estimated the monthly cross-sectional regressions.
 - Saved the monthly regression output to `q3b_monthly_regressions.csv` and generated intercept, slope, and R-squared plots in `figures/`.
 - Added only the three requested figures to Question 3(b) in `solution.tex`, without explanatory answer text.
