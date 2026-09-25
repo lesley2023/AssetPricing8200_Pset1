@@ -1,0 +1,10 @@
+1. In this task, work with the time index \tau = 1,2,...,\Tau, representing months 
+2. Construct the momentum signal (MOM) monthly for the firms with data available in CRSP, by using the dataset "Q3_Datasets/CRSP_monthly.csv"
+3. MOM for a stock at the end of month τ refers to the cumulative stock return from month \tau−12 to month \tau−1.
+4. Focus on the period from June of 1963 to the recent date
+5. Restrict the analysis to common stocks of firms incorporated in the United States (CRSP shrcd = 10 or 11) trading on NYSE, Amex, or Nasdaq (CRSP exchcd =
+1,2 or 3), and exclude utilities (4900 ≤SIC ≤4949) and financials (6000 ≤SIC ≤6999).
+6. Merge the dataset with the CZ Dataset "Q3_Datasets/Mom12m.csv" and define MOMCZ = Mom12m (use the column “permno” to identify the stock and the column “yyyymm” to identify the
+date). 
+7. For each month in the sample, estimate a cross-firm regression of MOMCZ onto MOM and record the intercept and slope coefficients as well as the R2 from these regressions. 
+8. Provide three time series plots, one for the intercepts, one for the slopes, and one for the R2 values.
