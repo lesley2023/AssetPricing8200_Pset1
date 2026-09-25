@@ -486,6 +486,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-25] Item: Q3(a) / exclude private datasets from GitHub
+
+- Prompt: "i just do not want to put those two data in the public git web version"
+- Purpose: Keep `CRSP_monthly.csv` and `Mom12m.csv` available locally while ensuring they are absent from the public repository and all pushed Git history.
+- Commit before: 4abdb272b4009b1d7cb0223a33d7a9d4b673250d
+- Files inspected: `.agents/skills/tp/SKILL.md`, Git status and the local/remote history boundary, current official GitHub documentation for ignoring tracked files and purging files with `git-filter-repo`
+- Files modified: `AI_INTERACTIONS.md` only
+- Assistance provided: Recommended not using Git LFS because the user does not want the two datasets uploaded at all. Provided a safe path-specific workflow: copy both physical CSVs outside the repository, add their exact paths to `.gitignore`, install `git-filter-repo`, purge both paths from local Git history, restore the ignored local copies, verify that Git no longer tracks or contains them, restore the `origin` remote if `git-filter-repo` removes it, and push the cleaned branch. Explained that `git rm --cached` alone is insufficient because the oversized blobs remain in earlier commits.
+- Errors/omissions/ambiguities identified: The rejected push means these oversized versions did not reach GitHub, but they remain in local commits and will keep causing rejection until history is rewritten. The current repository also contains other large datasets that remain eligible for public upload; this procedure removes only the two paths named by the user.
+- Substantive math/economic/empirical suggestions made: none
+- Type of use: repository debugging; privacy-preserving Git/GitHub workflow guidance
+- Grouped minor follow-ups: yes; revised the earlier Git LFS guidance after the user clarified that the datasets should not be hosted remotely at all
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-25] Item: Q3(a) / GitHub dataset synchronization
 
 - Prompt: Reported a rejected GitHub push because `Q3_Datasets/Mom12m.csv` (116.65 MB) and `Q3_Datasets/CRSP_monthly.csv` (302.88 MB) exceed GitHub's 100 MiB regular-Git limit, and asked how to synchronize the two files to GitHub.
