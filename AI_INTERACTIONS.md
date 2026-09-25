@@ -485,3 +485,17 @@ Each entry follows this template:
 - Type of use: code debugging; formatting review
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-25] Item: Q3(a) / LaTeX cross-references
+
+- Prompt: "why all of my \\ref cannot show the number"
+- Purpose: Diagnose why LaTeX cross-references display as unresolved despite matching labels.
+- Commit before: dc550211e2e6b858f1698a06c453581bc0d10b55
+- Files inspected: `.agents/skills/tp/SKILL.md`, `solution.tex`, `solution.aux`, and `solution.log`
+- Files modified: `AI_INTERACTIONS.md` only
+- Assistance provided: Compared every `\\ref` and `\\label` in the source with the generated auxiliary file. Confirmed that the label names match and that `solution.aux` contains the expected figure and table numbers. Explained LaTeX's two-pass reference mechanism and established that the unresolved references in the failed build are cascading effects of the fatal nested-math-delimiter error at line 582, which interrupted the normal auxiliary-file update and rerun cycle. Advised correcting that syntax error and completing two successful compilation passes (or forcing `latexmk` to rebuild after the correction).
+- Errors/omissions/ambiguities identified: The reference commands themselves are not defective. The build is still failing at line 582 because of `$\\(\\tau\\)$`; until that is corrected, reference resolution cannot be relied upon. `latexmk` also retains the previous failed-build state and may need a forced rebuild after the source is corrected.
+- Substantive math/economic/empirical suggestions made: none
+- Type of use: code debugging; formatting review
+- Grouped minor follow-ups: yes; continued the Q3(a) LaTeX compilation diagnosis from the immediately preceding request
+- Commit after: recorded by the subsequent TP audit commit
