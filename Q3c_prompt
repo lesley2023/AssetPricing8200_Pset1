@@ -1,0 +1,19 @@
+Continue using the variables and the Cochrane–Piazzesi factor constructed in Questions 3(a) and 3(b). 
+1. Let GPCZ = GP. GP is saved in the data "Q3_Datasets/GP.csv"
+2. For each of the three signals (BMCZ, MOMCZ, and GPCZ), construct decile
+portfolios as described in the lectures (returns come from CRSP). Create five types of decile portfolios
+(for each signal):
+(i) Value-weighted, rebalanced annually (at June), and with NYSE breakpoints
+(ii) Equal-weighted, rebalanced annually (at June), and with NYSE breakpoints
+(iii) Value-weighted, rebalanced monthly, and with NYSE breakpoints
+(iv) Value-weighted, rebalanced annually (at June), and with general breakpoints
+(v) Equal-weighted, rebalanced monthly, and with general breakpoints
+
+3. For each of the five types of decile portfolios, provide a scatterplot with the decile value (1 to 10) in
+the x-axis and the average portfolio excess return in the y-axis. The excess return (xR) in Questions (3c) to (3e) refer to the return of a stock or portfolio in excess of the
+return of a risk-free benchmark.
+4. Keep the three signals in the same scatterplot, so that we have a total of five scatterplots, use the color blue for BMCZ portfolios, red for MOMCZ portfolios, and green for GPCZ portfolios.
+5. Calculate the HML portfolio (decile 10 - decile 1) in each case (you should have a total of 15 HML portfolios) and report in a table the HML average returns as well as their respective t-statistics (using Newey and West (1987, 1994) standard
+errors).
+Newey and West (1987) proposes the use of the weighting function wℓ = 1−ℓ/(L+ 1),
+which is the most commonly used HAC estimator and works well for autocorrelation that arises naturally in the data (Newey and West (1994) recommends using L= const·T1/3, with the optimal constestimator provided in their equation 2.2).
