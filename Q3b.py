@@ -41,7 +41,7 @@ december_me = december_me.drop_duplicates(["PERMNO", "portfolio_year"], keep="la
 comp = pd.read_csv(
     COMPUSTAT_FILE,
     usecols=[
-        "GVKEY", "LPERMNO", "LINKDT", "LINKENDDT", "datadate",
+        "GVKEY", "LINKPRIM", "LINKTYPE", "LPERMNO", "LINKDT", "LINKENDDT", "datadate",
         "at", "ceq", "lt", "pstk", "pstkl", "pstkrv", "seq", "txditc",
     ],
     low_memory=False,
@@ -54,28 +54,61 @@ for column in [
 for column in ["LINKDT", "LINKENDDT", "datadate"]:
     comp[column] = pd.to_datetime(comp[column], errors="coerce")
 
-comp = comp.dropna(subset=["GVKEY", "LPERMNO", "datadate"]).copy()
+comp = comp.dropna(subset=["GVKEY", "datadate"]).copy()
 comp["accounting_year"] = comp["datadate"].dt.year
-comp = comp.sort_values(["GVKEY", "accounting_year", "datadate"])
-comp = comp.drop_duplicates(["GVKEY", "accounting_year"], keep="last")
-comp["prior_fiscal_years"] = comp.groupby("GVKEY").cumcount()
-
-se = comp["seq"].combine_first(comp["ceq"] + comp["pstk"])
-se = se.combine_first(comp["at"] - comp["lt"])
-preferred = comp["pstkrv"].combine_first(comp["pstkl"]).combine_first(comp["pstk"])
-comp["BE"] = se + comp["txditc"].fillna(0.0) - preferred.fillna(0.0)
 comp["portfolio_year"] = comp["accounting_year"] + 1
 comp["june_date"] = pd.to_datetime(comp["portfolio_year"].astype(str) + "-06-30")
 
-link_end = comp["LINKENDDT"].fillna(pd.Timestamp("2099-12-31"))
-valid_link = comp["LINKDT"].le(comp["june_date"]) & link_end.ge(comp["june_date"])
-book = comp.loc[
+# Build accounting history independently of the repeated CRSP link rows. If a
+# company has multiple fiscal year-ends in one calendar year, retain the latest.
+accounting_columns = [
+    "GVKEY", "accounting_year", "portfolio_year", "datadate", "at", "ceq",
+    "lt", "pstk", "pstkl", "pstkrv", "seq", "txditc",
+]
+accounting = comp[accounting_columns].drop_duplicates()
+accounting = accounting.sort_values(["GVKEY", "accounting_year", "datadate"])
+accounting = accounting.drop_duplicates(["GVKEY", "accounting_year"], keep="last")
+accounting["prior_fiscal_years"] = accounting.groupby("GVKEY").cumcount()
+
+se = accounting["seq"].combine_first(accounting["ceq"] + accounting["pstk"])
+se = se.combine_first(accounting["at"] - accounting["lt"])
+preferred = accounting["pstkrv"].combine_first(accounting["pstkl"]).combine_first(
+    accounting["pstk"]
+)
+accounting["BE"] = se + accounting["txditc"].fillna(0.0) - preferred.fillna(0.0)
+
+# Construct a date-specific CCM crosswalk at each June portfolio-formation
+# date. LC/LU are valid CRSP links; P/C identify primary/consolidated links.
+link_columns = [
+    "GVKEY", "portfolio_year", "june_date", "LPERMNO", "LINKDT", "LINKENDDT",
+    "LINKTYPE", "LINKPRIM",
+]
+crosswalk = comp[link_columns].dropna(subset=["LPERMNO"]).drop_duplicates()
+link_end = crosswalk["LINKENDDT"].fillna(pd.Timestamp("2099-12-31"))
+valid_link = crosswalk["LINKDT"].le(crosswalk["june_date"]) & link_end.ge(
+    crosswalk["june_date"]
+)
+crosswalk = crosswalk.loc[
     valid_link
-    & comp["prior_fiscal_years"].ge(2)
-    & comp["BE"].gt(0)
-    & comp["portfolio_year"].ge(1963),
-    ["LPERMNO", "portfolio_year", "datadate", "BE"],
-].rename(columns={"LPERMNO": "PERMNO"})
+    & crosswalk["LINKTYPE"].isin(["LC", "LU"])
+    & crosswalk["LINKPRIM"].isin(["P", "C"]),
+    ["GVKEY", "portfolio_year", "LPERMNO"],
+].drop_duplicates()
+
+crosswalk_key = ["GVKEY", "portfolio_year"]
+ambiguous = crosswalk.groupby(crosswalk_key)["LPERMNO"].nunique().gt(1)
+if ambiguous.any():
+    raise ValueError(
+        f"Multiple valid primary PERMNOs for {int(ambiguous.sum())} GVKEY-years"
+    )
+crosswalk = crosswalk.drop_duplicates(crosswalk_key).rename(columns={"LPERMNO": "PERMNO"})
+
+book = accounting.loc[
+    accounting["prior_fiscal_years"].ge(2)
+    & accounting["BE"].gt(0)
+    & accounting["portfolio_year"].ge(1963),
+    ["GVKEY", "portfolio_year", "datadate", "BE"],
+].merge(crosswalk, on=crosswalk_key, how="inner", validate="one_to_one")
 book = book.sort_values("datadate").drop_duplicates(
     ["PERMNO", "portfolio_year"], keep="last"
 )

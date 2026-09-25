@@ -639,3 +639,17 @@ Each entry follows this template:
 - Type of use: empirical implementation audit; code debugging; checking economic reasoning
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-25] Item: Q3(b) / date-specific CCM crosswalk correction
+
+- Prompt: "Based on the previous diagnostic, I'd like you to help me revise Q3b.py to correct the CRSP–Compustat linking problem. My understanding is that the current code drops duplicate GVKEY–accounting_year observations before checking which PERMNO is correctly linked to each company. As a result, it may discard valid links or select an inappropriate PERMNO. Since my CRSP_Compustats_Merged.csv already contains the CRSP–Compustat linking information, could you use this information to construct a correct, date-specific crosswalk between GVKEY and PERMNO?"
+- Purpose: Correct Q3(b)'s CRSP–Compustat link construction by separating accounting records from link rows and selecting a date-specific primary PERMNO at each June portfolio-formation date.
+- Commit before: 48f6664d10e38b0405b38c145c9296bd3990ed60
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, `Q3b.py`, `Q3b_prompt.txt`, `Q3b_changes.md`, `Q3_Datasets/CRSP_Compustats_Merged.csv`, `q3b_monthly_regressions.csv`, the regenerated Q3(b) figures, `solution.tex`, and the rendered Q3(b) pages of `solution.pdf`.
+- Files modified: `Q3b.py`, `Q3b_changes.md`, `q3b_monthly_regressions.csv`, `figures/q3b_intercepts.png`, `figures/q3b_slopes.png`, `figures/q3b_r2.png`, `solution.pdf`, and `AI_INTERACTIONS.md`.
+- Assistance provided: Refactored the Compustat processing into an accounting table and a separate link table. The accounting table removes repeated link rows, selects the latest datadate within each GVKEY/accounting-year, calculates two-year history independently of CRSP links, and constructs book equity. The crosswalk is evaluated at each June formation date, requires the date to fall within LINKDT–LINKENDDT, retains only LC/LU link types and P/C primary-link statuses, and asserts that no GVKEY/portfolio-year maps to multiple PERMNOs. Merged the eligible accounting records into this crosswalk, reran the analysis, regenerated the regression CSV and three plots, rebuilt the 22-page PDF, and visually verified both Q3(b) pages. The corrected sample contains 1,825,560 firm-month observations and 739 regressions from June 1963 through December 2024; mean intercept is 0.056549, mean slope is 0.946034, and mean R-squared is 0.914906.
+- Errors/omissions/ambiguities identified: No primary-link ambiguity remained after the LC/LU and P/C filters. The revised code continues the existing interpretation that two earlier distinct accounting calendar years are sufficient even if they are nonconsecutive. The existing unrelated Q3(a) LaTeX warning remains. The PDF skill marker and Poppler renderer were unavailable, so PyMuPDF was used for visual QA.
+- Substantive math/economic/empirical suggestions made: Used LINKDT and LINKENDDT at the June formation date and standard CCM link-quality fields LINKTYPE and LINKPRIM to create a deterministic date-specific crosswalk; retained the user's current nonconsecutive two-prior-years rule.
+- Type of use: empirical implementation; code debugging; result generation; PDF generation and visual verification
+- Grouped minor follow-ups: yes; this implements the correction motivated by the immediately preceding link audit.
+- Commit after: recorded by the subsequent TP audit commit
