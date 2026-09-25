@@ -579,7 +579,17 @@ of out-of-sample improvement is not constant over time.
 \section{Question 3}
 
 \subsection{Part (a)}
+I construct the monthly momentum signal for each stock using CRSP returns. Momentum at the end of month $\(\tau\)$ is the cumulative return over the preceding 12 months, excluding the current month:
+\[ MOM_{i,\tau} =\prod_{k=1}^{12}(1+RET_{i,\tau-k})-1 \].
 
+I require 12 valid monthly returns in consecutive calendar months. The sample begins in June 1963 and is restricted to common stocks with share codes 10 or 11 listed on NYSE, Amex or Nasdaq. I exclude utilities and financial firms.
+
+To validate the constructed momentum signal, I merge the CRSP observations with the Chen–Zimmermann dataset using permno and yyyymm. I then estimate the following cross-sectional regression separately for each month:
+\[ MOMCZ_{i,\tau} =a_\tau+b_\tau MOM_{i,\tau} +\varepsilon_{i,\tau}. \]
+
+Figures \ref{fig:q3a_intercepts}–\ref{fig:q3a_r2} plot the monthly intercept estimates, slope estimates and $(R^2)$ values, respectively.
+
+The estimated intercepts generally fluctuate around zero. The slopes generally remain close to one. The $(R^2)$ values are consistently high and close to one. The results suggest that the CRSP-based momentum signal closely matches the Chen–Zimmermann measure.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/q3a_intercepts.png}
