@@ -486,6 +486,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-25] Item: Q3(a) / GitHub dataset synchronization
+
+- Prompt: Reported a rejected GitHub push because `Q3_Datasets/Mom12m.csv` (116.65 MB) and `Q3_Datasets/CRSP_monthly.csv` (302.88 MB) exceed GitHub's 100 MiB regular-Git limit, and asked how to synchronize the two files to GitHub.
+- Purpose: Diagnose the rejected push and provide a safe, repository-specific Git LFS migration procedure for the already-committed Q3 datasets.
+- Commit before: 33e66e4afde9fd9c8f895e607228be2a90a2d66f
+- Files inspected: `.agents/skills/tp/SKILL.md`, Git status and recent history, configured Git remotes, tracked Q3 dataset paths and sizes, local Git LFS availability, and current official GitHub/Git LFS documentation
+- Files modified: `AI_INTERACTIONS.md` only
+- Assistance provided: Confirmed that both rejected files are already present in unpushed Git history and that Git LFS is not installed locally. Explained why adding `.gitattributes` only in a new commit would not remove the oversized historical blobs. Provided an exact macOS sequence to install and initialize Git LFS, make a local backup branch, rewrite only local `main` so the two specified paths become LFS pointers, verify the migration, and push the rewritten branch with `--force-with-lease`. Also noted that the two roughly 92 MB datasets are below GitHub's enforced limit but above its recommended size and can optionally be migrated in the same operation.
+- Errors/omissions/ambiguities identified: The earlier TP snapshot commit added the entire `Q3_Datasets` directory to ordinary Git, including the two files exceeding 100 MiB. GitHub rejects oversized blobs anywhere in pushed history, so tracking only future versions with `git lfs track` would not solve the current rejection. History migration changes commit hashes and therefore requires a protected force push.
+- Substantive math/economic/empirical suggestions made: none
+- Type of use: repository debugging; Git/GitHub workflow guidance
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-25] Item: Q3(a) / forced LaTeX rebuild
 
 - Prompt: Attached the terminal output from `latexmk -g -pdf solution.tex` for diagnosis.
