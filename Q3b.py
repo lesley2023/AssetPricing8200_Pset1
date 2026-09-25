@@ -41,30 +41,30 @@ december_me = december_me.drop_duplicates(["PERMNO", "portfolio_year"], keep="la
 comp = pd.read_csv(
     COMPUSTAT_FILE,
     usecols=[
-        "GVKEY", "LPERMNO", "LINKDT", "LINKENDDT", "datadate", "fyear",
+        "GVKEY", "LPERMNO", "LINKDT", "LINKENDDT", "datadate",
         "at", "ceq", "lt", "pstk", "pstkl", "pstkrv", "seq", "txditc",
     ],
     low_memory=False,
 )
 for column in [
-    "LPERMNO", "fyear", "at", "ceq", "lt", "pstk", "pstkl", "pstkrv",
+    "LPERMNO", "at", "ceq", "lt", "pstk", "pstkl", "pstkrv",
     "seq", "txditc",
 ]:
     comp[column] = pd.to_numeric(comp[column], errors="coerce")
 for column in ["LINKDT", "LINKENDDT", "datadate"]:
     comp[column] = pd.to_datetime(comp[column], errors="coerce")
 
-comp = comp.dropna(subset=["GVKEY", "LPERMNO", "fyear", "datadate"]).copy()
-comp["fyear"] = comp["fyear"].astype(int)
-comp = comp.sort_values(["GVKEY", "fyear", "datadate"])
-comp = comp.drop_duplicates(["GVKEY", "fyear"], keep="last")
+comp = comp.dropna(subset=["GVKEY", "LPERMNO", "datadate"]).copy()
+comp["accounting_year"] = comp["datadate"].dt.year
+comp = comp.sort_values(["GVKEY", "accounting_year", "datadate"])
+comp = comp.drop_duplicates(["GVKEY", "accounting_year"], keep="last")
 comp["prior_fiscal_years"] = comp.groupby("GVKEY").cumcount()
 
 se = comp["seq"].combine_first(comp["ceq"] + comp["pstk"])
 se = se.combine_first(comp["at"] - comp["lt"])
 preferred = comp["pstkrv"].combine_first(comp["pstkl"]).combine_first(comp["pstk"])
 comp["BE"] = se + comp["txditc"].fillna(0.0) - preferred.fillna(0.0)
-comp["portfolio_year"] = comp["fyear"] + 1
+comp["portfolio_year"] = comp["accounting_year"] + 1
 comp["june_date"] = pd.to_datetime(comp["portfolio_year"].astype(str) + "-06-30")
 
 link_end = comp["LINKENDDT"].fillna(pd.Timestamp("2099-12-31"))
