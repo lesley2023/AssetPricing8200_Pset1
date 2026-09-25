@@ -1,7 +1,8 @@
 1. Construct the book-to-market signal (BM) monthly for the firms with data available in Q3_Datasets/CRSP_Compustats_Merged.csv. 
-2. Using the data from Q3_Datasets/CRSP_Monthly.csv, construct BM as of the end of June of year t using CRSP market equity data from December of calendar year t−1 (for ME) 
+2. Using the data from Q3_Datasets/CRSP_Monthly.csv, construct BM as of the end of June of year t using CRSP market equity data from December of calendar year t−1 (for ME). 
 and COMPUSTAT accounting. ME= |PRC|·SHROUT. 
-3. Using the data from Q3_Datasets/CRSP_Compustats_Merged.csv, construct data for BE from the fiscal year ending in calendar year t−1. BE= SE+ TXDITC−BVPS. SE
+3. Using the data from Q3_Datasets/CRSP_Compustats_Merged.csv, construct data for BE from the fiscal year ending in calendar year t−1. In Compustat, fyear represents the fiscal-year label, while datadate represents the actual fiscal year-end date.
+BE= SE+ TXDITC−BVPS. SE
 reflects the stockholders’ equity and is given by SEQ, CEQ+ PSTK, or AT−LT, in this sequence of availability. TXDITC
 reflects deferred taxes and is given by the TXDITC if it is available (it is set to 0 otherwise). BVPS reflects the book value
 of preferred shareholders and is given by PSTKRV, PSTKL, or PSTK, in this sequence of availability.
