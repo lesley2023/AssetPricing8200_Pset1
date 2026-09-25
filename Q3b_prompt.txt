@@ -9,6 +9,6 @@ of preferred shareholders and is given by PSTKRV, PSTKL, or PSTK, in this sequen
 4. Keep BM fixed from June of year t to May of year t+ 1, updating BM again at June of year t+ 1. Exclude firm-month observations with BE ≤0. 
 5. To avoid backfilling bias, require a minimum of two previous years in COMPUSTAT for a company to be included in the analysis and construct BM from June of 1963 to the most recent date so that the first fiscal year of COMPUSTAT data is 1962. 
 6. Restrict the analysis to common stocks of firms incorporated in the United States (CRSP shrcd = 10 or 11) trading on NYSE, Amex, or Nasdaq (CRSP exchcd = 1,2 or 3), and exclude utilities (4900 ≤SIC ≤4949) and financials (6000 ≤SIC ≤6999).
-7. Merge the dataset with the CZ Dataset Q3_Datasets/BMdec.csv, and calculate BM_CZ = BMdec (use the column “permno” to identify the stock and the column “yyyymm” to identify the date). 
+7. Merge the dataset with the CZ Dataset Q3_Datasets/BMdec.csv, and calculate BM_CZ = exp(BMdec) (use the column “permno” to identify the stock and the column “yyyymm” to identify the date). 
 8. For each month in the sample, estimate a cross-firm regression of BM_CZ onto BM and record the intercept and slope coefficients as well as the R2 from these regressions.
 9. Provide three time series plots, one for the intercepts, one for the slopes, and one for the R2 values.
