@@ -486,6 +486,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-25] Item: Q3(a) / failed private-dataset cleanup
+
+- Prompt: Reported that `git fetch origin` followed by `git push origin main` was again rejected for the same oversized `CRSP_monthly.csv` and `Mom12m.csv` blobs.
+- Purpose: Diagnose why the datasets remained in the push after the prior exclusion guidance.
+- Commit before: 9aac26bc1a6e0ae483cba7a77cc41f0a31703af7
+- Files inspected: `.agents/skills/tp/SKILL.md`, Git status, `.gitignore`, `git check-ignore`, the tracked-file index, path history, local `git-filter-repo` availability, configured remotes, and objects present between `origin/main` and local `main`
+- Files modified: `AI_INTERACTIONS.md` only
+- Assistance provided: Confirmed that the repository is clean but the exclusion procedure was not performed: `.gitignore` lacks both dataset paths, both files remain tracked, commit `d75c2fe` still contains them, the oversized blob objects remain in the unpushed history, and `git-filter-repo` is not installed. Explained that `git fetch` and `git push` only retry the same history and cannot remove files from commits. Restated that the user must first back up the physical CSVs, add and commit exact ignore rules, install and run `git-filter-repo`, restore the now-ignored local copies, verify that no Git ref contains the paths, and only then push.
+- Errors/omissions/ambiguities identified: None of the required history-cleaning steps had taken effect; only the final fetch/push commands were run. The GitHub error is therefore expected and unchanged.
+- Substantive math/economic/empirical suggestions made: none
+- Type of use: repository debugging; privacy-preserving Git/GitHub workflow guidance
+- Grouped minor follow-ups: yes; diagnosed the failed attempt to implement the immediately preceding private-dataset exclusion workflow
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-25] Item: Q3(a) / exclude private datasets from GitHub
 
 - Prompt: "i just do not want to put those two data in the public git web version"
