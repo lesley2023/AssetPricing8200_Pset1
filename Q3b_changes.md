@@ -1,7 +1,7 @@
 # Question 3(b) changes
 
 - Added `Q3b.py` to construct annual book equity from Compustat using the requested stockholders' equity, deferred-tax, and preferred-stock hierarchy.
-- Used the calendar year of the actual Compustat fiscal year-end (`datadate`), rather than the `fyear` label, to match fiscal-year data ending in calendar year t-1 to the June t portfolio-formation date.
+- Used the Compustat `fyear` label to match fiscal-year t-1 accounting data to the June t portfolio-formation date; `datadate` is retained to choose the latest record within a duplicated company-fiscal-year label.
 - Separated the company accounting history from the repeated CRSP link rows, then constructed a date-specific June crosswalk using valid `LC`/`LU` links and primary/consolidated `P`/`C` link status. The script raises an error rather than choosing arbitrarily if multiple primary PERMNOs remain for a company-year.
 - Required two earlier Compustat fiscal-year records, positive book equity, and a valid CRSP--Compustat link at the June portfolio-formation date.
 - Constructed December market equity as absolute price times shares outstanding and calculated book-to-market using the compatible Compustat/CRSP units.

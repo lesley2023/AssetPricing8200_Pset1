@@ -41,26 +41,27 @@ december_me = december_me.drop_duplicates(["PERMNO", "portfolio_year"], keep="la
 comp = pd.read_csv(
     COMPUSTAT_FILE,
     usecols=[
-        "GVKEY", "LINKPRIM", "LINKTYPE", "LPERMNO", "LINKDT", "LINKENDDT", "datadate",
+        "GVKEY", "LINKPRIM", "LINKTYPE", "LPERMNO", "LINKDT", "LINKENDDT",
+        "datadate", "fyear",
         "at", "ceq", "lt", "pstk", "pstkl", "pstkrv", "seq", "txditc",
     ],
     low_memory=False,
 )
 for column in [
-    "LPERMNO", "at", "ceq", "lt", "pstk", "pstkl", "pstkrv",
+    "LPERMNO", "fyear", "at", "ceq", "lt", "pstk", "pstkl", "pstkrv",
     "seq", "txditc",
 ]:
     comp[column] = pd.to_numeric(comp[column], errors="coerce")
 for column in ["LINKDT", "LINKENDDT", "datadate"]:
     comp[column] = pd.to_datetime(comp[column], errors="coerce")
 
-comp = comp.dropna(subset=["GVKEY", "datadate"]).copy()
-comp["accounting_year"] = comp["datadate"].dt.year
+comp = comp.dropna(subset=["GVKEY", "datadate", "fyear"]).copy()
+comp["accounting_year"] = comp["fyear"].astype(int)
 comp["portfolio_year"] = comp["accounting_year"] + 1
 comp["june_date"] = pd.to_datetime(comp["portfolio_year"].astype(str) + "-06-30")
 
 # Build accounting history independently of the repeated CRSP link rows. If a
-# company has multiple fiscal year-ends in one calendar year, retain the latest.
+# company has multiple records with one fiscal-year label, retain the latest.
 accounting_columns = [
     "GVKEY", "accounting_year", "portfolio_year", "datadate", "at", "ceq",
     "lt", "pstk", "pstkl", "pstkrv", "seq", "txditc",
