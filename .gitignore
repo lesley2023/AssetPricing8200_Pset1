@@ -11,3 +11,5 @@ tmp/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+Q3_Datasets/CRSP_monthly.csv
+Q3_Datasets/Mom12m.csv
