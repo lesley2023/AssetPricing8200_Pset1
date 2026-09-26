@@ -641,6 +641,33 @@ The estimated intercepts generally fluctuate around zero. The slopes generally r
     \label{fig:q3b_r2}
 \end{figure}
 \FloatBarrier
+
+\paragraph{1\% winsorized robustness check.}
+The full-sample June 2024 regression is dominated by PERMNO 18558, whose exceptionally large book-to-market values give it very high cross-sectional leverage. As a sensitivity analysis, I winsorize both constructed $BM$ and $BM_{CZ}$ separately within each month at their 1st and 99th percentiles before estimating the same monthly regressions. These robustness results do not replace the full-sample estimates above.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/q3b_winsorized_intercepts.png}
+    \caption{Monthly cross-sectional regression intercepts after 1\% winsorization of both BM measures.}
+    \label{fig:q3b_winsorized_intercepts}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/q3b_winsorized_slopes.png}
+    \caption{Monthly cross-sectional regression slopes after 1\% winsorization of both BM measures.}
+    \label{fig:q3b_winsorized_slopes}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/q3b_winsorized_r2.png}
+    \caption{Monthly cross-sectional regression $R^2$ values after 1\% winsorization of both BM measures.}
+    \label{fig:q3b_winsorized_r2}
+\end{figure}
+\FloatBarrier
 \clearpage
 
 \section{Question 4}

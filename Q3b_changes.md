@@ -9,3 +9,4 @@
 - Merged the constructed signal with `BMdec.csv`, used the revised level comparison `BM_CZ = BMdec`, and estimated the monthly cross-sectional regressions.
 - Saved the monthly regression output to `q3b_monthly_regressions.csv` and generated intercept, slope, and R-squared plots in `figures/`.
 - Added only the three requested figures to Question 3(b) in `solution.tex`, without explanatory answer text.
+- Added `Q3b_winsorized.py` as a separate robustness script. It caps both BM measures at their monthly 1st and 99th percentiles, saves a separate regression CSV, and generates three clearly labeled robustness figures motivated by the high leverage of PERMNO 18558.

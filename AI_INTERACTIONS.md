@@ -709,3 +709,17 @@ Each entry follows this template:
 - Type of use: empirical diagnosis; influence analysis; data validation; checking economic reasoning
 - Grouped minor follow-ups: yes; this rechecks the earlier 2024 diagnosis after switching the accounting match to fyear.
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-26] Item: Q3(b) / 1% winsorized robustness figures
+
+- Prompt: "maybe produce another groups of figures by winsorizing at 1%, then state clear in the title and the answer, including the reason for that (PERMNO18558). Also, save the code separately for me"; followed by clarification to winsorize both measures and "yes, please do that and state clearly in the solution.tex thanks."
+- Purpose: Add a clearly labeled sensitivity analysis that limits the influence of extreme observations while preserving the required full-sample Q3(b) results.
+- Commit before: cacc84602e46e8a3412553407ebf079f85939958
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, `Q3b.py`, `Q3b_changes.md`, `solution.tex`, `q3b_monthly_regressions.csv`, the existing Q3(b) figures, the generated winsorized regression CSV and figures, and rendered pages 18--20 of `solution.pdf`.
+- Files modified: `Q3b_winsorized.py`, `Q3b_changes.md`, `solution.tex`, `solution.pdf`, `q3b_winsorized_monthly_regressions.csv`, `figures/q3b_winsorized_intercepts.png`, `figures/q3b_winsorized_slopes.png`, `figures/q3b_winsorized_r2.png`, and `AI_INTERACTIONS.md`.
+- Assistance provided: Created a separate robustness script that reuses the screened fyear-based and date-specific-crosswalk sample from `Q3b.py`, independently caps constructed BM and BM_CZ at their monthly 1st and 99th percentiles, reruns all 739 monthly regressions, exports a separate CSV, and generates three separately titled figures. Added the figures and a concise explanation to `solution.tex` identifying PERMNO 18558 as the high-leverage reason for the exercise and explicitly stating that the sensitivity results do not replace the full-sample estimates. Rebuilt and visually verified the 23-page PDF. The winsorized mean intercept, slope, and R-squared are 0.020786, 0.991225, and 0.962131; the corresponding medians are 0.012935, 0.996833, and 0.967883. In June 2024 the winsorized estimates are 0.003695, 1.012162, and 0.967892, respectively.
+- Errors/omissions/ambiguities identified: Winsorizing both regression variables makes the treatment symmetric and directly limits the leverage created by PERMNO 18558, but it can mechanically improve the apparent fit because both tails are altered. It is therefore labeled as a robustness check rather than the primary specification. The saved Q3b prompt's exp(BMdec) instruction remains inconsistent with the prior data audit and current level-based analysis. An unrelated pre-existing Q3(a) LaTeX warning remains. The PDF skill's Node marker was unavailable, so LaTeX compilation and PyMuPDF rendering were used for verification.
+- Substantive math/economic/empirical suggestions made: Retain and report the original estimates, present two-sided monthly 1% winsorization of both variables only as a sensitivity analysis, and state the outlier motivation and transformation explicitly.
+- Type of use: empirical implementation; robustness analysis; code generation; figure and PDF generation; visual verification
+- Grouped minor follow-ups: yes; this implements the winsorization choice and final TeX insertion confirmed in the immediately preceding exchanges.
+- Commit after: recorded by the subsequent TP audit commit
