@@ -1,0 +1,16 @@
+method,method_label,signal,mean_monthly_return,nw_t_stat,observations,nw_lag
+vw_annual_nyse,"Value-weighted, annual, NYSE breakpoints",BMCZ,0.003295270580994062,1.579112924089166,738,3
+vw_annual_nyse,"Value-weighted, annual, NYSE breakpoints",MOMCZ,0.004671981506292034,1.9786818200053655,738,2
+vw_annual_nyse,"Value-weighted, annual, NYSE breakpoints",GPCZ,0.0030585316326389054,1.931794397038953,738,5
+ew_annual_nyse,"Equal-weighted, annual, NYSE breakpoints",BMCZ,0.010030226048917009,5.750897125438094,738,4
+ew_annual_nyse,"Equal-weighted, annual, NYSE breakpoints",MOMCZ,-0.002164159690189598,-1.063004929380724,738,3
+ew_annual_nyse,"Equal-weighted, annual, NYSE breakpoints",GPCZ,0.004392960737568236,2.856070565631819,738,5
+vw_monthly_nyse,"Value-weighted, monthly, NYSE breakpoints",BMCZ,0.003087162234576691,1.493672495914264,738,3
+vw_monthly_nyse,"Value-weighted, monthly, NYSE breakpoints",MOMCZ,0.01164374721962788,4.307200084623336,738,0
+vw_monthly_nyse,"Value-weighted, monthly, NYSE breakpoints",GPCZ,0.003114020784423678,1.968778637398357,738,4
+vw_annual_general,"Value-weighted, annual, general breakpoints",BMCZ,0.00306494923522793,1.3524431004154585,738,3
+vw_annual_general,"Value-weighted, annual, general breakpoints",MOMCZ,0.005674357455159902,2.0352212824116758,738,2
+vw_annual_general,"Value-weighted, annual, general breakpoints",GPCZ,0.003757525943091116,1.8733853235892985,738,4
+ew_monthly_general,"Equal-weighted, monthly, general breakpoints",BMCZ,0.009495899381045527,5.26622461370049,738,4
+ew_monthly_general,"Equal-weighted, monthly, general breakpoints",MOMCZ,0.0062734842140607875,2.2282291136467083,738,0
+ew_monthly_general,"Equal-weighted, monthly, general breakpoints",GPCZ,0.004975629087806834,2.5448151590817925,738,5
