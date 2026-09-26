@@ -1,19 +1,28 @@
-Continue using the variables and the Cochrane–Piazzesi factor constructed in Questions 3(a) and 3(b). 
-1. Let GPCZ = GP. GP is saved in the data "Q3_Datasets/GP.csv"
-2. For each of the three signals (BMCZ, MOMCZ, and GPCZ), construct decile
-portfolios as described in the lectures (returns come from CRSP). Create five types of decile portfolios
-(for each signal):
-(i) Value-weighted, rebalanced annually (at June), and with NYSE breakpoints
-(ii) Equal-weighted, rebalanced annually (at June), and with NYSE breakpoints
-(iii) Value-weighted, rebalanced monthly, and with NYSE breakpoints
-(iv) Value-weighted, rebalanced annually (at June), and with general breakpoints
-(v) Equal-weighted, rebalanced monthly, and with general breakpoints
+1. In this task, work with the time index \tau = 1,2,...,\Tau, representing months. Load the three Chen and Zimmermann (2022) signal datasets:
+1）Q3_Datasets/Mom12m.csv: define (MOMCZ=Mom12m).
+2）Q3_Datasets/BMdec.csv: define (BMCZ=BMdec).
+3） Q3_Datasets/GP.csv: define (GPCZ=GP).
+Merge the three datasets by stock identifier (permno) and month (yyyymm). Use only these CZ signals for portfolio formation.
 
-3. For each of the five types of decile portfolios, provide a scatterplot with the decile value (1 to 10) in
-the x-axis and the average portfolio excess return in the y-axis. The excess return (xR) in Questions (3c) to (3e) refer to the return of a stock or portfolio in excess of the
-return of a risk-free benchmark.
-4. Keep the three signals in the same scatterplot, so that we have a total of five scatterplots, use the color blue for BMCZ portfolios, red for MOMCZ portfolios, and green for GPCZ portfolios.
-5. Calculate the HML portfolio (decile 10 - decile 1) in each case (you should have a total of 15 HML portfolios) and report in a table the HML average returns as well as their respective t-statistics (using Newey and West (1987, 1994) standard
-errors).
-Newey and West (1987) proposes the use of the weighting function wℓ = 1−ℓ/(L+ 1),
-which is the most commonly used HAC estimator and works well for autocorrelation that arises naturally in the data (Newey and West (1994) recommends using L= const·T1/3, with the optimal constestimator provided in their equation 2.2).
+2. Use "Q3_Datasets/CRSP_monthly.csv" for stock returns and market equity. Focus on the period from June of 1963 to the recent date. Restrict the analysis to common stocks of firms incorporated in the United States (CRSP shrcd = 10 or 11) trading on NYSE, Amex, or Nasdaq (CRSP exchcd =
+1,2 or 3), and exclude utilities (4900 ≤SIC ≤4949) and financials (6000 ≤SIC ≤6999).
+Calculate monthly market equity using (ME=|PRC|\times SHROUT). Merge the eligible CRSP observations with the CZ signals using permno and yyyymm.
+
+3. For each of the three signals (BMCZ, MOMCZ, and GPCZ), construct decile portfolios. Create five types of decile portfolios for each signal:
+   (i) Value-weighted, rebalanced annually (at June), with NYSE breakpoints.
+   (ii) Equal-weighted, rebalanced annually (at June), with NYSE breakpoints.
+   (iii) Value-weighted, rebalanced monthly, with NYSE breakpoints.
+   (iv) Value-weighted, rebalanced annually (at June), with general breakpoints.
+   (v) Equal-weighted, rebalanced monthly, with general breakpoints.
+Please note that:
+1) For NYSE breakpoints, calculate the decile breakpoints using eligible NYSE stocks and assign all eligible stocks to portfolios using these breakpoints. For general breakpoints, calculate the decile breakpoints using all eligible stocks.
+2) For annual rebalancing, form portfolios at the end of June of year t and maintain their decile assignments until the next annual rebalancing. 
+For monthly rebalancing, update portfolio assignments each month. Use only information available at the portfolio-formation date to avoid look-ahead bias.
+3) For value-weighted portfolios, calculate market equity as ME (ME= |PRC|·SHROUT that we calcualted in step 2) and use lagged market equity as portfolio weights. For equal-weighted portfolios, assign equal weights to all eligible stocks within each decile.
+
+4. Calculate monthly portfolio excess returns using CRSP stock returns and the risk-free rate from "Q3_Datasets/fama_french.csv". Extract the monthly observations and the RF column from the Fama-French dataset, convert RF from percentages to decimals by dividing by 100, and merge it with the monthly portfolio returns by year and month. For each decile portfolio, calculate its monthly excess return as xR_{p,t}=R_{p,t}-RF_t,
+where (R_{p,t}) is the portfolio return calculated from CRSP stock returns using the appropriate value or equal weights. Ensure that portfolio assignments, weights, stock returns, and risk-free rates are correctly aligned, with no look-ahead bias.
+5. For each of the five types of decile portfolios, provide a scatterplot with the decile number (1 to 10) on the x-axis and the average monthly portfolio excess return on the y-axis. Keep the three signals in the same scatterplot, so that there are five scatterplots in total. Use blue for BMCZ portfolios, red for MOMCZ portfolios, and green for GPCZ portfolios.
+6. Calculate the HML portfolio (decile 10 minus decile 1) for each signal and each portfolio construction method. There should be 15 HML portfolios in total. For each HML portfolio, calculate its average monthly return and the corresponding t-statistic using Newey–West (1987, 1994) standard errors, which described in details in Step 7.
+7. Calculate the t-statistics using Newey and West (1987, 1994) standard errors, following Footnote 3 of the assignment. Specifically, use the Newey and West (1987) weighting function w_\ell=1-\frac{\ell}{L+1}, where (L) is the number of autocorrelation lags. Select (L) using the data-driven method recommended by Newey and West (1994):L=\mathrm{const}\cdot T^{1/3}, where (T) is the number of monthly observations and the optimal constant is estimated using Equation (2.2) of Newey and West (1994). Use these standard errors to calculate the t-statistic for the average return of each HML portfolio.
+8. Report the average monthly HML returns and their corresponding Newey–West t-statistics in one table containing all 15 portfolios. Provide the five scatterplots and the summary table in `solution.tex`.
