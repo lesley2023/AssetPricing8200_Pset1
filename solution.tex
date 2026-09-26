@@ -618,6 +618,25 @@ The estimated intercepts generally fluctuate around zero. The slopes generally r
 \clearpage
 
 \subsection{Part (b)}
+I construct the book-to-market ratio for each stock using CRSP and Compustat data. For the portfolio formed at the end of June of year $t$, I calculate
+
+\[
+BM_{i,t}=\frac{BE_{i,t-1}}{ME_{i,\mathrm{Dec}(t-1)}},
+\]
+
+where market equity is calculated as $ME=|PRC|\times SHROUT$, and book equity is calculated as $BE=SE+TXDITC-BVPS$, using the specified Compustat variable hierarchy. The resulting BM signal is held constant from June of year $t$ through May of year $t+1$.
+
+I require at least two previous years of Compustat records and positive book equity. I restrict the sample to common stocks listed on NYSE, Amex, or Nasdaq, excluding utilities and financial firms. The sample begins in June 1963.
+
+To compare my constructed BM signal with the Chen–Zimmermann measure, I merge the two datasets by stock and month and estimate the following cross-sectional regression separately for each month:
+
+\[
+BM_{CZ,i,\tau}=a_\tau+b_\tau BM_{i,\tau}+\varepsilon_{i,\tau},
+\]
+
+Figures \ref{fig:q3b_intercepts}–\ref{fig:q3b_r2} report the monthly intercepts, slopes, and $R^2$ values, respectively. The results indicate that the constructed BM signal closely matches the Chen–Zimmermann measure. Across the sample period except for June 2024, the intercepts are generally close to zero, the slopes are generally close to one, and the regressions exhibit high explanatory power. 
+
+As a robustness check, I investigate the sharp decline in the regression statistics observed in June 2024. Further examination identifies a highly influential observation, PERMNO 18558, which has exceptionally large book-to-market values and therefore substantial leverage in the cross-sectional regression. To assess whether the results are driven by this extreme observation, I winsorize both my constructed BM measure and the Chen–Zimmermann BM measure separately at the 1st and 99th percentiles within each month and re-estimate the monthly regressions. After winsorization, from the Figure \ref{fig:q3b_winsorized_intercepts}–\ref{fig:q3b_winsorized_r2}, the results suggest that the two BM measures remain closely aligned after reducing the influence of extreme observations.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/q3b_intercepts.png}
