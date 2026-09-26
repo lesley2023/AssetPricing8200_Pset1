@@ -690,7 +690,15 @@ The full-sample June 2024 regression is dominated by PERMNO 18558, whose excepti
 \clearpage
 
 \subsection{Part (c)}
+Figures \ref{fig:q3c_vw_annual_nyse}–\ref{fig:q3c_ew_monthly_general} present the average monthly excess returns of decile portfolios formed using the three Chen–Zimmermann signals: book-to-market (BM), momentum (MOM), and gross profitability (GP). The five portfolio-construction methods differ in their weighting schemes, rebalancing frequencies, and breakpoint definitions. Table \ref{tab:q3c_hml} reports the corresponding high-minus-low (HML) average monthly returns and Newey–West t-statistics.
 
+Several patterns emerge from the figures. First, BM generally exhibits a positive relationship between signal rankings and average excess returns. This pattern is particularly pronounced in the equal-weighted portfolios (Figures \ref{fig:q3c_ew_annual_nyse} and \ref{fig:q3c_ew_monthly_general}), whereas the differences between low- and high-BM deciles are smaller in the value-weighted portfolios (Figures \ref{fig:q3c_vw_annual_nyse}, \ref{fig:q3c_vw_monthly_nyse}, and \ref{fig:q3c_vw_annual_general}).
+
+Second, momentum exhibits greater sensitivity to portfolio-construction methods. The return spread between high- and low-momentum deciles is particularly pronounced under monthly value-weighted rebalancing with NYSE breakpoints (Figure \ref{fig:q3c_vw_monthly_nyse}). In contrast, the relationship is weaker under annual rebalancing. In the equal-weighted, annually rebalanced portfolios with NYSE breakpoints (Figure \ref{fig:q3c_ew_annual_nyse}), the highest-momentum decile has a slightly lower average excess return than the lowest-momentum decile.
+
+Third, GP generally exhibits higher average excess returns in the high-signal deciles than in the low-signal deciles across all five portfolio-construction methods. However, the differences are relatively modest in the value-weighted portfolios and more pronounced in the equal-weighted portfolios.
+
+Comparing the five figures, portfolio weighting and rebalancing frequency appear to have substantial effects on the observed return patterns. These patterns are also reflected in Table \ref{tab:q3c_hml}. BM and GP have positive HML returns across all five methods, whereas the magnitude and sign of the momentum HML return vary with portfolio construction. 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.82\textwidth]{figures/q3c_vw_annual_nyse.png}
