@@ -7,6 +7,7 @@ import pandas as pd
 
 
 DATA_DIR = Path("Q3_Datasets")
+OUTPUT_DIR = Path("output")
 START_MONTH = pd.Period("1963-06", freq="M")
 SIGNALS = ["BM", "GP", "Dur"]
 QUANTILES = {signal: f"Q_{signal}" for signal in SIGNALS}
@@ -99,6 +100,71 @@ def summarize_coefficients(values: pd.Series) -> dict:
     }
 
 
+def tex_number(value: float, decimals: int) -> str:
+    formatted = f"{value:.{decimals}f}"
+    return f"${formatted}$" if value < 0 else formatted
+
+
+def write_latex_table(summary: pd.DataFrame, statistic: str, destination: Path) -> None:
+    """Write one complete OLS/WLS Fama--MacBeth table fragment."""
+    is_nw = statistic == "nw_t"
+    caption_suffix = "Newey--West inference" if is_nw else "conventional inference"
+    label_suffix = "nw" if is_nw else "conventional"
+    lookup = summary.set_index(["method", "specification", "coefficient"])
+
+    def cell(method: str, specification: int, coefficient: str) -> str:
+        predictors = ["intercept", *SPECIFICATIONS[specification]]
+        if coefficient not in predictors:
+            return ""
+        row = lookup.loc[(method, specification, coefficient)]
+        estimate = tex_number(100.0 * row["estimate"], 4)
+        t_stat = tex_number(row[statistic], 2)
+        return rf"\fmcell{{{estimate}}}{{{t_stat}}}"
+
+    lines = [
+        r"\begin{table}[!htbp]",
+        r"    \centering",
+        rf"    \caption{{Fama--MacBeth regressions of next-month stock excess returns: {caption_suffix}}}",
+        rf"    \label{{tab:q3d_fama_macbeth_{label_suffix}}}",
+        r"    \newcommand{\fmcell}[2]{\shortstack{#1\\(#2)}}",
+        r"    \resizebox{\textwidth}{!}{%",
+        r"    \begin{tabular}{lccccccc}",
+        r"        \toprule",
+        r"        & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\",
+        r"        \midrule",
+    ]
+    labels = {"intercept": "Intercept", "BM": r"$Q^{BM}$", "GP": r"$Q^{GP}$", "Dur": r"$Q^{Dur}$"}
+    for panel, method in [("Panel A: OLS", "OLS"), ("Panel B: WLS", "WLS")]:
+        if method == "WLS":
+            lines.append(r"        \midrule")
+        lines.append(rf"        \multicolumn{{8}}{{l}}{{\textit{{{panel}}}}} \\")
+        for coefficient in ["intercept", "BM", "GP", "Dur"]:
+            cells = [cell(method, specification, coefficient) for specification in SPECIFICATIONS]
+            lines.append(f"        {labels[coefficient]} & " + " & ".join(cells) + r" \\")
+        months = [int(lookup.loc[(method, specification, "intercept"), "months"]) for specification in SPECIFICATIONS]
+        lines.append("        Months & " + " & ".join(map(str, months)) + r" \\")
+    method_note = (
+        r"Newey--West (1987, 1994) $t$-statistics with automatically selected lags are in parentheses."
+        if is_nw
+        else r"Conventional Fama--MacBeth $t$-statistics are in parentheses."
+    )
+    lines.extend([
+        r"        \bottomrule",
+        r"    \end{tabular}%",
+        r"    }",
+        r"",
+        r"    \vspace{0.5em}",
+        r"    \begin{minipage}{0.98\textwidth}",
+        r"    \footnotesize",
+        r"    \textit{Notes:} Coefficients are monthly percentage points. $Q^{BM}$, $Q^{GP}$, and $Q^{Dur}$ are monthly cross-sectional deciles from 1 to 10. WLS uses month-$\tau$ market equity as the weight. " + method_note,
+        r"    \end{minipage}",
+        r"\end{table}",
+        r"\FloatBarrier",
+        "",
+    ])
+    destination.write_text("\n".join(lines), encoding="utf-8")
+
+
 # Monthly CZ signals.
 cz = load_cz("BMdec.csv", "BMdec", "BM").merge(
     load_cz("GP.csv", "GP", "GP"), on=["PERMNO", "yyyymm"], how="inner", validate="one_to_one"
@@ -170,6 +236,9 @@ for coefficient in ["intercept", *SIGNALS]:
     if coefficient not in monthly:
         monthly[coefficient] = np.nan
 monthly = monthly[["month", "method", "specification", "nobs", "intercept", *SIGNALS]]
+OUTPUT_DIR.mkdir(exist_ok=True)
+monthly.to_csv(OUTPUT_DIR / "q3d_monthly_coefficients.csv", index=False)
+# Retain the original root-level export for backward compatibility.
 monthly.to_csv("q3d_monthly_coefficients.csv", index=False)
 
 # Fama--MacBeth estimates and both requested inference methods.
@@ -187,7 +256,11 @@ for method in ["OLS", "WLS"]:
                 "mean_cross_section_n": subset["nobs"].mean(),
             })
 summary = pd.DataFrame(summary_rows)
+summary.to_csv(OUTPUT_DIR / "q3d_fama_macbeth_summary.csv", index=False)
+# Retain the original root-level export for backward compatibility.
 summary.to_csv("q3d_fama_macbeth_summary.csv", index=False)
+write_latex_table(summary, "conventional_t", OUTPUT_DIR / "Q3d_FM_Conventional.tex")
+write_latex_table(summary, "nw_t", OUTPUT_DIR / "Q3d_FM_NeweyWest.tex")
 
 print(f"Eligible signal-return observations: {panel['next_excess_return'].notna().sum():,}")
 print(f"Regression months: {monthly['month'].nunique()}")

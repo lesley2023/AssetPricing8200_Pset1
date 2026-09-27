@@ -793,3 +793,17 @@ Each entry follows this template:
 - Type of use: empirical diagnostic; statistical inference guidance; checking econometric reasoning
 - Grouped minor follow-ups: yes; this extends the immediately preceding original-assignment audit by evaluating autocorrelation in the actual Q3(d) coefficient series.
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q3(d) / separate conventional and Newey--West outputs
+
+- Prompt: "@TP I updated Q3d_prompt.txt can you update the code and the answer in the solution.tex accordingly?"
+- Purpose: Revise the Q3(d) implementation and answer to follow the updated output requirements: conventional Fama--MacBeth inference in the submitted solution and a separate Newey--West table and CSV outputs in an output directory.
+- Commit before: c3ba539a226d3ddfef67432e38f2179b5705d9de
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, the Git diff and current contents of `Q3d_prompt.txt`, `Q3d.py`, `Q3d_changes.md`, `solution.tex`, the regenerated Q3(d) CSV and LaTeX outputs, the LaTeX log, and rendered page 25 of `solution.pdf`.
+- Files modified: `Q3d.py`, `Q3d_changes.md`, `solution.tex`, `solution.pdf`, `output/Q3d_FM_Conventional.tex`, `output/Q3d_FM_NeweyWest.tex`, `output/q3d_monthly_coefficients.csv`, `output/q3d_fama_macbeth_summary.csv`, and `AI_INTERACTIONS.md`. The existing root-level Q3(d) CSV exports were regenerated unchanged for backward compatibility.
+- Assistance provided: Compared the revised prompt with its prior version and identified that only the reporting and output-location requirements changed. Extended `Q3d.py` to create `output/`, save the 8,652 monthly regression rows and 38-row combined inference summary there, and generate two reproducible LaTeX table fragments with identical seven-specification OLS/WLS layouts. The conventional table reports conventional Fama--MacBeth t-statistics in parentheses, while the separate Newey--West table reports automatically lag-selected Newey--West t-statistics in parentheses. Replaced the prior combined-statistic table in `solution.tex` with an input of only the conventional table. Reran the complete analysis, confirmed 1,418,081 usable signal-return observations and 618 monthly regressions per specification, compiled the 29-page PDF twice, and visually verified that the revised Q3(d) table is legible and fits on page 25.
+- Errors/omissions/ambiguities identified: The revised prompt calls for CSV files in `output/` but does not explicitly require removal of the earlier root-level exports; they were retained and regenerated for backward compatibility. The pre-existing unrelated Q3(a) `\\textendash` warning remains. The PDF artifact marker and Poppler were unavailable, so the document was compiled with pdfLaTeX and rendered for visual QA with macOS PDFKit.
+- Substantive math/economic/empirical suggestions made: Used conventional Fama--MacBeth inference in the main assignment table and retained the Newey--West results as a separately generated robustness table, exactly matching the revised division between required and supplemental inference.
+- Type of use: empirical implementation; code generation; statistical inference; output organization; LaTeX formatting; PDF generation and visual verification
+- Grouped minor follow-ups: yes; this implements the reporting choice developed in the immediately preceding Q3(d) standard-error discussions.
+- Commit after: recorded by the subsequent TP audit commit
