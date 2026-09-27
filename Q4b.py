@@ -43,19 +43,33 @@ for H in range(2, 6):
 xy = y.subtract(y[1], axis=0)
 xr = r.subtract(r[1], axis=0)
 
-rows = []
+# First construct every maturity's complete regression rows.
+regressions = {}
 for H in range(2, 6):
-    # At t+12h, the held bond's maturity is H-h+1. The final H=1
-    # excess return is identically zero, so only H-1 nonzero terms enter.
+    # At t+12h, the held bond's maturity is H-h+1. Require all H dated
+    # terms in the prompt, including availability of the terminal H=1 term.
     hold_to_maturity = pd.Series(0.0, index=y.index)
-    for h in range(1, H):
+    for h in range(1, H + 1):
         declining_maturity = H - h + 1
         hold_to_maturity += xr[declining_maturity].shift(-12 * h)
 
-    regression = pd.DataFrame(
+    regressions[H] = pd.DataFrame(
         {"dependent": hold_to_maturity / H, "predictor": xy[H]}
     ).dropna()
 
+# Use the intersection of valid starting months for all four maturities.
+common_index = regressions[2].index
+for H in range(3, 6):
+    common_index = common_index.intersection(regressions[H].index)
+
+print(
+    f"Common sample: {common_index.min():%Y-%m} to "
+    f"{common_index.max():%Y-%m} ({len(common_index)} observations)"
+)
+
+rows = []
+for H in range(2, 6):
+    regression = regressions[H].loc[common_index]
     X = sm.add_constant(regression["predictor"])
     model = sm.OLS(regression["dependent"], X).fit()
 
