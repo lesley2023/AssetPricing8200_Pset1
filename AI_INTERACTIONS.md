@@ -807,3 +807,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; code generation; statistical inference; output organization; LaTeX formatting; PDF generation and visual verification
 - Grouped minor follow-ups: yes; this implements the reporting choice developed in the immediately preceding Q3(d) standard-error discussions.
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q3(d) / inference-specific significance stars
+
+- Prompt: "@TP I updated Q3d_prompt.txt can you update the code and the answer in the solution.tex accordingly?"
+- Purpose: Apply the latest Q3(d) reporting revision by adding inference-specific statistical significance stars to both generated LaTeX tables and updating the table notes.
+- Commit before: 8e634e6c9a87c9251464d92ba34077aff39fc416
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, the Git diff and current contents of `Q3d_prompt.txt`, `Q3d.py`, `Q3d_changes.md`, `solution.tex`, both regenerated Q3(d) table fragments, the regenerated CSV outputs, the LaTeX log, and rendered page 25 of `solution.pdf`.
+- Files modified: `Q3d.py`, `Q3d_changes.md`, `output/Q3d_FM_Conventional.tex`, `output/Q3d_FM_NeweyWest.tex`, `solution.pdf`, and `AI_INTERACTIONS.md`. The output and root-level Q3(d) CSV files were regenerated with unchanged numerical contents.
+- Assistance provided: Added a centralized two-sided significance-star function using asymptotic-normal critical values of 2.575829, 1.959964, and 1.644854 for the 1%, 5%, and 10% levels. Updated the LaTeX-table generator so stars appear as superscripts immediately after each coefficient estimate. Conventional-table stars are calculated from conventional Fama--MacBeth t-statistics, while Newey--West-table stars are calculated independently from Newey--West t-statistics. Updated each table note to identify its t-statistic method and define the three significance levels. Reran all Q3(d) regressions and outputs, rebuilt the 29-page solution PDF twice, and visually verified that the starred conventional table and revised note fit cleanly on page 25.
+- Errors/omissions/ambiguities identified: The prompt specifies two-sided significance levels but not whether to use finite-sample Student-t or asymptotic-normal critical values. Because Fama--MacBeth inference here uses 618 monthly estimates and the reported statistics are asymptotic, standard-normal cutoffs were used. The pre-existing unrelated Q3(a) `\\textendash` warning remains. The PDF artifact marker and Poppler were unavailable, so pdfLaTeX and macOS PDFKit were used for compilation and visual QA.
+- Substantive math/economic/empirical suggestions made: Calculated significance separately for each inference method rather than copying stars across tables, ensuring that differences between conventional and autocorrelation-robust inference are reflected correctly.
+- Type of use: empirical implementation; statistical inference; code generation; LaTeX formatting; PDF generation and visual verification
+- Grouped minor follow-ups: yes; this is a narrowly scoped reporting extension of the immediately preceding Q3(d) table revision.
+- Commit after: recorded by the subsequent TP audit commit

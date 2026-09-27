@@ -6,3 +6,4 @@
 - Calculated Fama--MacBeth coefficient averages, conventional standard errors and t-statistics, and Newey--West standard errors and t-statistics with automatically selected lag lengths.
 - Saved the monthly coefficients and final summary as CSV files in `output/`.
 - Generated separate conventional and Newey--West LaTeX table fragments in `output/`; `solution.tex` includes only the conventional Fama--MacBeth table requested for the main answer.
+- Added superscript significance stars using two-sided 1%, 5%, and 10% critical values, calculated separately from conventional and Newey--West t-statistics in their respective tables.

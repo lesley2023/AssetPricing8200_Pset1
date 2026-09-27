@@ -100,9 +100,30 @@ def summarize_coefficients(values: pd.Series) -> dict:
     }
 
 
+def significance_stars(t_stat: float) -> str:
+    """Two-sided asymptotic-normal significance markers."""
+    absolute_t = abs(t_stat)
+    if absolute_t >= 2.575829:
+        return "***"
+    if absolute_t >= 1.959964:
+        return "**"
+    if absolute_t >= 1.644854:
+        return "*"
+    return ""
+
+
 def tex_number(value: float, decimals: int) -> str:
     formatted = f"{value:.{decimals}f}"
     return f"${formatted}$" if value < 0 else formatted
+
+
+def tex_estimate(value: float, t_stat: float) -> str:
+    formatted = f"{100.0 * value:.4f}"
+    stars = significance_stars(t_stat)
+    if value < 0 or stars:
+        superscript = rf"^{{{stars}}}" if stars else ""
+        return f"${formatted}{superscript}$"
+    return formatted
 
 
 def write_latex_table(summary: pd.DataFrame, statistic: str, destination: Path) -> None:
@@ -117,7 +138,7 @@ def write_latex_table(summary: pd.DataFrame, statistic: str, destination: Path) 
         if coefficient not in predictors:
             return ""
         row = lookup.loc[(method, specification, coefficient)]
-        estimate = tex_number(100.0 * row["estimate"], 4)
+        estimate = tex_estimate(row["estimate"], row[statistic])
         t_stat = tex_number(row[statistic], 2)
         return rf"\fmcell{{{estimate}}}{{{t_stat}}}"
 
@@ -144,9 +165,12 @@ def write_latex_table(summary: pd.DataFrame, statistic: str, destination: Path) 
         months = [int(lookup.loc[(method, specification, "intercept"), "months"]) for specification in SPECIFICATIONS]
         lines.append("        Months & " + " & ".join(map(str, months)) + r" \\")
     method_note = (
-        r"Newey--West (1987, 1994) $t$-statistics with automatically selected lags are in parentheses."
+        r"Newey--West (1987, 1994) $t$-statistics with automatically selected lags are reported in parentheses."
         if is_nw
-        else r"Conventional Fama--MacBeth $t$-statistics are in parentheses."
+        else r"Conventional Fama--MacBeth $t$-statistics are reported in parentheses."
+    )
+    significance_note = (
+        r"$^{***}$, $^{**}$, and $^{*}$ denote statistical significance at the 1\%, 5\%, and 10\% levels, respectively."
     )
     lines.extend([
         r"        \bottomrule",
@@ -156,7 +180,7 @@ def write_latex_table(summary: pd.DataFrame, statistic: str, destination: Path) 
         r"    \vspace{0.5em}",
         r"    \begin{minipage}{0.98\textwidth}",
         r"    \footnotesize",
-        r"    \textit{Notes:} Coefficients are monthly percentage points. $Q^{BM}$, $Q^{GP}$, and $Q^{Dur}$ are monthly cross-sectional deciles from 1 to 10. WLS uses month-$\tau$ market equity as the weight. " + method_note,
+        r"    \textit{Notes:} Coefficients are monthly percentage points. $Q^{BM}$, $Q^{GP}$, and $Q^{Dur}$ are monthly cross-sectional deciles from 1 to 10. WLS uses month-$\tau$ market equity as the weight. " + method_note + " " + significance_note,
         r"    \end{minipage}",
         r"\end{table}",
         r"\FloatBarrier",
