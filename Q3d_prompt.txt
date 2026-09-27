@@ -1,0 +1,33 @@
+1. In this task, work with the time index \tau = 1,2,...,\Tau, representing months. 
+Load the three Chen and Zimmermann (2022) signal datasets:
+   1）Q3_Datasets/BMdec.csv: define (BMCZ=BMdec).
+   2） Q3_Datasets/GP.csv: define (GPCZ=GP).
+Also load the Gonçalves (2021b) equity duration dataset "Q3_Datasets/Dur Dataset.csv". The column PERMNO is the stock identifier, FF.YEAR is the year identifier, and Dur contains the respective equity duration.
+Merge the CZ Dataset with the Dur Dataset using the corresponding stock and year identifiers. The timing of Dur matches the timing of the BM variable: it is calculated at the end of June of year (t), using market equity from December of year (t-1) and accounting information from the fiscal year ending in calendar year (t-1).
+2. Use "Q3_Datasets/CRSP_monthly.csv" for stock returns and market equity. Focus on the period from June of 1963 to the recent date. Restrict the analysis to common stocks of firms incorporated in the United States (CRSP shrcd = 10 or 11) trading on NYSE, Amex, or Nasdaq (CRSP exchcd = 1,2 or 3), and exclude utilities (4900 ≤SIC ≤4949) and financials (6000 ≤SIC ≤6999).
+Calculate monthly market equity using (ME=|PRC|\times SHROUT). Merge the eligible CRSP observations with the CZ signals using permno and yyyymm.
+3. For each month \tau, construct the cross-firm deciles of the three signals: BM^{CZ}, GP^{CZ}, and Dur. Assign stocks to deciles from 1 to 10 according to the cross-firm distribution of each signal at month \tau. 
+Define the resulting quantile variables as Q^{BM}_{j,\tau}, Q^{GP}_{j,\tau}, and Q^{Dur}_{j,\tau}, respectively.
+4. Calculate next-month stock excess returns using CRSP stock returns and the risk-free rate from "Q3_Datasets/fama_french.csv". Extract the monthly observations and the RF column from the Fama–French dataset, convert RF from percentages to decimals by dividing by 100, and merge it with CRSP stock returns by year and month.
+   For each stock, calculate its next-month excess return as xR_{j,\tau+1}=R_{j,\tau+1}-RF_{\tau+1}.
+   Align the month-\tau signal quantiles and market equity with the stock's excess return in month \tau+1. Ensure that portfolio assignments, weights, stock returns, and risk-free rates are correctly aligned, with no look-ahead bias.
+5. Estimate the following seven Fama–MacBeth regression specifications. For each month \tau, run a cross-sectional regression of next-month stock excess returns on the corresponding month-\tau signal quantiles:
+   (i) xR_{j,\tau+1}=a+b_{BM}Q^{BM}_{j,\tau}+\epsilon_{j,\tau+1}
+   (ii) xR_{j,\tau+1}=a+b_{GP}Q^{GP}_{j,\tau}+\epsilon_{j,\tau+1}
+   (iii) xR_{j,\tau+1}=a+b_{Dur}Q^{Dur}_{j,\tau}+\epsilon_{j,\tau+1}
+   (iv) xR_{j,\tau+1}=a+b_{BM}Q^{BM}_{j,\tau}+b_{GP}Q^{GP}_{j,\tau}+\epsilon_{j,\tau+1}
+   (v) xR_{j,\tau+1}=a+b_{Dur}Q^{Dur}_{j,\tau}+b_{BM}Q^{BM}_{j,\tau}+\epsilon_{j,\tau+1}
+   (vi) xR_{j,\tau+1}=a+b_{Dur}Q^{Dur}_{j,\tau}+b_{GP}Q^{GP}_{j,\tau}+\epsilon_{j,\tau+1}
+   (vii) xR_{j,\tau+1}=a+b_{Dur}Q^{Dur}_{j,\tau}+b_{BM}Q^{BM}_{j,\tau}+b_{GP}Q^{GP}_{j,\tau}+\epsilon_{j,\tau+1}
+6. For each of the seven specifications, estimate the monthly cross-sectional regressions using both OLS and WLS. For OLS, assign equal weight to each eligible stock. For WLS, use month-\tau market equity ME_{j,\tau} as the regression weight.
+   This should produce 14 sets of Fama–MacBeth regression results in total. 
+7. For each of the seven specifications and both estimation methods (OLS and WLS), calculate the Fama–MacBeth coefficient estimates by taking the time-series average of the monthly cross-sectional coefficient estimates. 
+   For each coefficient, including the intercept:
+   (a) Calculate the conventional Fama–MacBeth standard error using the sample standard deviation of the monthly coefficient estimates divided by the square root of the number of months.
+   (b) Calculate the Newey–West (1987, 1994) standard error by applying the procedure described in Footnote 3 of the assignment to the time series of monthly coefficient estimates. Use the Newey–West (1987) weighting function w_\ell=1-\frac{\ell}{L+1},
+   where L is the number of autocorrelation lags. Select L using the data-driven method recommended by Newey and West (1994), with the optimal constant estimated using Equation (2.2) of that paper.
+   (c) Calculate the t-statistics for each average Fama–MacBeth coefficient using both standard-error methods. Save the coefficient estimates, both standard errors, both t-statistics, and the selected Newey–West lag lengths.
+8. Report the Fama–MacBeth coefficient estimates and their corresponding t-statistics in one LaTeX table containing all seven specifications for both OLS and WLS. Organize the table into separate OLS and WLS panels, with the seven specifications as columns. 
+   Report the intercept and coefficients on BM, GP, and duration, with t-statistics in parentheses below each estimate. Leave cells blank when a signal is not included in a specification. 
+   Include the number of monthly regressions used and a note explaining the quantile definitions, WLS weights, and standard-error method.
+   Save the monthly coefficient estimates and the final regression summary as CSV files. Insert the results table under Question 3(d) in solution.tex, preserving the existing results and formatting for the previous questions.
