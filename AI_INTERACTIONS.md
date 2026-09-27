@@ -751,3 +751,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; Fama--MacBeth regression analysis; statistical inference; code generation; formatting; table and PDF generation; visual verification
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q3(d) / conventional versus Newey--West inference guidance
+
+- Prompt: "@TP for the question 3d, should i use the conventional Fama–MacBeth t-statistics or the Newey–West t-statistics? Can you provide me with some suggestions and help me to understand why?"
+- Purpose: Clarify which t-statistic should be reported and emphasized for Question 3(d), explain the assumptions behind the two alternatives, and relate the choice to the user's computed results.
+- Commit before: f9e1ba297c4aa48835b8cef9bf89c3238280848c
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q3d_prompt.txt`, `Q3d.py`, and `q3d_fama_macbeth_summary.csv`.
+- Files modified: `AI_INTERACTIONS.md` only.
+- Assistance provided: Confirmed that the Q3(d) prompt explicitly requires both conventional Fama--MacBeth and Newey--West t-statistics, so neither should be omitted. Explained that the conventional standard error treats the monthly coefficient estimates as serially uncorrelated, whereas Newey--West HAC inference allows serial correlation and heteroskedasticity in that coefficient time series. Recommended retaining both in the table while treating Newey--West as the primary statistic for substantive significance claims because the signal ranks and estimated risk premia can be persistent. Used the computed results to identify conclusions that change at the approximate 5% two-sided threshold: the OLS specification-(1) intercept changes from 2.04 conventionally to 1.97 with Newey--West; WLS specification-(4) BM changes from 2.09 to 1.83; and WLS specification-(6) GP changes from 2.02 to 1.66.
+- Errors/omissions/ambiguities identified: The prompt's phrase "corresponding t-statistics" in the table could be read as requesting one statistic, but Step 7 explicitly requires both, making the intended reporting rule clear. Next-month returns are not overlapping, so serial correlation is not mechanically caused by overlapping return horizons; it can nevertheless arise from persistent signals, repeated annual duration assignments, evolving portfolio composition, and persistent time-varying risk premia. Statistical significance should not be inferred solely by mechanically applying a 1.96 cutoff without stating which standard error is used.
+- Substantive math/economic/empirical suggestions made: Report both statistics, label them clearly, use Newey--West t-statistics for the main inference, use conventional t-statistics as a benchmark, and describe borderline findings conservatively when the two methods disagree.
+- Type of use: statistical inference guidance; checking empirical reasoning; interpretation
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
