@@ -901,15 +901,6 @@ For each maturity $H=2,3,4,5$, I calculate the excess log yield, excess log forw
 
 \clearpage
 \subsection{Part (c)}
-I estimate Equation (4.2) separately for $H=2,3,4,5$ using monthly observations. I match the forward spread observed in month $t$ with the excess annual bond return ending 12 months later. 
-The regressions include an intercept, and the reported $t$-stats use Newey and West (1987, 1994) standard errors with an automatically selected lag length.
-
-In Table~\ref{tab:q4c_forward_regressions}, the estimated coefficients are positive and statistically significant at the 5\% level for all four maturities. Thus, higher forward spreads are associated with higher excess bond returns over the following year. 
-The predictive relationship is strongest for the four-year bond, which has the largest coefficient and the highest $R^2$, although the coefficient falls somewhat at the five-year maturity.
-
-Compared with the yield-spread regressions in Part (b), the forward-spread regressions have higher $R^2$ values for the three-, four-, and five-year bonds. 
-This suggests that forward spreads contain more predictive information about one-year-ahead excess returns at these maturities. For $H=2$, the coefficient and $R^2$ are the same as in Part (b), consistent with the relationship $xf_{b,t}^{(2)}=2xy_{b,t}^{(2)}$.
-
 \begin{table}[htbp]
     \centering
     \caption{One-year excess bond return regressions on forward spreads}
@@ -921,6 +912,7 @@ This suggests that forward spreads contain more predictive information about one
         \multicolumn{5}{l}{\textit{Forwards}} \\
         $\widehat{b}^{(H)}$ [NW $t$-stat] & 0.6774 [3.2062] & 0.8887 [3.3257] & 1.1163 [3.5907] & 0.9641 [2.9108] \\
         $R^2$ & 7.6916\% & 8.6265\% & 10.7201\% & 6.6659\% \\
+        $N$ & 859 & 859 & 859 & 859 \\
         \bottomrule
     \end{tabular}
 \end{table}

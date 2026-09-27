@@ -67,13 +67,26 @@ for H in range(2, 6):
 xf = f.subtract(f[1], axis=0)
 xr = r.subtract(r[1], axis=0)
 
-rows = []
+# Build each maturity's complete rows, then enforce one common date window.
+regressions = {}
 for H in range(2, 6):
     # shift(-12) pairs the forward spread at t with the return ending at t+12.
-    regression = pd.DataFrame(
+    regressions[H] = pd.DataFrame(
         {"dependent": xr[H].shift(-12), "predictor": xf[H]}
     ).dropna()
 
+common_index = regressions[2].index
+for H in range(3, 6):
+    common_index = common_index.intersection(regressions[H].index)
+
+print(
+    f"Common sample: {common_index.min():%Y-%m} to "
+    f"{common_index.max():%Y-%m} ({len(common_index)} observations)"
+)
+
+rows = []
+for H in range(2, 6):
+    regression = regressions[H].loc[common_index]
     X = sm.add_constant(regression["predictor"])
     model = sm.OLS(regression["dependent"], X).fit()
 
