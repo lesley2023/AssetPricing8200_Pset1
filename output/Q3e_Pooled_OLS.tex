@@ -1,0 +1,34 @@
+\begin{table}[!htbp]
+    \centering
+    \caption{Portfolio-panel regressions with Driscoll--Kraay inference}
+    \label{tab:q3e_pooled_ols}
+    \newcommand{\dkcell}[2]{\shortstack{#1\\(#2)}}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccccccc}
+        \toprule
+        & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel A: Value-weighted portfolios}} \\
+        Intercept & \dkcell{$0.4522^{*}$}{1.93} & \dkcell{$0.6337^{**}$}{2.46} & \dkcell{$1.2186^{***}$}{6.24} & \dkcell{0.1510}{0.55} & \dkcell{$1.1673^{***}$}{3.38} & \dkcell{$1.3584^{***}$}{3.91} & \dkcell{$1.7566^{**}$}{2.20} \\
+        $Dec^{BM}$ & \dkcell{$0.0572^{**}$}{2.05} &  &  & \dkcell{$0.0689^{***}$}{2.65} & \dkcell{0.0058}{0.15} &  & \dkcell{$-0.0279$}{$-0.50$} \\
+        $Dec^{GP}$ &  & \dkcell{0.0237}{0.92} &  & \dkcell{$0.0437^{*}$}{1.91} &  & \dkcell{$-0.0182$}{$-0.58$} & \dkcell{$-0.0380$}{$-0.86$} \\
+        $Dec^{Dur}$ &  &  & \dkcell{$-0.0813^{***}$}{$-3.91$} &  & \dkcell{$-0.0778^{**}$}{$-2.57$} & \dkcell{$-0.0886^{***}$}{$-3.37$} & \dkcell{$-0.1134^{**}$}{$-1.97$} \\
+        Observations & 18540 & 18540 & 18540 & 18540 & 18540 & 18540 & 18540 \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel B: Equal-weighted portfolios}} \\
+        Intercept & \dkcell{$0.5019^{*}$}{1.80} & \dkcell{$0.8095^{**}$}{2.52} & \dkcell{$1.6414^{***}$}{6.36} & \dkcell{$-0.0039$}{$-0.01$} & \dkcell{$1.2909^{***}$}{4.23} & \dkcell{$1.7578^{***}$}{4.80} & \dkcell{0.7423}{1.08} \\
+        $Dec^{BM}$ & \dkcell{$0.0965^{***}$}{3.61} &  &  & \dkcell{$0.1162^{***}$}{4.40} & \dkcell{0.0398}{1.13} &  & \dkcell{0.0712}{1.30} \\
+        $Dec^{GP}$ &  & \dkcell{$0.0397^{*}$}{1.82} &  & \dkcell{$0.0734^{***}$}{3.59} &  & \dkcell{$-0.0152$}{$-0.60$} & \dkcell{0.0354}{0.92} \\
+        $Dec^{Dur}$ &  &  & \dkcell{$-0.1099^{***}$}{$-5.31$} &  & \dkcell{$-0.0859^{***}$}{$-3.08$} & \dkcell{$-0.1160^{***}$}{$-4.76$} & \dkcell{$-0.0527$}{$-1.03$} \\
+        Observations & 18540 & 18540 & 18540 & 18540 & 18540 & 18540 & 18540 \\
+        \bottomrule
+    \end{tabular}%
+    }
+
+    \vspace{0.5em}
+    \begin{minipage}{0.98\textwidth}
+    \footnotesize
+    \textit{Notes:} Coefficients are monthly percentage points. The panel contains 30 annually rebalanced portfolios formed at June using NYSE breakpoints: ten each for BM, GP, and duration. $Dec^{BM}$, $Dec^{GP}$, and $Dec^{Dur}$ are within-portfolio arithmetic averages of constituent firms' monthly cross-sectional decile ranks. Pooled OLS is estimated separately for value-weighted and equal-weighted portfolio returns. Driscoll--Kraay $t$-statistics using a Bartlett kernel and automatic bandwidth are reported in parentheses. $^{***}$, $^{**}$, and $^{*}$ denote two-sided significance at the 1\%, 5\%, and 10\% levels, respectively.
+    \end{minipage}
+\end{table}
+\FloatBarrier
