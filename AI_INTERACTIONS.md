@@ -765,3 +765,17 @@ Each entry follows this template:
 - Type of use: statistical inference guidance; checking empirical reasoning; interpretation
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q3(d) / original-assignment standard-error requirement audit
+
+- Prompt: "@TP no, i asked to report both for the prompt that i wrote, but I am not sure according to the requirement in the question Problem Set 1.pdf which standard error should I use for Q3d"
+- Purpose: Inspect the controlling assignment PDF rather than the user-authored implementation prompt and determine which t-statistic the original Question 3(d) requires.
+- Commit before: 019307f98b2c5f0c4e434a099e695c08ed27b951
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, `Problem Set 1.pdf` (especially PDF pages 6 and 9--10), `Q3d_prompt.txt`, `Q3d.py`, and `q3d_fama_macbeth_summary.csv`.
+- Files modified: `AI_INTERACTIONS.md` only.
+- Assistance provided: Corrected the prior answer after checking the original assignment. Question 3(d) asks for Fama--MacBeth regressions and the t-statistic of each coefficient but does not prescribe Newey--West or refer to Footnote 3. The assignment explicitly identifies special inference methods elsewhere: Newey--West for Questions 3(c), 4(c), and 4(e), Hansen--Hodrick for 4(b), and Driscoll--Kraay for 3(e). This contrast supports interpreting the unqualified Q3(d) request as the conventional Fama--MacBeth t-statistic based on the time-series standard deviation of monthly coefficient estimates divided by the square root of the number of months. Explained that the user's custom `Q3d_prompt.txt` added the requirement to calculate both conventional and Newey--West statistics beyond what the original assignment says.
+- Errors/omissions/ambiguities identified: The original Q3(d) wording does not explicitly spell out the conventional Fama--MacBeth standard-error formula, so the conclusion relies on the standard meaning of Fama--MacBeth inference and the assignment's consistent practice of explicitly naming nonstandard corrections when required. The prior guidance incorrectly treated the custom prompt as the controlling requirement; this interaction corrects that distinction. Reporting Newey--West as an additional robustness statistic is not substantively invalid, but it is extra rather than required and could obscure which statistic directly answers the assignment.
+- Substantive math/economic/empirical suggestions made: Use conventional Fama--MacBeth t-statistics as the main and assignment-responsive Q3(d) inference. If desired, retain Newey--West results only as a clearly labeled robustness check or in supplemental output, rather than presenting them as required by the original assignment.
+- Type of use: assignment interpretation; statistical inference guidance; PDF review; checking empirical reasoning
+- Grouped minor follow-ups: yes; this corrects the immediately preceding Q3(d) inference guidance using the original assignment as the controlling source.
+- Commit after: recorded by the subsequent TP audit commit
