@@ -770,8 +770,49 @@ Comparing the five figures, portfolio weighting and rebalancing frequency appear
 \clearpage
 
 \subsection{Part (d)}
+In Table \ref{tab:q3d_fama_macbeth_conventional}, the Fama–MacBeth regressions reveal positive relationships between future stock excess returns and both book-to-market and gross profitability, while equity duration is negatively associated with future excess returns.
 
-\input{output/Q3d_FM_Conventional.tex}
+Under OLS, all three characteristics are statistically significant at the 1\% level in their respective univariate regressions. When all three characteristics are included simultaneously, their coefficients remain statistically significant at the 1\% level, suggesting that each contains incremental information about the cross-section of future stock returns.
+
+The WLS results are different. The book-to-market coefficient becomes substantially smaller and is generally statistically insignificant. Similarly, the negative duration coefficient loses statistical significance in the full specification. In contrast, gross profitability remains positively associated with future excess returns and is significant at the 5\% level in the full WLS specification.
+
+Overall, the results indicate that the estimated relationships between stock characteristics and future returns are sensitive to market-equity weighting. 
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Fama--MacBeth regressions of next-month stock excess returns: conventional inference}
+    \label{tab:q3d_fama_macbeth_conventional}
+    \newcommand{\fmcell}[2]{\shortstack{#1\\(#2)}}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccccccc}
+        \toprule
+        & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel A: OLS}} \\
+        Intercept & \fmcell{$0.5278^{**}$}{2.04} & \fmcell{$0.7207^{***}$}{2.58} & \fmcell{$1.6800^{***}$}{7.28} & \fmcell{0.0138}{0.05} & \fmcell{$1.4001^{***}$}{6.09} & \fmcell{$1.4832^{***}$}{5.67} & \fmcell{$0.7432^{***}$}{2.80} \\
+        $Q^{BM}$ & \fmcell{$0.0929^{***}$}{4.90} &  &  & \fmcell{$0.1079^{***}$}{5.63} & \fmcell{$0.0333^{*}$}{1.67} &  & \fmcell{$0.0619^{***}$}{2.77} \\
+        $Q^{GP}$ &  & \fmcell{$0.0576^{***}$}{4.40} &  & \fmcell{$0.0785^{***}$}{6.03} &  & \fmcell{$0.0252^{*}$}{1.87} & \fmcell{$0.0525^{***}$}{3.55} \\
+        $Q^{Dur}$ &  &  & \fmcell{$-0.1168^{***}$}{$-6.65$} &  & \fmcell{$-0.0990^{***}$}{$-5.19$} & \fmcell{$-0.1062^{***}$}{$-5.67$} & \fmcell{$-0.0607^{***}$}{$-2.75$} \\
+        Months & 618 & 618 & 618 & 618 & 618 & 618 & 618 \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel B: WLS}} \\
+        Intercept & \fmcell{$0.6411^{***}$}{3.06} & \fmcell{$0.4879^{**}$}{2.13} & \fmcell{$1.3349^{***}$}{6.35} & \fmcell{0.2187}{0.83} & \fmcell{$1.4015^{***}$}{4.85} & \fmcell{$0.8396^{**}$}{2.54} & \fmcell{$0.6538^{*}$}{1.68} \\
+        $Q^{BM}$ & \fmcell{0.0188}{0.77} &  &  & \fmcell{$0.0511^{**}$}{2.09} & \fmcell{$-0.0255$}{$-0.91$} &  & \fmcell{0.0146}{0.59} \\
+        $Q^{GP}$ &  & \fmcell{$0.0337^{*}$}{1.78} &  & \fmcell{$0.0522^{***}$}{2.99} &  & \fmcell{$0.0474^{**}$}{2.02} & \fmcell{$0.0519^{**}$}{2.23} \\
+        $Q^{Dur}$ &  &  & \fmcell{$-0.0842^{***}$}{$-3.53$} &  & \fmcell{$-0.0848^{***}$}{$-2.96$} & \fmcell{$-0.0505^{*}$}{$-1.67$} & \fmcell{$-0.0365$}{$-1.06$} \\
+        Months & 618 & 618 & 618 & 618 & 618 & 618 & 618 \\
+        \bottomrule
+    \end{tabular}%
+    }
+
+    \vspace{0.5em}
+    \begin{minipage}{0.98\textwidth}
+    \footnotesize
+    \textit{Notes:} Coefficients are monthly percentage points. $Q^{BM}$, $Q^{GP}$, and $Q^{Dur}$ are monthly cross-sectional deciles from 1 to 10. WLS uses month-$\tau$ market equity as the weight. Conventional Fama--MacBeth $t$-statistics are reported in parentheses. $^{***}$, $^{**}$, and $^{*}$ denote statistical significance at the 1\%, 5\%, and 10\% levels, respectively. Newey–West-adjusted results are reported separately as a robustness check in my Github repository output/Q3d\_FM\_NeweyWest.tex.
+    \end{minipage}
+\end{table}
+\FloatBarrier
+
 \clearpage
 
 \section{Question 4}
