@@ -4,7 +4,7 @@ Continue using the monthly variables constructed in Question 4(a), and provide m
 2. For each H=2,3,4,5, estimate by OLS, including an intercept,
 xr_{b,t+12}^{(H)} = a^{(H)} + b^{(H)}xf_{b,t}^{(H)} + \epsilon_t^{(H)}.
 The regressor must be the excess log forward rate xf_{b,t}^{(H)} observed in the starting month t, and the dependent variable must be the excess annual return ending 12 months later.
-3. For each H, retain only observations for which both the current forward spread and the one-year-ahead excess return are available. Do not replace missing values with zero.
+3. For all the regressions, restrict the sample size to include windows where there are data for all the maturities. 
 4. Calculate the t-statistic for b^{(H)} using Newey and West (1987, 1994) standard errors with the data-driven lag-selection procedure described in Footnote 3 of the assignment.
 Use Bartlett weights, w_l=1-\frac{l}{L+1}, where L is selected using the Newey and West (1994) automatic bandwidth procedure. Do not use a fixed value of 11 lags and do not use uniform Hansen–Hodrick weights.
 Print the selected value of L for each regression so that I can verify it.
