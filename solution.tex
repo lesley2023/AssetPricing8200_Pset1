@@ -769,6 +769,62 @@ Comparing the five figures, portfolio weighting and rebalancing frequency appear
 \FloatBarrier
 \clearpage
 
+\subsection{Part (d)}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Fama--MacBeth regressions of next-month stock excess returns}
+    \label{tab:q3d_fama_macbeth}
+    \newcommand{\fmb}[3]{\shortstack{#1\\(#2)\\{[}#3{]}}}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccccccc}
+        \toprule
+        & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel A: OLS}} \\
+        Intercept
+        & \fmb{0.5278}{2.04}{1.97} & \fmb{0.7207}{2.58}{2.39} & \fmb{1.6800}{7.28}{6.74}
+        & \fmb{0.0138}{0.05}{0.05} & \fmb{1.4001}{6.09}{5.63} & \fmb{1.4832}{5.67}{4.99}
+        & \fmb{0.7432}{2.80}{2.76} \\
+        $Q^{BM}$
+        & \fmb{0.0929}{4.90}{4.20} & & & \fmb{0.1079}{5.63}{4.90} & \fmb{0.0333}{1.67}{1.33} &
+        & \fmb{0.0619}{2.77}{2.25} \\
+        $Q^{GP}$
+        & & \fmb{0.0576}{4.40}{3.78} & & \fmb{0.0785}{6.03}{5.44} & & \fmb{0.0252}{1.87}{1.56}
+        & \fmb{0.0525}{3.55}{3.08} \\
+        $Q^{Dur}$
+        & & & \fmb{$-0.1168$}{$-6.66$}{$-6.38$} & & \fmb{$-0.0990$}{$-5.19$}{$-4.56$}
+        & \fmb{$-0.1062$}{$-5.67$}{$-5.36$} & \fmb{$-0.0607$}{$-2.75$}{$-2.37$} \\
+        Months & 618 & 618 & 618 & 618 & 618 & 618 & 618 \\
+        \midrule
+        \multicolumn{8}{l}{\textit{Panel B: WLS}} \\
+        Intercept
+        & \fmb{0.6411}{3.06}{3.01} & \fmb{0.4879}{2.13}{2.10} & \fmb{1.3349}{6.35}{6.36}
+        & \fmb{0.2187}{0.83}{0.82} & \fmb{1.4015}{4.85}{4.29} & \fmb{0.8396}{2.54}{2.24}
+        & \fmb{0.6538}{1.68}{1.69} \\
+        $Q^{BM}$
+        & \fmb{0.0188}{0.77}{0.65} & & & \fmb{0.0511}{2.09}{1.83} & \fmb{$-0.0255$}{$-0.91$}{$-0.74$} &
+        & \fmb{0.0146}{0.59}{0.57} \\
+        $Q^{GP}$
+        & & \fmb{0.0337}{1.78}{1.53} & & \fmb{0.0522}{2.99}{2.72} & & \fmb{0.0474}{2.02}{1.66}
+        & \fmb{0.0519}{2.23}{2.11} \\
+        $Q^{Dur}$
+        & & & \fmb{$-0.0842$}{$-3.53$}{$-3.38$} & & \fmb{$-0.0848$}{$-2.96$}{$-2.74$}
+        & \fmb{$-0.0505$}{$-1.67$}{$-1.43$} & \fmb{$-0.0365$}{$-1.06$}{$-1.05$} \\
+        Months & 618 & 618 & 618 & 618 & 618 & 618 & 618 \\
+        \bottomrule
+    \end{tabular}%
+    }
+
+    \vspace{0.5em}
+    \begin{minipage}{0.98\textwidth}
+    \footnotesize
+    \textit{Notes:} Coefficients are monthly percentage points. $Q^{BM}$, $Q^{GP}$, and $Q^{Dur}$ are monthly cross-sectional deciles from 1 to 10. WLS uses month-$\tau$ market equity as the weight. Conventional Fama--MacBeth $t$-statistics are in parentheses; Newey--West (1987, 1994) $t$-statistics with automatically selected lags are in brackets.
+    \end{minipage}
+\end{table}
+\FloatBarrier
+\clearpage
+
 \section{Question 4}
 
 \subsection{Part (a)}
