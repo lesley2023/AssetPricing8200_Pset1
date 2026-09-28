@@ -851,6 +851,15 @@ For each maturity $H=2,3,4,5$, I calculate the excess log yield, excess log forw
 \end{table}
 
 \subsection{Part (b)}
+For $H=2,3,4,5$, I estimate the following regression by OLS:
+\[ \frac{1}{H}xr_{b,t\to t+H}^{(H)} =a^{(H)}+b^{(H)}xy_{b,t}^{(H)}+\epsilon_t^{(H)}, \]
+where \(xy_{b,t}^{(H)}=y_{b,t}^{(H)}-y_{b,t}^{(1)}\). The dependent variable is the annualized hold-to-maturity excess log return relative to rolling over one-year bonds. Hansen–Hodrick standard errors account for overlapping holding periods.
+
+I used a common sample period of 811 monthly observations for all four maturities, from June 1952 through December 2019.
+
+The estimated coefficients are positive and statistically significant at the 5\% level for all four maturities. This indicates that higher current yield spreads predict higher future annualized excess bond returns. 
+The coefficients decline from 0.6931 for two-year bonds to 0.3140 for five-year bonds, while $R^{2}$ decreases from 8.09\% to 2.81\%. Thus, yield spreads have modest predictive power, which declines with maturity in this sample. 
+These findings provide evidence against the simple expectations hypothesis and are consistent with time-varying bond risk premia.
 \begin{table}[htbp]
     \centering
     \caption{Hold-to-maturity excess bond return regressions}
