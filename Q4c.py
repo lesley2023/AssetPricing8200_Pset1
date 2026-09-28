@@ -67,7 +67,7 @@ for H in range(2, 6):
 xf = f.subtract(f[1], axis=0)
 xr = r.subtract(r[1], axis=0)
 
-# Build each maturity's complete rows, then enforce one common date window.
+# Build each Q4(c) maturity's complete one-year-ahead regression rows.
 regressions = {}
 for H in range(2, 6):
     # shift(-12) pairs the forward spread at t with the return ending at t+12.
@@ -75,9 +75,29 @@ for H in range(2, 6):
         {"dependent": xr[H].shift(-12), "predictor": xf[H]}
     ).dropna()
 
-common_index = regressions[2].index
+# Reconstruct Q4(b)'s valid starting dates and use its exact common sample.
+# This preserves Footnote 15's equality between the H=2 slopes in Q4(b)
+# and Q4(c), while retaining Q4(c)'s separate Newey-West inference.
+xy = y.subtract(y[1], axis=0)
+q4b_valid_indexes = {}
+for H in range(2, 6):
+    hold_to_maturity = pd.Series(0.0, index=y.index)
+    for h in range(1, H + 1):
+        declining_maturity = H - h + 1
+        hold_to_maturity += xr[declining_maturity].shift(-12 * h)
+
+    q4b_valid_indexes[H] = pd.DataFrame(
+        {"dependent": hold_to_maturity / H, "predictor": xy[H]}
+    ).dropna().index
+
+common_index = q4b_valid_indexes[2]
 for H in range(3, 6):
-    common_index = common_index.intersection(regressions[H].index)
+    common_index = common_index.intersection(q4b_valid_indexes[H])
+
+# Every Q4(c) variable must also be observed on the selected Q4(b) dates.
+for H in range(2, 6):
+    if not common_index.isin(regressions[H].index).all():
+        raise ValueError(f"Q4(c) variables are incomplete on the Q4(b) sample for H={H}")
 
 print(
     f"Common sample: {common_index.min():%Y-%m} to "
