@@ -155,7 +155,7 @@ def write_latex_table(summary: pd.DataFrame, destination: Path) -> None:
         r"    \vspace{0.5em}",
         r"    \begin{minipage}{0.98\textwidth}",
         r"    \footnotesize",
-        r"    \textit{Notes:} Coefficients are monthly percentage points. The panel contains 30 annually rebalanced portfolios formed at June using NYSE breakpoints: ten each for BM, GP, and duration. $Dec^{BM}$, $Dec^{GP}$, and $Dec^{Dur}$ are within-portfolio arithmetic averages of constituent firms' monthly cross-sectional decile ranks. Pooled OLS is estimated separately for value-weighted and equal-weighted portfolio returns. Driscoll--Kraay $t$-statistics using a Bartlett kernel and automatic bandwidth are reported in parentheses. $^{***}$, $^{**}$, and $^{*}$ denote two-sided significance at the 1\%, 5\%, and 10\% levels, respectively.",
+        r"    \textit{Notes:} Coefficients are monthly percentage points. The panel contains 30 annually rebalanced portfolios formed at June using NYSE breakpoints: ten each for BM, GP, and duration. Stock-level monthly cross-sectional decile assignments are identical in both panels. In Panel A, portfolio returns and $Dec^{BM}$, $Dec^{GP}$, and $Dec^{Dur}$ use month-$\tau$ market-equity weights. In Panel B, portfolio returns and all three portfolio-level decile measures use equal constituent weights (arithmetic averages). Pooled OLS is estimated separately by panel. Driscoll--Kraay $t$-statistics using a Bartlett kernel and automatic bandwidth are reported in parentheses. $^{***}$, $^{**}$, and $^{*}$ denote two-sided significance at the 1\%, 5\%, and 10\% levels, respectively.",
         r"    \end{minipage}",
         r"\end{table}",
         r"\FloatBarrier",
@@ -248,17 +248,29 @@ for weighting in ["VW", "EW"]:
     work = holdings.copy()
     if weighting == "VW":
         work["weighted_return"] = work["next_return"] * work["ME"]
+        for signal in SIGNALS:
+            work[f"weighted_Q_{signal}"] = work[QUANTILES[signal]] * work["ME"]
         returns = work.groupby(group_keys, observed=True).agg(
             numerator=("weighted_return", "sum"), denominator=("ME", "sum"), firms=("PERMNO", "size")
         )
         returns["portfolio_return"] = returns["numerator"] / returns["denominator"]
+        weighted_characteristics = work.groupby(group_keys, observed=True).agg(
+            weighted_Dec_BM=("weighted_Q_BM", "sum"),
+            weighted_Dec_GP=("weighted_Q_GP", "sum"),
+            weighted_Dec_Dur=("weighted_Q_Dur", "sum"),
+        )
+        characteristics = pd.DataFrame(index=weighted_characteristics.index)
+        for signal in SIGNALS:
+            characteristics[f"Dec_{signal}"] = (
+                weighted_characteristics[f"weighted_Dec_{signal}"] / returns["denominator"]
+            )
     else:
         returns = work.groupby(group_keys, observed=True).agg(
             portfolio_return=("next_return", "mean"), firms=("PERMNO", "size")
         )
-    characteristics = work.groupby(group_keys, observed=True).agg(
-        Dec_BM=("Q_BM", "mean"), Dec_GP=("Q_GP", "mean"), Dec_Dur=("Q_Dur", "mean")
-    )
+        characteristics = work.groupby(group_keys, observed=True).agg(
+            Dec_BM=("Q_BM", "mean"), Dec_GP=("Q_GP", "mean"), Dec_Dur=("Q_Dur", "mean")
+        )
     portfolios = returns[["portfolio_return", "firms"]].join(characteristics).reset_index()
     portfolios["weighting"] = weighting
     portfolio_rows.append(portfolios)
