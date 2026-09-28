@@ -919,3 +919,17 @@ Each entry follows this template:
 - Type of use: economic-reasoning review; empirical-design review; code verification
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-28] Item: Q3(e) / paper-based portfolio-decile weighting
+
+- Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
+- Purpose: Determine from the cited paper whether portfolio-level BM decile ranks should be market-equity weighted or averaged equally across constituents.
+- Commit before: 8276d0d38f66bc5ae7a28966ce6908cb3bba99e5
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, all 27 text-extracted pages of `Q3e_paper.pdf`, visually rendered journal pages 928 and 931 (PDF pages 10 and 13), `Q3e_prompt.md`, `Q3e.py`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; the paper, empirical code, and LaTeX answer were not edited because the request asked for a methodological interpretation.
+- Assistance provided: Located Section 3.4, where Goncalves states that he calculates the "weighted average value decile" of the stocks in each duration portfolio and then estimates the panel regressions separately for value-weighted and equal-weighted portfolios. Interpreted this together with the paper's portfolio construction as using the corresponding portfolio weights: market-equity weights for portfolio-level decile covariates in the value-weighted panel and equal constituent weights in the equal-weighted panel. Distinguished this Table 3 construction from Table 1's explicit statement that reported portfolio characteristics are value-weighted across firms. Explained that the current Q3e.py arithmetic-mean construction in both panels does not exactly replicate the paper's weighted-average methodology.
+- Errors/omissions/ambiguities identified: Section 3.4 says "weighted average" without restating the weight formula in that sentence. The surrounding distinction between value- and equal-weighted portfolios makes corresponding portfolio weights the most coherent interpretation, but the paper could have been more explicit. The custom Q3e prompt says "average" and "same cross-sectional decile definitions" but does not explicitly require identical aggregation weights across panels; cross-sectional decile assignment and within-portfolio aggregation are separate operations.
+- Substantive math/economic/empirical suggestions made: To follow the paper, construct `Dec_BM`, `Dec_GP`, and `Dec_Dur` with market-equity weights for the value-weighted panel and arithmetic means for the equal-weighted panel. Use the same stock-level decile assignments in both panels. This makes each panel's portfolio return and portfolio characteristics represent the same synthetic portfolio.
+- Type of use: literature-based economic-reasoning review; empirical-design review; code verification; PDF inspection
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
