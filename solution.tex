@@ -415,7 +415,14 @@ average excess returns than for one-year-ahead excess returns.
 
 \clearpage
 \subsection{Part (b)}
+I estimate the following predictive regression by OLS:
+\[ xR_{e,t+1}=a+b\frac{D_t}{P_t}+\varepsilon_t, \]
+where \(xR_{e,t+1}\) is the annual excess equity return and \(D_t/P_t\) is the current dividend-price ratio.
 
+To examine the sensitivity of statistical inference to the choice of covariance estimator, I calculate five sets of standard errors. In addition to conventional OLS and heteroskedasticity-robust White standard errors, I use Newey–West and Hansen–Hodrick estimators with 11 lags to account for autocorrelation induced by overlapping annual returns. 
+For the automatic Newey–West estimator, I use the Newey and West (1994) plug-in bandwidth selection procedure, which yields a bandwidth of 22.0776 and a lag truncation of \(L=\lfloor22.0776\rfloor=22\).
+
+In Table~\ref{tab:q2b_standard_errors}, the estimated slope is positive, suggesting that the dividend-price ratio predicts higher future excess equity returns. While the coefficient is highly significant under conventional OLS and White standard errors, its statistical significance becomes weaker when accounting for serial correlation for the Hansen–Hodrick and Newey–West estimates.
 \begin{table}[htbp]
     \centering
     \caption{Q2(b) slope estimate and alternative standard errors}
@@ -883,7 +890,7 @@ where \(xf_{b,t}^{(H)}=f_{b,t}^{(H)}-f_{b,t}^{(1)}\) is the current excess log f
 
 I used the same common sample as in Question 4(b): 811 monthly observations for all four maturities, from June 1952 through December 2019. Consistent with Footnote 15, the estimated $H=2$ slope and $R^2$ are therefore identical in Questions 4(b) and 4(c).
 
-All four estimated coefficients are positive and statistically significant at the 5\% level, indicating that higher current forward spreads predict higher one-year-ahead excess bond returns. 
+In Table~\ref{tab:q4c_forward_regressions}, all four estimated coefficients are positive and statistically significant at the 5\% level, indicating that higher current forward spreads predict higher one-year-ahead excess bond returns. 
 The \(R^2\) values range from 6.85\% to 11.48\%, with the highest explanatory power for four-year bonds. 
 These findings provide evidence against the simple expectations hypothesis and are consistent with time-varying expected bond risk premia.
 \begin{table}[htbp]
@@ -921,6 +928,13 @@ It is comparatively low around 2020 and becomes negative during parts of 2022–
 
 \clearpage
 \subsection{Part (e)}
+For \(H=2,3,4,5\), I estimate the following predictive regression by OLS:
+\[ xr_{b,t+1}^{(H)} =a^{(H)}+b^{(H)}cp_t+\epsilon_t^{(H)}, \]
+where \(xr_{b,t+1}^{(H)}\) is the one-year-ahead excess log return on an \(H\)-year bond and \(cp_t\) is the Cochrane–Piazzesi (CP) factor constructed in Q4(d) as a linear combination of the five current forward rates. I use Newey–West standard errors with automatic lag selection to account for heteroskedasticity and autocorrelation.
+
+All four estimated coefficients are positive and statistically significant at the 1\% level, indicating that higher values of the CP factor predict higher one-year-ahead excess bond returns across all four maturities. The estimated coefficients increase with maturity, from 0.4418 for two-year bonds to 1.4791 for five-year bonds, indicating greater sensitivity to the CP factor for longer-maturity bonds.
+
+The \(R^2\) values range from 13.67\% to 17.05\%, with the highest explanatory power for four-year bonds. Compared with Q4(c), the CP factor produces higher \(R^2\) values at every maturity. This suggests that combining information from the entire forward-rate curve captures more variation in future excess returns than individual forward spreads.
 
 \begin{table}[htbp]
     \centering
