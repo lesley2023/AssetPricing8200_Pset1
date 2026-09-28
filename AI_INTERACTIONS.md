@@ -877,3 +877,17 @@ Each entry follows this template:
 - Type of use: empirical implementation; portfolio construction; pooled regression analysis; Driscoll--Kraay inference; code generation; LaTeX table and PDF generation; visual verification
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q4(c) / common sample size
+
+- Prompt: "@TP then, need my code for Q4c to be corrected? If so, what's the problem in my prompt and how should i revise it so that the N=811"
+- Purpose: Determine whether the current Q4(c) code is incorrect and explain how the prompt must change if the student wants Q4(c) to use the same 811 starting months as Q4(b).
+- Commit before: 6243fc81b7001b56aa3f3ddd09f097c902747945
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q4b_prompt`, `Q4c_prompt`, `Q4b.py`, `Q4c.py`, `solution.tex`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no empirical code or LaTeX results were changed because the request asked for diagnosis and revised prompt wording rather than implementation.
+- Assistance provided: Confirmed that Q4c.py correctly implements the current Q4(c) prompt by intersecting the valid observations across its four one-year-ahead regressions, producing 859 common starting months. Explained that this within-Q4(c) common-sample restriction does not impose Q4(b)'s five-year terminal-data requirement. Recommended explicitly directing Q4(c) to use the identical common starting-month index as Q4(b), requiring all Q4(c) predictor/return observations plus availability of the complete Q4(b) H=5 window through the terminal t+60 date; with the current data this gives June 1952 through December 2019 and N=811. Supplied replacement prompt language that distinguishes the common calendar sample from merely intersecting the Q4(c) maturities.
+- Errors/omissions/ambiguities identified: The current sentence, "restrict the sample size to include windows where there are data for all the maturities," is satisfied independently within Q4(c) and therefore implies N=859, not N=811. It neither references Q4(b) nor requires five years of future data or the terminal t+60 observation. Thus the current code is not erroneous under the current prompt; it needs revision only if the intended design is to force Q4(b) and Q4(c) onto the same calendar sample.
+- Substantive math/economic/empirical suggestions made: If direct cross-question comparability is the intended design, use Q4(b)'s exact starting-month index for Q4(c); otherwise the natural complete sample for the one-year-ahead Q4(c) regressions remains N=859.
+- Type of use: empirical-design review; prompt debugging; code review
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
