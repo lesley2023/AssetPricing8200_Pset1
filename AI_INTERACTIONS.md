@@ -905,3 +905,17 @@ Each entry follows this template:
 - Type of use: economic-reasoning review; empirical-design recommendation
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-28] Item: Q3(e) / portfolio-level BM decile aggregation
+
+- Prompt: "@TP for Question 3e, to genreated the Dec_{BM} based on the average for BM, will i need to take the value weighted or just use the simple average. Why?"
+- Purpose: Determine whether the portfolio-level BM decile characteristic should be a market-equity-weighted or arithmetic average of constituent firms' decile ranks.
+- Commit before: 510febe50178424eae396e92940a113c9154bfae
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q3e_prompt.md`, `Q3e.py`, `Q3e_changes.md`, `solution.tex`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no empirical code or LaTeX result was changed because the current implementation already follows the prompt.
+- Assistance provided: Confirmed that `Dec_BM` should be the simple arithmetic mean of the constituent firms' monthly BM decile ranks in both the value-weighted-portfolio and equal-weighted-portfolio panels. Distinguished the weighting of portfolio returns from the aggregation of portfolio characteristics: market-equity weights determine the value-weighted portfolio return, whereas the prompt separately defines each portfolio characteristic as the average rank of the firms belonging to that portfolio and requests the same cross-sectional decile construction for both analyses. Verified that Q3e.py implements this distinction by value weighting only `next_return` and calculating `Dec_BM`, `Dec_GP`, and `Dec_Dur` with unweighted means.
+- Errors/omissions/ambiguities identified: The word "average" could be ambiguous in isolation, but the prompt's firm-level language and its instruction to use the same characteristic construction for both weighting analyses resolve it in favor of an arithmetic constituent average. A market-equity-weighted characteristic would be a different empirical specification and would need to be requested explicitly.
+- Substantive math/economic/empirical suggestions made: Keep the characteristic as an arithmetic average so `Dec_BM` measures the typical constituent's BM rank and differences between the two panels reflect return weighting rather than simultaneous changes in both returns and regressors.
+- Type of use: economic-reasoning review; empirical-design review; code verification
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
