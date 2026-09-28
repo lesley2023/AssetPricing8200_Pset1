@@ -933,3 +933,17 @@ Each entry follows this template:
 - Type of use: literature-based economic-reasoning review; empirical-design review; code verification; PDF inspection
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-28] Item: Q3(e) / definitive paper-based DecBM weighting clarification
+
+- Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
+- Purpose: Reassess the portfolio-level BM-decile aggregation directly from the paper and state clearly which part is explicit and which part is inferred.
+- Commit before: 6c7cf589a322035bd83e2cf74209a09204410fd4
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, all 27 pages of `Q3e_paper.pdf` through full-text extraction, visually rendered journal pages 928 and 931 (PDF pages 10 and 13), and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no paper, code, results, or LaTeX file was edited because this request asked for methodological interpretation.
+- Assistance provided: Rechecked every occurrence of "weighted average," "average decile," and related portfolio-decile language in the paper and independently audited the interpretation. Identified the explicit Section 3.4 statement on journal page 928 that the author calculates the "weighted average value decile" of the stocks in each portfolio, along with Table 3's separate value-weighted and equal-weighted panels. Clarified that the PDF never provides a formula or explicitly names market equity as the weight in that Section 3.4 sentence. Concluded that the strongest contextual reading is to match characteristic weights to return weights: market-equity-weighted `Dec_BM` for the value-weighted panel and an arithmetic mean for the equal-weighted panel. Explained that, if both panels are required, two portfolio-level `Dec_BM` series should be constructed rather than selecting one universal aggregation rule.
+- Errors/omissions/ambiguities identified: The paper is explicit that the average is weighted but ambiguous about the exact weights in Section 3.4. Matching the constituent weights to the portfolio-return weights is therefore a well-supported inference, not a directly stated formula. The cash-flow-horizon weights in the paper's firm-level duration equation are unrelated to aggregation across firms.
+- Substantive math/economic/empirical suggestions made: Follow the paper by using corresponding portfolio weights in each panel. Do not use the simple constituent average for the value-weighted panel if the goal is to replicate Table 3; reserve the simple average for the equal-weighted panel. State this implementation convention if documenting the analysis.
+- Type of use: literature-based economic-reasoning review; empirical-design review; PDF inspection
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
