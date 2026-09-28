@@ -976,6 +976,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-28] Item: Q4(c) / lecture-note evidence on matching the Q4(b) sample
+
+- Prompt: "@TP For Q4c, do you think I need to use the same sample as Q4b? To me, it is not clear whether the authors use the same sample for those two in the lecture notes Ralph_lecture_notes.pdf"
+- Purpose: Determine whether the cited lecture notes establish a common estimation sample for the Campbell--Shiller yield-spread and Fama--Bliss forward-spread regressions, and recommend the appropriate Q4(c) sample.
+- Commit before: 7a708c273d2dc7f3e0cc329ccb137b28d54d1a66
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, all 85 text-extracted pages of `Ralph_lecture_notes.pdf`, visually rendered slides 17 and 19, `Q4b_prompt`, `Q4c_prompt`, `Q4b.py`, `Q4c.py`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; the lecture notes, empirical code, results, and LaTeX answer were not changed because the request asked for interpretation and a sample-design recommendation.
+- Assistance provided: Located the Campbell--Shiller long-horizon regression on slide 17 and the Fama--Bliss one-year return regression on slide 19. Verified that both slides describe the underlying monthly Fama--Bliss dataset as 1952.6--2023.12, but neither reports N, regression start/end dates, nor an instruction to impose an identical calendar sample across the two designs. Explained that a common raw-data span does not imply a common regression sample because the long-horizon outcome consumes more future observations than the one-year-ahead outcome. Recommended retaining Q4(c)'s natural common one-year-ahead sample (N=859 in the student's updated-through-2024 dataset) rather than forcing Q4(b)'s N=811 window. Suggested an N=811 matched-calendar Q4(c) regression only as an optional robustness check.
+- Errors/omissions/ambiguities identified: The slide wording "using data from 1952.6--2023.12" is ambiguous between the raw yield-panel span and the usable regression-index span, but the formulas' differing horizons and absence of N make it insufficient evidence for a shared estimation window. The identical two-year slope and R-squared shown across slides do not establish a common sample because the two-year yield-spread and forward-spread specifications are algebraically closely related; the slides also use different long-horizon versus one-year outcomes for larger maturities.
+- Substantive math/economic/empirical suggestions made: Use the maximal valid common sample within each question as the primary specification: N=811 for the student's chosen Q4(b) terminal t+60 requirement and N=859 for Q4(c)'s t+12 outcomes. If direct cross-question coefficient comparison is central, add the N=811 Q4(c) result as a clearly labeled matched-sample robustness check rather than discarding valid observations in the main specification.
+- Type of use: PDF inspection; literature interpretation; economic-reasoning review; empirical-design recommendation
+- Grouped minor follow-ups: yes; this extends the prior Q4(b)/Q4(c) sample discussions using the newly supplied lecture-note evidence.
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-28] Item: Q3(e) / definitive paper-based DecBM weighting clarification
 
 - Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
