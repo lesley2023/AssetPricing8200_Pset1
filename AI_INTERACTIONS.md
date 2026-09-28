@@ -891,3 +891,17 @@ Each entry follows this template:
 - Type of use: empirical-design review; prompt debugging; code review
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-27] Item: Q4(c) / economically appropriate sample
+
+- Prompt: "@TP do you have any ideas which data range shuld i use here, should i set N=811 here to align with the previous question from the economic perspective?"
+- Purpose: Recommend whether Q4(c) should retain its natural one-year-ahead sample or be shortened to match Q4(b)'s five-year-window sample.
+- Commit before: 578cf5b3f950c066b43525cc9ab5d7bffd40d90e
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q4b_prompt`, `Q4c_prompt`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no code, results, or LaTeX answer was changed because the request asked for an empirical-design recommendation.
+- Assistance provided: Recommended retaining N=859 (June 1952 through December 2023 starting months) as the primary Q4(c) sample because its dependent variable is only one year ahead and all four maturity regressions are observed over that common window. Explained that imposing Q4(b)'s N=811 window would discard 48 otherwise valid Q4(c) observations from January 2020 through December 2023 solely because Q4(b)'s different hold-to-maturity outcome requires terminal data at t+60. Suggested that an N=811 Q4(c) estimate can be reported as a matched-calendar robustness check if direct coefficient comparability across Q4(b) and Q4(c) is important.
+- Errors/omissions/ambiguities identified: Neither current prompt requests a common calendar window across questions; each only requests a common sample across maturities within that question. Equal observation counts are therefore not required for internal consistency. A matched calendar improves cross-question comparability but reduces precision and is not dictated by Q4(c)'s economic horizon.
+- Substantive math/economic/empirical suggestions made: Use the maximum valid common sample appropriate to each dependent variable as the primary design: N=811 for the five-year availability requirement selected in Q4(b), and N=859 for Q4(c)'s one-year-ahead returns. Optionally estimate Q4(c) on N=811 as a robustness check, clearly labeled as a matched-sample result.
+- Type of use: economic-reasoning review; empirical-design recommendation
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
