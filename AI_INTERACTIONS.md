@@ -948,6 +948,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: yes; this implements the weighting choice established in the immediately preceding paper-review interaction.
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-28] Item: Q3(e) / why only value-weighted estimates changed
+
+- Prompt: "@TP it is very interesting that only the results for the Value-weighted portfolios coefficients changed, do you know why?"
+- Purpose: Explain and verify why the paper-consistent portfolio-characteristic revision changed only the value-weighted Q3(e) estimates.
+- Commit before: 785bd47182d568d0db705c12f9e5fec83db86428
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q3e.py`, the pre-revision regression summary from commit `99fd08e`, the current `output/q3e_pooled_ols_summary.csv`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no empirical code, results, or LaTeX output was changed because the request asked for an explanation and verification.
+- Assistance provided: Verified that before the revision both VW and EW panels used arithmetic-average portfolio decile regressors. The revised code changes only the VW `Dec_BM`, `Dec_GP`, and `Dec_Dur` regressors to market-equity-weighted averages; VW returns were already market-equity weighted and therefore did not change. The EW branch continues to calculate both returns and Dec regressors using arithmetic means, so its dependent variable, design matrix, observation set, and covariance calculation are identical to the prior version. Direct comparison of the old and current summaries confirmed that every EW estimate and t-statistic is exactly unchanged, while VW estimates and inference respond to the changed regressors.
+- Errors/omissions/ambiguities identified: None. The asymmetric result is the mechanically necessary consequence of the scoped code change, not evidence of an execution error.
+- Substantive math/economic/empirical suggestions made: Interpreted the VW changes as reflecting the fact that large firms can have different BM, GP, and duration rank compositions from the typical firm within the same portfolio. Market-equity-weighted Dec variables shift the regression toward large-firm characteristics, whereas arithmetic averages give every constituent equal influence.
+- Type of use: empirical reasoning; code verification; results interpretation
+- Grouped minor follow-ups: yes; this explains the immediately preceding Q3(e) weighting revision.
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-28] Item: Q3(e) / definitive paper-based DecBM weighting clarification
 
 - Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
