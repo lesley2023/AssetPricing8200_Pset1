@@ -877,6 +877,15 @@ These findings provide evidence against the simple expectations hypothesis and a
 
 \clearpage
 \subsection{Part (c)}
+For \(H=2,3,4,5\), I estimate the following regression by OLS:
+\[ xr_{b,t+1}^{(H)} =a^{(H)}+b^{(H)}xf_{b,t}^{(H)}+\epsilon_t^{(H)}, \]
+where \(xf_{b,t}^{(H)}=f_{b,t}^{(H)}-f_{b,t}^{(1)}\) is the current excess log forward rate. I calculate t-statistics using Newey–West standard errors with automatic lag selection.
+
+I used the same common sample as in Question 4(b): 811 monthly observations for all four maturities, from June 1952 through December 2019. Consistent with Footnote 15, the estimated $H=2$ slope and $R^2$ are therefore identical in Questions 4(b) and 4(c).
+
+All four estimated coefficients are positive and statistically significant at the 5\% level, indicating that higher current forward spreads predict higher one-year-ahead excess bond returns. 
+The \(R^2\) values range from 6.85\% to 11.48\%, with the highest explanatory power for four-year bonds. 
+These findings provide evidence against the simple expectations hypothesis and are consistent with time-varying expected bond risk premia.
 \begin{table}[htbp]
     \centering
     \caption{One-year excess bond return regressions on forward spreads}
@@ -886,9 +895,9 @@ These findings provide evidence against the simple expectations hypothesis and a
         & 2 years & 3 years & 4 years & 5 years \\
         \midrule
         \multicolumn{5}{l}{\textit{Forwards}} \\
-        $\widehat{b}^{(H)}$ [NW $t$-stat] & 0.6774 [3.2062] & 0.8887 [3.3257] & 1.1163 [3.5907] & 0.9641 [2.9108] \\
-        $R^2$ & 7.6916\% & 8.6265\% & 10.7201\% & 6.6659\% \\
-        $N$ & 859 & 859 & 859 & 859 \\
+        $\widehat{b}^{(H)}$ [NW $t$-stat] & 0.6931 [3.0524] & 0.9028 [3.0669] & 1.1476 [3.4600] & 0.9715 [2.7420] \\
+        $R^2$ & 8.0851\% & 8.8916\% & 11.4812\% & 6.8536\% \\
+        $N$ & 811 & 811 & 811 & 811 \\
         \bottomrule
     \end{tabular}
 \end{table}

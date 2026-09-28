@@ -1018,6 +1018,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: yes; this implements the common-sample choice established in the immediately preceding Footnote 15 discussion.
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-28] Item: Q4(c) / update submitted answer to N=811 results
+
+- Prompt: "please update the answer in Q4c accordingly for me"
+- Purpose: Replace the stale N=859 Q4(c) answer with results from the corrected code's Q4(b)-matched N=811 sample and rebuild the submitted solution PDF.
+- Commit before: 2071273a878f7d893bd01e7bf57feed852e7abbc
+- Files inspected: `.agents/skills/tp/SKILL.md`, the PDF skill instructions, the existing Git diff for `solution.tex`, `Q4c.py`, `solution.tex`, `solution.log`, and rendered solution pages 27--29.
+- Files modified: `solution.tex`, `solution.pdf`, and `AI_INTERACTIONS.md`. Pre-existing user-authored explanatory additions in `solution.tex` were preserved; only their Q4(c) numerical/sample content was revised. The untracked source `Ralph_lecture_notes.pdf` was preserved and excluded from the commit.
+- Assistance provided: Updated the Q4(c) prose to report the same June 1952--December 2019 common sample as Q4(b), N=811, and to state the Footnote 15 equality of the H=2 slope and R-squared. Revised the R-squared interpretation and replaced the complete table with the corrected slopes (0.6931, 0.9028, 1.1476, 0.9715), Newey--West t-statistics (3.0524, 3.0669, 3.4600, 2.7420), R-squared percentages (8.0851, 8.8916, 11.4812, 6.8536), and N=811 in every column. Compiled the 30-page PDF twice and visually inspected the Q4(b), Q4(c), and Q4(d) transition pages; the Q4(c) content and table fit cleanly on page 28.
+- Errors/omissions/ambiguities identified: The PDF skill's artifact marker could not run because Node.js is unavailable. The first compilation caught a missing-math-delimiter error caused by escaped inline-math delimiters in the new sentence; this was corrected using dollar-sign delimiters before the successful two-pass compilation. No final LaTeX warnings, overfull boxes, or undefined references remained.
+- Substantive math/economic/empirical suggestions made: Used equality of the H=2 slope and R-squared across Q4(b) and Q4(c) as the reported implementation check while leaving the question-specific robust t-statistics distinct.
+- Type of use: results update; LaTeX formatting; mathematical consistency check; PDF generation and visual verification
+- Grouped minor follow-ups: yes; this updates the submitted answer immediately after correcting the Q4(c) code and sample.
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-28] Item: Q3(e) / definitive paper-based DecBM weighting clarification
 
 - Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
