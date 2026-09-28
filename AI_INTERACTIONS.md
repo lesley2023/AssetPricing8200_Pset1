@@ -962,6 +962,20 @@ Each entry follows this template:
 - Grouped minor follow-ups: yes; this explains the immediately preceding Q3(e) weighting revision.
 - Commit after: recorded by the subsequent TP audit commit
 
+## [2026-09-28] Item: Q4(b) / N=811 regression date range
+
+- Prompt: "@TP For Q4b, can you help me to check the data range in my data for the regression, so tht is the data range from when to when to have N=811"
+- Purpose: Verify directly from the bond dataset and current Q4(b) construction the inclusive regression date range corresponding to the common N=811 sample.
+- Commit before: c8a7b6c94f046a66ffdfff97c730d6546c82bd61
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q4b.py`, `Bond Dataset.csv`, and `AI_INTERACTIONS.md`.
+- Files modified: `AI_INTERACTIONS.md` only; no code, data, LaTeX, or reported result was changed because the request asked for a date-range check.
+- Assistance provided: Executed Q4b.py using the available temporary dependency environment and independently audited the monthly yield panel. Confirmed that the common regression index for all four maturities runs from June 1952 through December 2019, inclusive, and contains exactly 811 monthly starting dates. Confirmed that the complete five-maturity yield panel runs from June 1952 through December 2024 with 871 months; requiring the H=5 terminal observation at t+60 removes the final 60 possible starting months, so 871 minus 60 equals 811. For the last regression starting month, December 2019, the terminal date is December 2024.
+- Errors/omissions/ambiguities identified: Running Q4b.py with the default Python initially failed because `statsmodels` is not installed in that environment. The script ran successfully with the project's existing `/private/tmp/q4c_deps` dependency directory. There is an important distinction between the regression starting-month range (June 1952--December 2019) and the underlying future data used to construct its outcomes (extending through December 2024).
+- Substantive math/economic/empirical suggestions made: When reporting the regression sample, label June 1952--December 2019 as the starting-month sample and, if useful, separately note that the H=5 outcome construction uses future observations through December 2024.
+- Type of use: empirical verification; code execution; data-range audit
+- Grouped minor follow-ups: no
+- Commit after: recorded by the subsequent TP audit commit
+
 ## [2026-09-28] Item: Q3(e) / definitive paper-based DecBM weighting clarification
 
 - Prompt: "@TP according to the Q3e_paper.pdf, should i use the value weighted or simple average to construct Dec_{BM}?"
