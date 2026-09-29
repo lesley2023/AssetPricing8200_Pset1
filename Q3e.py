@@ -288,7 +288,8 @@ summary_rows = []
 for weighting in ["VW", "EW"]:
     weighting_panel = portfolio_panel.loc[portfolio_panel["weighting"].eq(weighting)]
     for specification, predictors in SPECIFICATIONS.items():
-        result = pooled_ols_dk(weighting_panel, predictors)
+        specification_panel = weighting_panel.loc[weighting_panel["formed_on"].isin(predictors)]
+        result = pooled_ols_dk(specification_panel, predictors)
         for coefficient in ["intercept", *predictors]:
             summary_rows.append({
                 "weighting": weighting,

@@ -1059,3 +1059,17 @@ Each entry follows this template:
 - Type of use: empirical implementation review; code debugging; PDF and assignment interpretation
 - Grouped minor follow-ups: no
 - Commit after: recorded by the subsequent TP audit commit
+
+## [2026-09-29] Item: Q3(e) / implement specification-specific portfolio samples
+
+- Prompt: "Please revise the python code to retain only portfolios formed on the characteristics included in that specification"
+- Purpose: Correct the Q3(e) pooled portfolio regressions so each specification uses only decile portfolios formed on its included regressors.
+- Commit before: 49815f1af5d1f8d68c3838403ddae28aeafd6b68
+- Files inspected: `.agents/skills/tp/SKILL.md`, `Q3e.py`, `output/q3e_pooled_ols_summary.csv`, `output/Q3e_Pooled_OLS.tex`, and `AI_INTERACTIONS.md`.
+- Files modified: `Q3e.py`, `output/q3e_pooled_ols_summary.csv`, `output/Q3e_Pooled_OLS.tex`, and `AI_INTERACTIONS.md`. The master `output/q3e_portfolio_month_panel.csv` was regenerated but remained byte-identical because the correction applies at estimation time.
+- Assistance provided: Revised the estimation loop to subset each weighting-specific panel using `formed_on.isin(predictors)` before calling the pooled OLS/Driscoll--Kraay routine. Re-ran `Q3e.py`, regenerating the regression summary and LaTeX table. Added and executed validation checks confirming that both VW and EW panels report N=6,180 for specifications (i)--(iii), N=12,360 for specifications (iv)--(vi), and N=18,540 for specification (vii), with 618 months and bandwidth 5 throughout. Confirmed that specification (vii) remains numerically unchanged because it includes all three portfolio families.
+- Errors/omissions/ambiguities identified: No new ambiguity. The prior implementation's missing specification-specific portfolio filter was corrected. Specifications (i)--(vi) necessarily have revised coefficients, Driscoll--Kraay standard errors, t-statistics, and significance stars in addition to corrected observation counts.
+- Substantive math/economic/empirical suggestions made: Retain the complete 30-portfolio file as the master panel and perform the portfolio-family restriction inside the estimation loop, ensuring each model's cross-section matches its included characteristics.
+- Type of use: empirical implementation; code debugging; regression-output regeneration and validation
+- Grouped minor follow-ups: yes; this implements the correction diagnosed in the immediately preceding Q3(e) interaction.
+- Commit after: recorded by the subsequent TP audit commit
